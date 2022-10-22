@@ -187,6 +187,17 @@ def display_instructions
   gets.chomp! # pause
 end
 
+def display_final_message(score)
+  puts
+  if score[:player] == 3
+    puts '                      Good job - you beat the computer!'
+  else
+    puts '                    Tough break - better luck next time!'
+  end
+  puts
+  puts
+end
+
 # START
 
 display_instructions
@@ -221,7 +232,7 @@ loop do
     draw_layout score, choice, result
     
     result = get_result choice[:player], choice[:computer]
-    increment_score(result[:winner],score) unless result[:winner] == 'tie'
+    increment_score(result[:winner], score) unless result[:winner] == 'tie'
     
     display_outcome result
 
@@ -233,19 +244,12 @@ loop do
   end
 
   draw_layout(score, choice, result)
-  puts
-  if score[:player] == 3
-    puts '                      Good job - you beat the computer!'
-  else
-    puts '                    Tough break - better luck next time!'
-  end
-
-  puts
-  puts
+  display_final_message score
+ 
   prompt "Want to try again?   y to play, any key to exit"
   puts
   print '                         > '
-  answer = gets.chomp
+  answer = gets.chomp.strip
   break unless answer.downcase.start_with? 'y'
 
 end
