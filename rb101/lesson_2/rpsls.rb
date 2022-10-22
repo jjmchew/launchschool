@@ -169,6 +169,27 @@ def get_pause(score)
   gets.chomp! # pause
 end
 
+def display_instructions
+  system('clear') || system('cls')
+
+  display_title
+
+  puts
+  puts
+  puts "            This is an updated version of Rock, Paper, Scissors."
+  puts "                  Give it a go, and you'll figure it out."
+  puts
+  puts "                    Winner is the first to win 3 games."
+  puts
+  puts
+  puts
+  puts '                         press any key to continue'
+  gets.chomp! # pause
+end
+
+# START
+
+display_instructions
 
 loop do
 
@@ -190,7 +211,7 @@ loop do
 
   loop do
     # re-draw screen
-    draw_layout(score, choice, result)
+    draw_layout score, choice, result
 
     # get choices
     choice[:player] = get_player_choice
