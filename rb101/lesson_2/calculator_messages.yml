@@ -1,0 +1,19 @@
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to enter a valid name."
+  first_num: "What's the first number?"
+  invalid_num: "hmm.... that doesn't look like a valid number"
+  second_num: "What's the second number?"
+  must_choose: "Must choose 1, 2, 3, or 4"
+  another_calc: "Do you want to perform another calculation (Y to calculate again)"
+  thank_you: "Thank you for using our program.  Good bye!"
+
+hood:
+  welcome: "Yo!  What's your handle?"
+  valid_name: "That's crap. Try again"
+  first_num: "Gimmie the first number?"
+  invalid_num: "That's crap.  Try again"
+  second_num: "Hit me with the second number"
+  must_choose: "You idiot.  Try picking something useful"
+  another_calc: "Again? (y for yes, brotha)"
+  thank_you: "Get outta here!"
