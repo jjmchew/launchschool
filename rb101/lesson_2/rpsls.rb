@@ -1,9 +1,4 @@
 # rock paper scissors lizard Spock
-# questions:
-#   - separate msg from outcome?
-#   - more perfomant to use symbols for hash and have to convert strings to symbols for lookup?
-#   - OR just use strings as key?
-#   - should I worry about not running get_result multiple times (i.e., assign to a variable for 're-use')?
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 OPTIONS = %w(r p sc l sp)
@@ -214,20 +209,9 @@ display_instructions
 loop do
 
   # initialize game variables
-  score = {
-    player: 0,
-    computer: 0,
-  }
-
-  choice = {
-    player: '',
-    computer: ''
-  }
-
-  result = {
-    winner: '',
-    msg: ''
-  }
+  score = {player: 0, computer: 0}
+  choice = {player: '', computer: ''}
+  result = {winner: '', msg: ''}
 
   loop do
     # re-draw screen
