@@ -1,10 +1,11 @@
 # rock paper scissors lizard Spock
 # questions:
+#   - separate msg from outcome?
 #   - more perfomant to use symbols for hash and have to convert strings to symbols for lookup?
 #   - OR just use strings as key?
 #   - should I worry about not running get_result multiple times (i.e., assign to a variable for 're-use')?
 
-VALID_CHOICES = %w(rock paper scissors lizard Spock)
+VALID_CHOICES = %w(rock paper scissors lizard spock)
 OPTIONS = %w(r p sc l sp)
 
 def match_outcome?(first, second)
@@ -12,32 +13,32 @@ def match_outcome?(first, second)
     'rock': {
       paper: {win: 'paper', msg: 'paper covers rock'},
       scissors: {win: 'rock', msg: 'rock crushes scissors'},
-      Spock: {win: 'Spock', msg: 'Spock vaporizes rock'},
+      spock: {win: 'spock', msg: 'Spock vaporizes rock'},
       lizard: {win: 'rock', msg: 'rock crushes lizard'}
     },
     'paper': {
       scissors: {win: 'scissors', msg: 'scissors cut paper'},
-      Spock: {win: 'paper', msg: 'paper disproves Spock'},
+      spock: {win: 'paper', msg: 'paper disproves Spock'},
       lizard: {win: 'lizard', msg: 'lizard eats paper'},
       rock: {win: 'paper', msg: 'paper covers rock'}
     },
     'scissors': {
-      Spock: {win: 'Spock', msg: 'Spock smashes scissors'},
+      spock: {win: 'spock', msg: 'Spock smashes scissors'},
       lizard: {win: 'scissors', msg: 'scissors decapitates lizard'},
       rock: {win: 'rock', msg: 'rock crushes scissors'},
       paper: {win: 'scissors', msg: 'scissors cut paper'},
     },
-    'Spock': {
+    'spock': {
       lizard: {win: 'lizard', msg: 'lizard poisons Spock'},
-      rock: {win: 'Spock', msg: 'Spock vaporizes rock'},
+      rock: {win: 'spock', msg: 'Spock vaporizes rock'},
       paper: {win: 'paper', msg: 'paper disproves Spock'},
-      scissors: {win: 'Spock', msg: 'Spock smashes scissors'},
+      scissors: {win: 'spock', msg: 'Spock smashes scissors'},
     },
     'lizard': {
       rock: {win: 'rock', msg: 'rock crushes lizard'},
       paper: {win: 'lizard', msg: 'lizard eats paper'},
       scissors: {win: 'scissors', msg: 'scissors decapitates lizard'},
-      Spock: {win: 'lizard', msg: 'lizard poisons Spock'},
+      spock: {win: 'lizard', msg: 'lizard poisons Spock'},
     }
   }
 
@@ -58,13 +59,13 @@ def prompt(message)
   puts "   => #{message}"
 end
 
-def get_full_choice(choice)
+def return_full_choice(choice)
   case choice
-  when 'r' then 'rock'
-  when 'p' then 'paper'
-  when 'sc' then 'scissors'
-  when 'l' then 'lizard'
-  when 'sp' then 'Spock'
+  when 'r', 'rock' then 'rock'
+  when 'p', 'paper' then 'paper'
+  when 'sc', 'scissors' then 'scissors'
+  when 'l', 'lizard' then 'lizard'
+  when 'sp', 'spock' then 'spock'
   end
 end
 
@@ -80,7 +81,7 @@ def get_player_choice
     
     choice = gets.chomp.strip.downcase
 
-    if OPTIONS.include? choice
+    if (OPTIONS+VALID_CHOICES).include? choice
       break
     else
       puts
@@ -89,7 +90,8 @@ def get_player_choice
     end
   end
 
-  get_full_choice(choice)
+  return_full_choice(choice)
+
 end
 
 def increment_score(winner, score)
@@ -106,7 +108,7 @@ def display_choice(choice)
   when 'paper'    then '      paper      '
   when 'scissors' then '     scissors    '
   when 'lizard'   then '      lizard     '
-  when 'Spock'    then '      Spock      '
+  when 'spock'    then '      Spock      '
   end
 end
 
@@ -198,6 +200,13 @@ def display_final_message(score)
   puts
 end
 
+def get_play_again
+  prompt "Want to try again?   y to play, any key to exit"
+  puts
+  print '                         > '
+  answer = gets.chomp.strip
+end
+
 # START
 
 display_instructions
@@ -246,10 +255,7 @@ loop do
   draw_layout(score, choice, result)
   display_final_message score
  
-  prompt "Want to try again?   y to play, any key to exit"
-  puts
-  print '                         > '
-  answer = gets.chomp.strip
-  break unless answer.downcase.start_with? 'y'
+  play_again = get_play_again
+  break unless play_again.downcase.start_with? 'y'
 
 end
