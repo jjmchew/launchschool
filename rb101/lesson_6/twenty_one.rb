@@ -1,13 +1,19 @@
 SUITS = %w(clubs hearts spades diamonds)
-VALUES = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
+NAMES = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
+VALUES = { "A" => 11, "J" => 10, "Q" => 10, "K" => 10 }
 DEALER_STAYS_ON = 17
 TARGET_TOTAL = 21
-TARGET_GAMES = 5
+TARGET_GAMES = 3
 
 def initialize_deck
   deck = []
   SUITS.each do |suit|
-    VALUES.each { |name| deck << { value: name, suit: suit } }
+    NAMES.each do |name|
+      value = if name.to_i.to_s == name then name.to_i
+              else VALUES[name]
+              end
+      deck << { name: name, suit: suit, value: value }
+    end
   end
   deck.shuffle!
 end
@@ -30,7 +36,7 @@ end
 
 def get_display_card(card)
   card_string = "[ "
-  card_string << (card[:value] + " " + card[:suit]).center(11)
+  card_string << (card[:name] + " " + card[:suit]).center(11)
   card_string << " ]"
 end
 
@@ -49,8 +55,12 @@ def display_hand(option, hand)
   end
 end
 
-def draw_layout(hands, score, option = 'play')
-  draw_header(score)
+def draw_layout(hands, score, totals_mode, option = 'play')
+  calculate_total(hands, :player)
+  calculate_total(hands, :dealer)
+
+  draw_header
+  draw_score(score)
 
   blank_line
   puts " Dealer has:  "
@@ -59,9 +69,13 @@ def draw_layout(hands, score, option = 'play')
   puts " You have:"
   display_hand('all', hands[:player])
   blank_line
+  if totals_mode
+    puts " Your total is currently: #{hands[:player_total]}"
+    blank_line
+  end
 end
 
-def draw_header(score)
+def draw_header
   system "clear"
   blank_line
   puts " T w e n t y - O n e"
@@ -71,7 +85,14 @@ def draw_header(score)
   puts " Tie goes to the dealer."
   puts " First to win #{TARGET_GAMES} rounds is the overall winner."
   blank_line
-  puts " Player : #{score[:player]} games     Dealer : #{score[:dealer]} games"
+end
+
+def draw_score(score)
+  player = score[:player]
+  dealer = score[:dealer]
+  player_g = "game#{player == 1 ? ' ' : 's'}"
+  dealer_g = "game#{dealer == 1 ? ' ' : 's'}"
+  puts " Player : #{player} #{player_g}     Dealer : #{dealer} #{dealer_g}"
   blank_line
   blank_line
 end
@@ -85,16 +106,10 @@ end
 
 def calculate_total(hands, who)
   values = hands[who].map { |card| card[:value] }
+  total = values.reduce(0) { |tot, value| tot + value }
 
-  total = 0
-  values.each do |value|
-    total += if value == "A" then 11
-             elsif value.to_i == 0 then 10
-             else value.to_i
-             end
-  end
-
-  values.select { |value| value == "A" }.count.times do
+  names = hands[who].map { |card| card[:name] }
+  names.select { |name| name == "A" }.count.times do
     total -= 10 if total > TARGET_TOTAL
   end
 
@@ -110,19 +125,38 @@ def prompt(msg)
   puts " => #{msg}"
 end
 
-def player_action
-  prompt " Hit or stay (h or s)? "
-  print ' '
-  action = ''
+def get_user_input(options)
+  answer = ''
   loop do
-    action = gets.chomp.downcase
-    break if %w(h s).include?(action[0])
-    prompt " Sorry, that's an invalid choice.  Try again: "
+    print ' '
+    answer = gets.chomp.downcase
+    break if options.include?(answer)
+    display_invalid_choice
   end
+  answer
+end
+
+def display_invalid_choice
+  prompt " Sorry, that's an invalid choice.  Try again: "
+end
+
+def hit_or_stay?
+  prompt " Hit or stay (h or s)? "
+  action = get_user_input(%w(h hit s stay))
 
   case action[0]
   when 'h' then 'hit'
   when 's' then 'stay'
+  end
+end
+
+def player_action(hands, deck, score, totals_mode)
+  loop do
+    action = hit_or_stay?
+    hands[:player] += deal_cards(1, deck) if action == 'hit'
+    draw_layout(hands, score, totals_mode)
+    break if hands[:player_total] > TARGET_TOTAL ||
+             action == 'stay'
   end
 end
 
@@ -132,16 +166,22 @@ def pause
   gets.chomp
 end
 
-def dealer_action(hands, deck, score)
-  draw_layout(hands, score, 'all')
+def display_player_bust
+  puts " Player busts!"
+  blank_line
+  pause
+end
+
+def dealer_action(hands, deck, score, totals_mode)
+  draw_layout(hands, score, totals_mode, 'all')
 
   loop do
-    break if calculate_total(hands, :dealer) >= DEALER_STAYS_ON
+    break if hands[:dealer_total] >= DEALER_STAYS_ON
     puts " ... dealer hits"
     blank_line
     hands[:dealer] += deal_cards(1, deck)
     pause
-    draw_layout(hands, score, 'all')
+    draw_layout(hands, score, totals_mode, 'all')
   end
   puts " Dealer busts!" if hands[:dealer_total] > TARGET_TOTAL
   blank_line
@@ -163,10 +203,9 @@ end
 def play_again?
   blank_line
   prompt " Play again? (y or n)"
-  print ' '
-  answer = gets.chomp
-  return false unless answer.downcase.start_with?('y')
-  true
+  answer = get_user_input(%w(y yes n no))
+  return true if answer[0] == 'y'
+  return false if answer[0] == 'n'
 end
 
 def display_win_message(winner, hands)
@@ -200,8 +239,22 @@ def display_overall_message(winner)
   blank_line
 end
 
+def display_totals?
+  draw_header
+  blank_line
+  puts " This game involves adding the values of the cards in your hand."
+  puts "    Mode 1:  The total of your cards is automatically displayed."
+  puts "    Mode 2:  No total is displayed."
+  blank_line
+  prompt " Would you like to play in Mode 1 or 2 (enter 1 or 2)?"
+  answer = get_user_input(%w(1 2))
+  return true if answer == '1'
+  return false if answer == '2'
+end
+
 loop do
   score = initialize_score
+  totals_mode = display_totals?
 
   loop do
     deck = initialize_deck
@@ -209,26 +262,15 @@ loop do
 
     hands[:player] += deal_cards(2, deck)
     hands[:dealer] += deal_cards(2, deck)
-    draw_layout(hands, score)
+    draw_layout(hands, score, totals_mode)
 
-    loop do
-      action = player_action
-      hands[:player] += deal_cards(1, deck) if action == 'hit'
-      draw_layout(hands, score)
-      break if calculate_total(hands, :player) > TARGET_TOTAL ||
-               action == 'stay'
+    player_action(hands, deck, score, totals_mode)
+
+    if hands[:player_total] > TARGET_TOTAL then display_player_bust
+    else dealer_action(hands, deck, score, totals_mode)
     end
 
-    if hands[:player_total] > TARGET_TOTAL
-      puts " Player busts!"
-      blank_line
-      pause
-    else
-      dealer_action(hands, deck, score)
-    end
-
-    calculate_total(hands, :dealer)
-    draw_layout(hands, score, 'all')
+    draw_layout(hands, score, totals_mode, 'all')
 
     winner = determine_winner(hands)
     increment_score(score, winner)
@@ -237,7 +279,8 @@ loop do
     break if overall_winner?(score)
   end
 
-  draw_header(score)
+  draw_header
+  draw_score(score)
   display_overall_message(overall_winner?(score))
 
   break unless play_again?
