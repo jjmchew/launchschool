@@ -5,7 +5,7 @@ SUITS = %w(clubs hearts spades diamonds)
 VALUES = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
 DEALER_STAYS_ON = 17
 TARGET_TOTAL = 21
-TARGET_GAMES = 2
+TARGET_GAMES = 5
 
 def initialize_deck
   deck = []
