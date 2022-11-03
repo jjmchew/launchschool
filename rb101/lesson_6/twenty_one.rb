@@ -66,6 +66,10 @@ def draw_layout(hands, score, totals_mode, option = 'play')
   puts " Dealer has:  "
   display_hand(option, hands[:dealer])
   blank_line
+  if totals_mode && option == 'all'
+    puts " Dealer's total is currently: #{hands[:dealer_total]}"
+    blank_line
+  end
   puts " You have:"
   display_hand('all', hands[:player])
   blank_line
@@ -177,12 +181,16 @@ def dealer_action(hands, deck, score, totals_mode)
 
   loop do
     break if hands[:dealer_total] >= DEALER_STAYS_ON
+    blank_line
+    blank_line
     puts " ... dealer hits"
     blank_line
     hands[:dealer] += deal_cards(1, deck)
     pause
     draw_layout(hands, score, totals_mode, 'all')
   end
+  blank_line
+  blank_line
   puts " Dealer busts!" if hands[:dealer_total] > TARGET_TOTAL
   blank_line
   pause
@@ -210,6 +218,7 @@ end
 
 def display_win_message(winner, hands)
   blank_line
+  blank_line
   case winner
   when 'player' then puts " You win with #{hands[:player_total]}!"
   when 'dealer' then puts " Dealer wins with #{hands[:dealer_total]}!"
@@ -230,6 +239,7 @@ end
 
 def display_overall_message(winner)
   blank_line
+  blank_line
   case winner
   when 'player' then puts " You beat the dealer! "
   when 'dealer'
@@ -242,8 +252,8 @@ end
 def display_totals?
   draw_header
   blank_line
-  puts " This game involves adding the values of the cards in your hand."
-  puts "    Mode 1:  The total of your cards is automatically displayed."
+  puts " This game involves adding the values of the cards in each hand."
+  puts "    Mode 1:  The total of the cards is automatically displayed."
   puts "    Mode 2:  No total is displayed."
   blank_line
   prompt " Would you like to play in Mode 1 or 2 (enter 1 or 2)?"
