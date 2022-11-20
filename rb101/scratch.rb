@@ -1,6 +1,8 @@
-arr = (1...10).map do |n| 
-  puts n
-  n
+def double(num)
+  num = num * 2
 end
 
-p arr
+int = 2
+double(int)
+
+puts int #=> 2
