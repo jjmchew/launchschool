@@ -1,0 +1,4 @@
+The %{adjective1} brown %{noun1} %{adverb1}
+%{verb1} the %{adjective2} yellow
+%{noun2}, who %{adverb2} %{verb2} his
+%{noun3} and looks around.
