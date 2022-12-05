@@ -49,9 +49,9 @@ def power_sumDigTerm(n)
   sequence.last
 end
 
-p power_sumDigTerm(1) == 81
-p power_sumDigTerm(2) == 512
-p power_sumDigTerm(3) == 2401
+p power_sumDigTerm(1) #== 81
+p power_sumDigTerm(2) #== 512
+p power_sumDigTerm(3) #== 2401
 p power_sumDigTerm(4) #== 4913
 # p power_sumDigTerm(5) #== 5832
 # p power_sumDigTerm(6) #== 17576
