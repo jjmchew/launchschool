@@ -5,8 +5,8 @@
 # string. When counting characters, consider the uppercase and
 # lowercase version to be the same.
 
+# 3:18 pm - 3:27pm ;   3:32 - 3:33 pm  : 10 minutes
 =begin
-3:18 pm - 3:27pm ;   3:32 - 3:33 pm  : 10 minutes
 
 input
   - string: of words
