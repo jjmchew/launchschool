@@ -1,4 +1,7 @@
+require 'pry'
+
 module DisplayMethods
+  require 'io/console'
   DISPLAY_WIDTH = 80
 
   def display_blank_line
@@ -9,11 +12,12 @@ module DisplayMethods
     system('clear') || system('cls')
   end
 
-  def get_pause
+  def pause
     display_blank_line
-    puts "press enter to continue".center(DISPLAY_WIDTH)
+    puts "press any key to continue".center(DISPLAY_WIDTH)
     cursor
-    gets.chomp!
+    $stdin.getch
+    display_blank_line
   end
 
   def prompt(message)
@@ -25,15 +29,22 @@ module DisplayMethods
   end
 
   def cursor
-    print "#{" " * (DISPLAY_WIDTH/2 - 5)} >  ".center(DISPLAY_WIDTH/2 - 2)
+    print "#{' ' * (DISPLAY_WIDTH / 2 - 5)} >  ".center(DISPLAY_WIDTH / 2 - 2)
   end
 
   def box(message)
-    output "****#{"*" * message.length}****"
+    output "****#{'*' * message.length}****"
     output "*   #{message}   *"
-    output "****#{"*" * message.length}****"
+    output "****#{'*' * message.length}****"
   end
 
+  def ljustify(msg, width)
+    if width > msg.length
+      "#{msg}#{' ' * (width - msg.length)}" 
+    else
+      "#{msg[0...width]}"
+    end
+  end
 end
 
 class Move
@@ -55,40 +66,40 @@ class Move
   end
 
   def scissors?
-    self.value == 'scissors'
+    value == 'scissors'
   end
 
   def rock?
-    self.value == 'rock'
+    value == 'rock'
   end
 
   def paper?
-    self.value == 'paper'
+    value == 'paper'
   end
 
   def lizard?
-    self.value == 'lizard'
+    value == 'lizard'
   end
 
   def spock?
-    self.value == 'spock'
+    value == 'spock'
   end
 
   def >(other_move)
-    return false if self.value == other_move.value
-    return true if WINS_AGAINST[self.value].include?(other_move.value) 
+    return false if value == other_move.value
+    return true if WINS_AGAINST[value].include?(other_move.value)
     false
   end
 
   def <(other_move)
-    return false if self.value == other_move.value
-    return true unless WINS_AGAINST[self.value].include?(other_move.value)
+    return false if value == other_move.value
+    return true unless WINS_AGAINST[value].include?(other_move.value)
     false
   end
 
   def to_s
-    return 'Spock' if self.value == 'spock'
-    self.value
+    return 'Spock' if value == 'spock'
+    value
   end
 end
 
@@ -96,12 +107,16 @@ class Player
   include DisplayMethods
   attr_accessor :move, :name
 
-  def initialize
-    set_name
+  def display_name
+    self.name.capitalize
   end
 end
 
 class Human < Player
+  def initialize
+    @name = ['Regular Joe', 'Dude', 'someone', 'Regular Jane', 'Hero'].sample
+  end
+
   def set_name
     n = nil
     loop do
@@ -111,7 +126,7 @@ class Human < Player
       break unless n.empty?
       output "Sorry, must enter a value."
     end
-    self.name = n
+    self.name = n[0..14]
   end
 
   def display_choose_message
@@ -150,12 +165,226 @@ class Human < Player
 end
 
 class Computer < Player
-  def set_name
-    self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
+  attr_reader :name
+
+  CHARACTERS = %w(cubone r2d2 terminator luna hal)
+
+  def initialize
+    @name = "luna"
+    set_name(@name)
   end
 
-  def choose
-    self.move = Move.new(Move::VALUES.sample)
+  def set_name(char='luna')
+    @name = char
+    case char
+    when 'luna' then @personality = Luna.new
+    when 'cubone' then @personality = Cubone.new
+    when 'r2d2' then @personality = R2D2.new
+    when 'terminator' then @personality = Terminator.new
+    when 'hal' then @personality = Hal.new
+    end
+  end
+
+  def choose(history)
+    if @name == 'hal'
+      self.move = Move.new(@personality.get_move(history))
+    else
+      self.move = Move.new(@personality.sample_array.sample)
+    end
+    @personality.moves << self.move
+    @personality.update_actuals(self.move)
+  end
+
+  def display_char_menu
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("Select Computer Opponent", 29)
+    display_blank_line
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("L.  Luna", 29) if @name != 'luna'
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("C.  Cubone", 29) if @name != 'cubone'
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("R.  R2D2", 29) if @name != 'r2d2'
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("T.  Terminator", 29) if @name != 'terminator'
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("H.  Hal", 29) if @name != 'hal'
+    display_blank_line
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("B   Back to main menu", 29)
+    display_blank_line
+  end
+
+  def get_char_selection
+    display_char_menu
+    loop do
+      cursor
+      choice = gets.chomp.downcase
+      display_blank_line
+      break if choice == 'b'
+      case choice
+      when 'l' then set_name('luna')
+      when 'c' then set_name('cubone')
+      when 'r' then set_name('r2d2')
+      when 't' then set_name('terminator')
+      when 'h' then set_name('hal')
+      end
+      break if %w(b l c r t h).include?(choice)
+      output "Invalid selection, try again."
+    end
+  end
+end
+
+class Personality
+  include DisplayMethods
+  attr_reader :target_percent, :actual_percent
+  attr_accessor :moves
+
+  def initialize
+    @moves = []
+    @target_percent = { Move::VALUES => 1.0 }
+    @actual_count = Hash.new(0)
+    @actual_percent = Hash.new(0)
+  end
+
+  def update_actuals(move)
+    @target_percent.keys.each do |array|
+      @actual_count[array] += 1 if array.include?(move.value)
+    end
+
+    @target_percent.keys.each do |array|
+      @actual_percent[array] = (@actual_count[array].to_f / @actual_count.values.sum).round(3)
+    end
+  end
+
+  def sample_array
+    diffs = @target_percent.map do |array, target|
+      [array, target - @actual_percent[array]]
+    end
+    p diffs
+    diffs.max_by { |subarr| subarr[1] }[0]
+  end
+end
+
+class Luna < Personality
+  # Luna : picks randomly 100% of the time
+  def initialize
+    super
+    @target_percent = { Move::VALUES => 1.0 }
+  end
+end
+
+class Cubone < Personality
+  # Cubone :  picks rock 70% of the time, picks lizard 20% of the time, remaining random 10% of the time
+  def initialize
+    super
+    @target_percent = { ['rock'] => 0.7, ['lizard'] => 0.2, ['paper', 'scissors','spock'] => 0.1 }
+  end
+end
+
+class R2D2 < Personality
+  # Clifford : picks paper 50% of the time, lizard 30% of the time, never scissors, remaining random 20% of the time
+  def initialize
+    super
+    @target_percent = { ['paper'] => 0.5, ['lizard'] => 0.3, ['rock', 'spock'] => 0.20 }
+  end
+end
+
+class Terminator < Personality
+  # Terminator : picks scissors OR spock 60% of the time, picks remaining random 40% of the time
+  def initialize
+    super
+    @target_percent = { ['scissors', 'spock'] => 0.6, ['lizard', 'rock', 'paper'] => 0.40 }
+  end
+end
+
+class Hal < Personality
+  def initialize
+    super
+  end
+
+  def get_move(history)
+    all_games = history.get_all_games
+    p all_games
+    pause
+    "rock"
+  end
+end
+
+class Game
+  include DisplayMethods
+  attr_reader :computer_name, :human_name, :computer_move
+
+  def initialize(human, computer, winner)
+    @human_name = human.name
+    @human_move = human.move.value
+    @computer_name = computer.name
+    @computer_move = computer.move.value
+    @winner = winner
+  end
+
+  def to_s
+    ljustify("[ #{@human_name} vs #{@computer_name.capitalize}", 30) + " : " + ljustify("#{@human_move} vs #{@computer_move}", 20)  + " : " + ljustify("#{@winner == "tie" ? "tie" : @winner + " wins"}", 20) + "]"
+  end
+end
+
+class History
+  include DisplayMethods
+  def initialize
+    @sets = []
+  end
+
+  def add_set(set, winner, score)
+    @sets << { winner: winner, score: score, games: set }
+  end
+
+  def display
+    if @sets.empty?
+      output "You haven't played any games, yet."
+    else
+      clear_screen
+      display_blank_line
+      output ljustify("Score", 34) + ljustify("Winner", 20)
+      display_blank_line
+      @sets.each do |set|
+        output ljustify(set[:score], 34) + ljustify(set[:winner], 20)
+      end
+    end
+    pause
+  end
+
+  def display_all
+    Computer::CHARACTERS.each do |character|
+      clear_screen
+      display_blank_line
+      output "Matches with #{character.capitalize}:"
+      display_blank_line
+      filter_games(character)
+    end
+  end
+
+  def get_all_games
+    all_games = []
+    @sets.each do |hash|
+      all_games += hash[:games]
+    end
+    p all_games
+    pause
+  end
+
+  def filter_games(name)
+    games = []
+    @sets.each do |set|
+      set[:games].each do |game|
+        games << game if game.computer_name == name
+      end
+    end
+    display_each(games)
+    games
+  end
+
+  def display_each(games)
+    output "  ...nothing yet" if games.empty?
+    games.each do |game|
+      output game.to_s
+    end
+    display_blank_line
+    display_blank_line
+    display_blank_line
+    pause
   end
 end
 
@@ -170,7 +399,8 @@ class Scoreboard
     @computer_name = computer_name
   end
 
-  def display
+  # rubocop:disable Layout/LineLength
+  def draw_board
     clear_screen
     display_blank_line
     output '       +-----------------+-----------------+      '
@@ -180,6 +410,7 @@ class Scoreboard
     output '       +-----------------+-----------------+      '
     display_blank_line
   end
+  # rubocop:enable Layout/LineLength
 
   def add_human
     @human += 1
@@ -195,18 +426,19 @@ class Scoreboard
   end
 
   def winner
-    if @human == @winning_score
-      return @human_name
-    else
-      return @computer_name
-    end
+    return @human_name if @human == @winning_score
+    @computer_name
+  end
+
+  def string
+    "#{@human_name} #{@human} vs #{@computer_name} #{@computer}"
   end
 end
 
 class RPSGame
   include DisplayMethods
+  attr_accessor :human, :computer
 
-  PLAY_TO = 2
   OUTCOME_MESSAGES = {
     ['paper', 'rock'] => 'paper covers rock',
     ['rock', 'scissors'] => 'rock crushes scissors',
@@ -220,60 +452,97 @@ class RPSGame
     ['lizard', 'spock'] => 'lizard poisons Spock'
   }
 
-  attr_accessor :human, :computer
-
   def initialize
     @human = Human.new
     @computer = Computer.new
+    @history = History.new
+    @play_to = 3
+  end
+
+  private
+  # rubocop:disable Layout/LineLength
+  def display_header
+    output '+---------------------------------------------------------------------------+'
+    output '|    R O C K    P A P E R    S C I S S O R S    L I Z A R D    S P O C K    |'
+    output '+---------------------------------------------------------------------------+'
+    display_blank_line
   end
 
   def display_welcome_message
     clear_screen
-    output '+--------------------------------------------------------------------------+'
-    output '|    R O C K    P A P E R    S C I S S O R S    S P O C K    L I Z A R D   |'
-    output '+--------------------------------------------------------------------------+'
-    display_blank_line
+    display_header
     output "This is an updated version of Rock, Paper, Scissors."
     output "Give it a go, and you'll figure it out."
     display_blank_line
-    output "Winner is the first to win #{PLAY_TO} games."
-    get_pause
+    display_blank_line
+    pause
   end
 
-  def display_goodbye_message
-    output "Thanks for playing Rock, Paper, Scissors.  Good bye!"
+  def display_menu
+    clear_screen
+    display_header
+    output ljustify(" ", 11) + ljustify("Current settings", 17) + ljustify(" ", 29)
+    display_blank_line
+    output ljustify("Player:", 11) + ljustify(@human.name, 17) + ljustify("1.  Change player", 29)
+    output ljustify("Computer:", 11) + ljustify(@computer.display_name, 17) + ljustify("2.  Change computer", 29)
+    output ljustify("First to:", 11) + ljustify("#{@play_to} games", 17) + ljustify("3.  Change games to play to", 29)
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("4.  View game history", 29)
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("5.  View match detail", 29)
+    display_blank_line
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("Q   Quit", 29)
+    output ljustify(" ", 11) + ljustify(" ", 17) + ljustify("P   Play the game!!", 29)
     display_blank_line
   end
 
-  def get_outcome_message(hmove, cmove)
+  def display_choices
+    # output '        +-----------------+-----------------+      '
+    output "         #{human.move.to_s.center(15)} vs #{computer.move.to_s.center(15)}       "
+    # output '        +-----------------+-----------------+      '
+    display_blank_line
+  end
+  # rubocop:enable Layout/LineLength
+
+  def display_goodbye_message
+    output "Thanks for playing Rock, Paper, Scissors, Lizard, Spock.  Good bye!"
+    display_blank_line
+  end
+
+  def get_battle_message(hmove, cmove)
     msg = OUTCOME_MESSAGES[[hmove.value, cmove.value].sort]
-    return "" if msg == nil
+    return "" if msg.nil?
     "... #{msg} ..."
   end
 
-  def display_winner
+  def determine_winner
+    draw_layout
     display_blank_line
-    # output "#{human.name} chose #{human.move}."
-    # output "#{computer.name} chose #{computer.move}."
-    # display_blank_line
-    output "#{get_outcome_message(human.move, computer.move)}"
+    output get_battle_message(@human.move, @computer.move)
     display_blank_line
     display_blank_line
-    win_message(human, computer)
+    if @human.move > @computer.move then human_won
+    elsif @human.move < @computer.move then computer_won
+    else tie
+    end
     display_blank_line
-    get_pause
+    pause
+    @score.draw_board
   end
 
-  def win_message(human, computer)
-    if human.move > computer.move
-      box "#{human.name} won!"
-      @score.add_human
-    elsif human.move < computer.move
-      output "#{computer.name} won!"
-      @score.add_computer
-    else
-      output "It's a tie!"
-    end
+  def human_won
+    box "#{@human.name} won!"
+    @score.add_human
+    @current_set << Game.new(@human, @computer, @human.name)
+  end
+
+  def computer_won
+    output "#{@computer.display_name} won!"
+    @score.add_computer
+    @current_set << Game.new(@human, @computer, @computer.name)
+  end
+
+  def tie
+    output "It's a tie!"
+    @current_set << Game.new(human, computer, "tie")
   end
 
   def play_again?
@@ -289,22 +558,15 @@ class RPSGame
     false
   end
 
-  def display_choices
-    # output '        +-----------------+-----------------+      '
-    output "         #{human.move.to_s.center(15)} vs #{computer.move.to_s.center(15)}       "
-    # output '        +-----------------+-----------------+      '
-    display_blank_line
-  end
-
   def draw_layout
-    @score.display
+    @score.draw_board
     display_choices
   end
 
   def display_final_message(winner)
     display_blank_line
     if winner == @human.name
-      output "Good job - you beat #{@computer.name}!"
+      output "Good job - you beat #{@computer.display_name}!"
     else
       output "Tough break - better luck next time!"
     end
@@ -312,39 +574,100 @@ class RPSGame
     display_blank_line
   end
 
-  def play
-    display_welcome_message
+  def setup_new_game
+    @score = Scoreboard.new(@play_to, @human.name, @computer.display_name)
+    @score.draw_board
+    @current_set = []
+  end
 
+  def change_play_to
+    output "How many games do you want to play to?"
+    cursor
+    gets.chomp.to_i
+  end
+
+  def play_game
     loop do
-      @score = Scoreboard.new(PLAY_TO, @human.name, @computer.name)
-      @score.display
-
+      setup_new_game
       loop do
         human.choose
-        computer.choose
-        draw_layout
-        display_winner
-        @score.display
+        computer.choose(@history) # <<<<<<<<<<<<<    START HERE   :  NEED TO PASS IN @current_set IN ADDITION TO @history
+        determine_winner
         break if @score.winner?
       end
       display_final_message(@score.winner)
+      @history.add_set(@current_set, @score.winner, @score.string)
       break unless play_again?
+    end
+  end
+
+  public
+  def start
+    display_welcome_message
+
+    loop do
+      display_menu
+      cursor
+      choice = gets.chomp.downcase
+      display_blank_line
+      break if choice == 'q'
+      case choice
+      when '1' then @human.set_name
+      when '2' then @computer.get_char_selection
+      when '3' then @play_to = change_play_to
+      when '4' then @history.display
+      when 'p' then play_game
+      when '5' then @history.display_all
+      end
     end
 
     display_goodbye_message
   end
 end
 
-RPSGame.new.play
+RPSGame.new.start
 
-
+# rubocop:disable Layout/LineLength
 =begin
 ToDos
-- Add intro "menu":
-    - allow 'configuration' :  player name, 
+X - Add intro "menu":
+    X - allow 'configuration' :  player name
                             :  choose computer opponent (eventually will correlate to level of difficulty)
                             :  choose # of games to play to
-    - 
-- Don't initialize player name and computer name on instantiation of Player
+                            :  view game history
+
+    X - return to menu after playing a game (i.e,. can pick a different opponent, look at game history, etc.)
+
+X - Don't initialize player name and computer name on instantiation of Player
     - change to invoked method, after "opening menu"
+
+X - Add history (move tracking)
+    X - store each game, array of hashes : human name, human choice, computer name, computer choice
+    - Make history displayable - sets & games
+
+- Use history for computer "AI" to make opponent tougher to beat
+    - 3 levels of opponent
+        - easy:  tendency to pick a specific choice (based on percentage)
+              - Cubone :  picks rock 70% of the time, picks lizard 20% of the time, remaining random 10% of the time
+              - Terminator : picks scissors 60% of the time, picks remaining random 40% of the time
+              - Clifford : 
+                  picks paper 50% of the time, 
+                  picks lizard 30% of the time, 
+                  never picks scissors, 
+                  remaining random 20% of the time
+              - Luna :  just totally random
+        - hard? (Hal):  
+              - look at what the player picks most often and respond to beat that
+              ** - need to get each player choice logged in 'real-time' (currently, only logged to history at end of game)
+                  - could also pass in 'sets' prior to passing in history for computer to make a selection with Hal
+
+algorithm
+- pick on a percentage basis
+  - select all history for that computer player (only games matter, not sets)
+  - calculate percentage picks based upon tendencies
+  - set-up 'options' array to sample from based upon tendencies
+  - evaluate picks to find the one whose percentage differs the MOST from desired target
+      - make that pick according to tendencies
+
 =end
+# rubocop:enable Layout/LineLength
