@@ -193,4 +193,12 @@ Game.new.start
  [   A clubs    ]        [   A clubs    ]
  
 
+ To add betting:
+ - need to add a round asking each player what they want to bet
+    - need to check that bet isn't more than the money they have
+ - if they win - need to add their bet to their money
+ - if they lose, need to subtract their bet from their money
+ - need to decide what to do with the dealer's money 
+  (e.g., keep track of what the house makes off everyone else)
+ 
 =end
