@@ -1,23 +1,51 @@
-module Describable
-  def describe_shape
-    "I am a #{self.class} and have #{SIDES} sides."
+module Walkable
+  def walk
+    "I'm walking."
   end
 end
 
-class Shape
-  include Describable
-
-  def self.sides
-    self::SIDES
+module Swimmable
+  def swim
+    "I'm swimming."
   end
 end
 
-class Quadrilateral < Shape
-  SIDES = 4
+module Climbable
+  def climb
+    "I'm climbing."
+  end
 end
 
-class Square < Quadrilateral; end
+module Danceable
+  def dance
+    "I'm dancing."
+  end
+end
 
-Square.sides # => 4
-Square.new.sides # => 4
-Square.new.describe_shape # => "I am a Square and have 4 sides."
+module GoodAnimals
+  include Climbable
+
+  class GoodDog < Animal
+    include Swimmable
+    include Danceable
+  end
+  
+  class GoodCat < Animal; end
+end
+
+class Animal
+  include Walkable
+
+  def speak
+    "I'm an animal, and I speak!"
+  end
+end
+
+
+
+good_dog = GoodAnimals::GoodDog.new
+p good_dog.walk
+
+p good_dog.class.ancestors
+# GoodAnimals::GoodDog, Danceable, Swimmable, Animal, Walkable, Object, Kernel, BasicObject
+
