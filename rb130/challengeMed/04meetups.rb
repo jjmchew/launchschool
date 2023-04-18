@@ -10,7 +10,7 @@ class Meetup
     'fifth' => 4,
     'last' => -1,
     'teenth' => [13, 14, 15, 16, 17, 18, 19]
-}
+  }
 
   def initialize(year, month)
     @year = year
@@ -21,13 +21,13 @@ class Meetup
     day = day.capitalize
     desc = desc.downcase
 
-    possible_days = get_possible_days(day)    
+    possible_days = get_possible_days(day)
 
     case desc
     when 'teenth'
       possible_days.each { |date| return date if DESC[desc].include?(date.day) }
     else
-      return possible_days[DESC[desc]]
+      possible_days[DESC[desc]]
     end
   end
 

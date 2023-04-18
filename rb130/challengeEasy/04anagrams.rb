@@ -11,7 +11,7 @@ class Anagram
   end
 
   private
-  
+
   def anagram?(word)
     return true if word.chars.tally == @tally && word != @str
   end

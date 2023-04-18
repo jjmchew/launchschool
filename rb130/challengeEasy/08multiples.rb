@@ -12,10 +12,11 @@ class SumOfMultiples
   end
 
   private
+
   def calc_sum(limit)
     multiples = []
-    (1 .. limit / @set.first).each do |multiplier|
-      @set.each { |el| multiples << el * multiplier if el*multiplier < limit }
+    (1..limit / @set.first).each do |multiplier|
+      @set.each { |el| multiples << el * multiplier if el * multiplier < limit }
     end
     multiples.uniq.sum
   end
@@ -24,7 +25,7 @@ end
 # p SumOfMultiples.new().set
 # p SumOfMultiples.to(20)
 
-
+# rubocop:disable Layout/LineLength
 =begin
 input
   - integer 'limit': a limit - all multiples should be less than this number
@@ -48,3 +49,4 @@ algo
 note
   - sort the initial set so that the smallest number given is the first element
 =end
+# rubocop:enable Layout/LineLength

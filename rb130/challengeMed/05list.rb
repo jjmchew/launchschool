@@ -32,7 +32,7 @@ class SimpleLinkedList
   def size
     # return integer
     counter = 0
-    self.traverse { |_, element| counter += 1 unless element.nil? }
+    traverse { |_, element| counter += 1 unless element.nil? }
     counter
   end
 
@@ -69,20 +69,22 @@ class SimpleLinkedList
     #   element = element.next
     # end
 
-    self.traverse { |_, element| new_arr.push(element.datum) unless element.nil? }
+    traverse { |_, ele| new_arr.push(ele.datum) unless ele.nil? }
     new_arr
   end
 
   def reverse
     # returns a SimpleLinkedList object
-    arr = self.to_a.reverse
-    new_list = SimpleLinkedList.from_a(arr)
+    arr = to_a.reverse
+    SimpleLinkedList.from_a(arr)
   end
 
   def self.from_a(array)
     # returns a new SimpleLinkedList object with elements from given array
     new_list = SimpleLinkedList.new
-    array.reverse.each { |arr_el| new_list.push(arr_el) } unless array.nil?
+    return new_list if array.nil?
+
+    array.reverse.each { |arr_el| new_list.push(arr_el) }
     new_list
   end
 

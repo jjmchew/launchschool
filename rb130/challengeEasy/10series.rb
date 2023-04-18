@@ -10,6 +10,7 @@ class Series
   end
 
   private
+
   def substrings(num)
     substrs = []
     (0..@str.length - num).each { |idx| substrs << @str[idx, num] }

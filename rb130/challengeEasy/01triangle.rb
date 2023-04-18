@@ -11,6 +11,7 @@ class Triangle
   end
 
   private
+
   def check_sides
     @sides.each do |side|
       raise ArgumentError, "Side cannot be 0" if side == 0
@@ -55,12 +56,11 @@ end
 # p Triangle.new(4, 3, 10).kind
 p Triangle.new(0, 3, 3).kind
 
-
-
 =begin
 
 For check_lengths
-  - need array of subarrays : all possible combos of sides to test [side1 + side2, side3]
+  - need array of subarrays:
+      - all possible combos of sides to test [side1 + side2, side3]
       e.g. [3, 4, 5] :  [3, 4, 5] => [0 + 1] > [2]
                         [3, 5, 4] => [0 + 2] > [1]
                         [4, 5, 3] => [1 + 2] > [0]

@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require_relative 'diamond'
 
+# Minitest test class
 class DiamondTest < Minitest::Test
   def test_letter_a
     answer = Diamond.make_diamond('A')
@@ -24,6 +25,7 @@ class DiamondTest < Minitest::Test
     assert_equal string, answer
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_letter_e
     # skip
     answer = Diamond.make_diamond('E')
@@ -38,4 +40,5 @@ class DiamondTest < Minitest::Test
              "    A    \n"
     assert_equal string, answer
   end
+  # rubocop:enable Metrics/MethodLength
 end

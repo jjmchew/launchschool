@@ -18,19 +18,21 @@ class Clock
 
   def to_s
     hr, min = (@mins % MINS_PER_DAY).divmod(MINS_PER_HOUR)
-    "#{hr < 10 ? "0"+hr.to_s : hr.to_s}:#{min < 10 ? "0"+min.to_s : min.to_s}"
+    # rubocop:disable Layout/LineLength
+    "#{hr < 10 ? '0' + hr.to_s : hr.to_s}:#{min < 10 ? '0' + min.to_s : min.to_s}"
+    # rubocop:enable Layout/LineLength
   end
 
-  def +(num)
-    Clock.new(@mins + num)
+  def +(other)
+    Clock.new(@mins + other)
   end
 
-  def -(num)
-    Clock.new(@mins - num)
+  def -(other)
+    Clock.new(@mins - other)
   end
 
   def ==(other)
-    self.to_s == other.to_s
+    to_s == other.to_s
   end
 end
 

@@ -13,7 +13,7 @@ class CustomSet
 
   def subset?(other_set)
     result = true
-    @set.each { |element| result = false unless other_set.set.include?(element) }
+    @set.each { |ele| result = false unless other_set.set.include?(ele) }
     result
   end
 
@@ -28,7 +28,7 @@ class CustomSet
     @set.sort == other_set.set.sort
   end
 
-  alias :== :eql?
+  alias == eql?
 
   def add(element)
     @set = [] if @set.nil?
@@ -65,7 +65,7 @@ class CustomSet
   def add_from(other_set)
     new_set = CustomSet.new
     return new_set if other_set.set.nil? || @set.nil?
-    @set.each { |element| new_set.add(element) if yield(element, other_set.set) }
+    @set.each { |ele| new_set.add(ele) if yield(ele, other_set.set) }
     new_set
   end
 end

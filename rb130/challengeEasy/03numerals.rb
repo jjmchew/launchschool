@@ -1,5 +1,5 @@
 class RomanNumeral
-  CHARS = { 
+  CHARS = {
     1 => 'I',
     4 => 'IV',
     5 => 'V',
@@ -14,7 +14,7 @@ class RomanNumeral
     900 => 'CM',
     1000 => 'M'
   }
-  
+
   def initialize(num)
     @num = num
   end
@@ -24,7 +24,7 @@ class RomanNumeral
     roman = ""
 
     # returns array of numbers (keys) that corresponding to each roman character
-    num_arr = CHARS.keys.sort { |a, b| b <=> a } 
+    num_arr = CHARS.keys.sort { |a, b| b <=> a }
 
     num_arr.each do |divide_by|
       if remain / divide_by > 0 && remain / divide_by < 4

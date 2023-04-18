@@ -45,7 +45,7 @@ class Scrabble
   private
 
   def no_score?
-    return true if @word == nil
+    return true if @word.nil?
     return true if @word.include?(" ")
     return true if @word == ""
     false

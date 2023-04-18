@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '09beer'
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 class BeerSongTest < Minitest::Test
   def test_the_first_verse
     expected = "99 bottles of beer on the wall, 99 bottles of beer.\n" \
@@ -366,3 +366,4 @@ Go to the store and buy some more, 99 bottles of beer on the wall.
     assert_equal expected, BeerSong.lyrics
   end
 end
+# rubocop:enable Layout/LineLength
