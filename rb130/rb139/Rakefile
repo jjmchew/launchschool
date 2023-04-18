@@ -1,4 +1,6 @@
 require "rake/testtask"
+require 'find'
+
 
 desc 'update git repository'
 task :git do
@@ -14,6 +16,14 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'do everything'
-task :all => [:git, :test]
+task :all => [:git, :list, :test]
+
+desc 'list files'
+task :list do
+  Find.find(".") do |path|
+    filename = path.gsub(/^\.\//, "")
+    puts filename if filename[0] != "." && File.file?(path)
+  end
+end
 
 # task :default => :test
