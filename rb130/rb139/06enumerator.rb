@@ -1,9 +1,9 @@
 =begin
 => to solve actual factorial / enumerator problem
-  start 8:47 pm 9:09 finish (22 mins)
+    start 8:47 pm 9:09 finish (22 mins)
 
-  => to create an object class and corresponding test file
-                9:40 finish (53 mins total)
+=> to create an object class and corresponding test file
+                  9:40 finish (53 mins total)
 
 First attempt:
 # ===== Note this version uses all INTERNAL iterators =====
