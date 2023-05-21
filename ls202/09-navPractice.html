@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NavPractice</title>
+    <meta charset="utf-8">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      nav ul {
+        background-color: grey;
+        list-style-type: none;
+        padding-left: 0;
+        width: 100%;
+        font-size: 0;
+      }
+
+      nav li {
+        font-size: 1.25rem;
+        width: 25%;
+        text-align: center;
+        display: inline-block;
+      }
+
+      nav a {
+        box-sizing: border-box;
+        display: inline-block;
+        line-height: 2.5;
+        padding: 0 10px;
+        text-decoration: none;
+        width: 100%
+      }
+
+      nav a:hover,
+      nav a:focus {
+        background-color: black;
+        color: white
+      }
+
+      main {
+        padding: 1ch;
+        font-size: 2rem;
+      }
+
+      h1 {
+        margin-top: 2.5rem;
+        position: relative;
+      }
+
+      .anchor {
+        margin-top: -2.5rem;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <main>
+      <!-- <div style="height: 2.5rem"></div> -->
+      <div class="anchor" id="home"></div>
+      <h1>Home</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a laoreet magna, in lacinia nunc. Maecenas gravida metus sit amet erat molestie, sit amet ultrices velit aliquet. In auctor volutpat leo a ornare. Phasellus tempor lorem erat, vulputate iaculis purus posuere nec. Curabitur porta orci et placerat pharetra. Sed posuere elit et neque elementum suscipit. Phasellus dapibus erat sapien, nec accumsan neque pulvinar at. Nulla venenatis rhoncus justo, et imperdiet sem rhoncus vitae. Nulla lacinia at purus elementum malesuada. Nulla auctor mi semper diam eleifend, ac blandit est luctus. Vestibulum condimentum est id egestas venenatis. Donec egestas commodo mollis. Quisque id congue sapien, a pretium libero. 
+      </p>
+
+      <div class="anchor" id="about"></div>
+      <h1>About</h1>
+      <p>
+        Nam volutpat eu erat at commodo. Vivamus erat tellus, molestie quis aliquam vitae, euismod quis erat. Cras faucibus iaculis eros, eu posuere arcu. Sed pulvinar nisl non orci pulvinar accumsan. Nullam dignissim erat ut ante mollis, imperdiet laoreet quam malesuada. Cras finibus lacus est, sed tempus mauris scelerisque a. Donec non elit in odio efficitur aliquet. Vestibulum porta pellentesque orci, in ultricies est lacinia quis. Donec sagittis bibendum porta. Sed et libero arcu. Nulla ultricies posuere augue, tincidunt ultricies neque laoreet eget. 
+      </p>
+
+      <div class="anchor" id="projects"></div>
+      <h1>Projects</h1>
+      <p>
+        Nam ut sodales nisl. Suspendisse consectetur dolor sit amet maximus sollicitudin. Curabitur ultrices consequat gravida. Morbi auctor augue a nibh ullamcorper, vel aliquet enim lacinia. Nullam iaculis nisi mi, ultricies consequat libero porta eu. Mauris eu augue eget eros tincidunt mollis. Vivamus venenatis mi bibendum nisi posuere fermentum. Fusce efficitur turpis quam, eu iaculis mauris luctus sit amet. Sed eu ornare magna. Etiam urna massa, dignissim suscipit lacinia id, ornare non dolor. In feugiat dapibus nisl, quis sagittis leo dictum vel. 
+      </p>
+      <p>
+        Sed porta, sem non luctus volutpat, urna massa ornare enim, eget congue urna ipsum malesuada quam. Quisque elementum odio et risus sagittis, ac mattis sem viverra. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris id diam sollicitudin, ullamcorper orci sit amet, porttitor lectus. Donec rutrum diam sit amet fringilla posuere. Morbi vel malesuada nisi. In eget iaculis dolor, non pharetra elit. Suspendisse egestas velit vulputate diam vulputate bibendum. Duis odio quam, mattis nec accumsan in, auctor et tortor. Phasellus egestas dui sit amet nulla interdum, vel mattis ante porttitor. 
+      </p>
+
+      <div class="anchor" id="contact"></div>
+      <h1>Contact</h1>
+      <p>
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent pretium facilisis orci, ut cursus lacus accumsan vel. Integer lobortis, felis ac finibus sodales, sem elit euismod magna, et tempor risus lacus ullamcorper nunc. Maecenas arcu quam, ultrices ac interdum ac, sollicitudin at velit. Aliquam vel tellus ac tortor euismod vestibulum. Cras ultricies consequat magna, nec bibendum felis facilisis sit amet. Nam non vestibulum quam. 
+      </p>
+    </main>
+  </body>
+</html>

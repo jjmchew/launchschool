@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Problems from https://launchschool.com/lessons/f039db62/assignments/a4c39c98 -->
+<html>
+  <head>
+    <link rel="stylesheet" href="05-practiceProblems.css">
+  </head>
+  <body>
+    <!-- ==================== Problem 1 ==================== -->
+    <!-- <div>
+      <img src="#" alt="test">
+    </div> -->
+    <!-- 
+      total width: 
+        = L div border + L margin + border + L padding +   img   + R padding + border + R margin + R div border
+        = 1px          + 11px     + 4px    + 20px      + 500px   + 20px      + 4px    + 19px     + 1px
+        = 580px
+      total height:
+        = T div border + T margin + border + T padding +   img   + B padding + border + B margin + B div border
+        = 1px          + 20px     + 4px    + 10px      + 300px   + 10px      + 4px    + 10px     + 1px
+        = 360px
+     -->
+
+    <!-- ==================== Problem 2 ==================== -->
+    <!-- <div>
+      <section>content</section>
+    </div> -->
+    <!-- 
+      - total width and height calculate to the same dimensions
+      - only difference was content is display block vs inline-block
+        - since there's only 1 element, it doesn't matter
+     -->
+
+    <!-- ==================== Problem 3 ==================== -->
+    <!-- <div>
+      <em>content</em>
+    </div> -->
+    <!-- 
+      - inline elements are different!
+      - width and height are based on content; top & bottom margins are ignored
+      total width: 
+        = L div border + L margin + border + L padding + content + R padding + border + R margin + R div border
+        = 1px          + 11px     + 4px    + 20px      + 47.1px  + 20px      + 4px    + 19px     + 1px
+        = 127.1px
+      total height:
+        = T div border + T margin + border + T padding + content + B padding + border + B margin + B div border
+        = 1px          +  0px     + 4px    + 10px      + 17px    + 10px      + 4px    +  0px     + 1px
+        = 47px
+     -->
+
+    <!-- ==================== Problem 4 ==================== -->
+    <!-- <div>
+      <article>content</article>
+    </div> -->
+    <!-- 
+      - both items are border box
+      total width:
+        = L div border + L margin + width + R margin + R div border
+        = 1px          + 11px     + 500px + 19px     + 1px
+        = 532px
+      total height:
+        = T div border + T margin + height + B margin + B div border
+        = 1px          + 20px     + 300px  + 10px     + 1px
+        = 332px
+     -->
+
+    <!-- ==================== Problem 5 ==================== (worth review!)-->
+    <!-- <div>
+      <tag1>content</tag1><tag2>more content</tag2>
+    </div> -->
+    <!-- 
+      - tag1 and tag2 will display side by side, since the width of div is large enough to accommodate
+      - [WRONG!] both tag1 and tag2 are inline-block elements (inherited - div is also inline-block) [WRONG!]
+        - both tag1 and tag2 are INLINE elements!  NOT inherited
+      - block elements do not appear side-by-side with anything
+        - any combos with inline or inline-block might appear side-by-side
+     -->
+
+     <!-- ==================== Problem 6 & 7 ==================== (worth review!)-->
+     <section>
+      <article>content</article><article>more content</article>
+    </section>
+    <!-- 
+      - both articles will appear side-by-side (WRONG)
+        - since article is also inline-block AND (WRONG)
+        - the width of section is more than the combined content of the articles (WRONG)
+      
+      - article displays as BLOCK (from inspector)
+      - article DOES inherit content-box from section (which is inline-block as defined)
+      - articles do NOT display side-by-side since the total width of articles is GREATER than width of section
+      - could:  increase width of section, decrease width of article (incl. change box-sizing, padding is being added)
+
+      - CHALLENGE problem:  cannot move the article tags to separate lines - HTML will include a space
+        as additional width making the next article tag flow to the next line
+     -->
+  </body>
+</html>
