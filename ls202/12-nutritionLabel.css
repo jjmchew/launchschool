@@ -1,0 +1,199 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* Border-box sizing reset */
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* ======== project css start ======== */
+html {
+  font-size: 33px;
+}
+
+body {
+  margin: 0.7rem;
+  padding: 0 0.4rem 0.4rem 0.4rem;
+  width: 675px;
+  border: 2px solid black;
+  font-family: Helvetica, sans-serif;
+}
+
+body p {
+  margin: 0.10rem 0;
+}
+
+h1 {
+  font-family: 'Franklin Gothic Heavy', 'Helvetica Black', sans-serif;
+  font-size: 2.8rem;
+  /* font-size: 92.4px; */
+}
+
+hr {
+  border: 0.4rem solid black;
+  margin: 0.4rem 0 0 0;
+}
+
+em {
+  font-family: 'Franklin Gothic Heavy', 'Helvetica Black', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
+}
+
+i {
+  font-style: italic;
+}
+/* ======== Dictionary ======== */
+
+dl dd {
+  display: inline;
+  margin: 0;
+}
+dl dd:after {
+  display: block;
+  content: '';
+}
+dl dt {
+  display: inline-block;
+}
+
+/* ======== Tables ======== */
+table {
+  width: 100%;
+}
+
+table .indent {
+  padding-left: 0.5rem;
+  border-top: none;
+}
+
+/* get some dt in main table (e.g., Total Fat) */
+table th > dl > dt {
+  font-family: 'Franklin Gothic Heavy', 'Helvetica Black', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
+  /* font-size: 1.05rem; */
+}
+/* for "Amount Per Serving" and "% Daily Value*" */
+table thead th {
+  font-family: 'Franklin Gothic Heavy', 'Helvetica Black', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  text-align: right;
+  font-size: 0.76rem;
+  padding: 0.3rem 0;
+}
+table th {
+text-align: left;
+}
+
+header > table thead th {
+  text-align: left;
+  font-family: 'Franklin Gothic Heavy', 'Helvetica Black', sans-serif;
+  font-weight: bold;
+  /* letter-spacing: 0.08rem; */
+  font-size: 0.76rem;
+  padding: 0.25rem 0;
+}
+header > table {
+  border-bottom: 10pt solid black;
+}
+/* padding for table rows */
+header > table td,
+main > table td {
+  padding: 0.22rem 0;
+}
+header > table tr,
+main > table td,
+main > table th {
+  border-top: 1pt solid black;
+}
+/* last column right-aligned */
+header > table td:last-of-type,
+main > table td:last-of-type {
+  text-align: right;
+}
+
+/* for line under "Iron" in 2nd table */
+main table:last-of-type tr:last-of-type {
+  border-bottom: 1pt solid black;
+}
+
+/* ======== Aside ======== */
+aside {
+  margin-top: .5rem;
+  font-size: .75rem;
+  letter-spacing: 0.01rem;
+}
+aside table .indent {
+  padding-left: 1rem;
+}
+aside table td {
+  font-size: .75rem;
+  padding: 0.08rem 0;
+}
+/* adjust widths of columns to match */
+aside table tr > td:nth-of-type(1) {
+  width: 44%;
+}
+aside table tr > td:nth-of-type(2) {
+  width: 25%;
+}
+aside table tr > td:nth-of-type(3) {
+  width: 20%;
+}
+aside table tr > td:last-of-type {
+  width: 100%;
+}
+/* line under headings */
+aside table thead {
+  border-bottom: 1pt solid black;
+}
