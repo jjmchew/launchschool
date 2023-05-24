@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form Problems</title>
+    <meta charset="utf-8">
+    <style>
+      /* ==================== Problem 1 ==================== */
+      .problem1 fieldset {
+        border: none;
+        padding: 0.3rem 0;
+      }
+      .problem1 label {
+        display: inline-block;
+        width: 5rem;
+        padding: 0;
+      }
+      .problem1 input {
+        margin-right: 2rem;
+      }
+      /* ==================== Problem 2 ==================== */
+      .problem2 label{
+        display: inline-block;
+        width: 100%;
+      }
+      .problem2 dt {
+        display: inline-block;
+        padding: 0;
+        width: 5rem;
+      }
+      .problem2 dd {
+        display: block;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ==================== Problem 1 ==================== -->
+    <div class="problem1">
+      <form action="#" method="post">
+        <fieldset>
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname" required>
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname" required>
+        </fieldset>
+        <fieldset>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="off" autocorrect="off" autocapitalize="none">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="### ### ####" required minlength="10">
+        </fieldset>
+        <input type="submit" value="Submit Info">
+      </form>
+    </div>
+    <!-- ==================== Problem 2 ==================== -->
+    <div class="problem2">
+      <form action="#" method="post">
+        <dl>
+          <dt><label for="fname">First Name</label></dt><!--
+          --><dd><input type="text" id="fname" name="fname" required></dd>
+
+          <dt><label for="lname">Last Name</label></dt><!--
+          --><dd><input type="text" id="lname" name="lname" required></dd>
+
+          <dt><label for="email">Email</label></dt><!--
+          --><dd>
+            <input type="email" id="email" name="email" required 
+                   autocomplete="off" autocorrect="off" autocapitalize="none">
+          </dd>
+
+          <dt><label for="phone">Phone</label></dt><!--
+          --><dd>
+            <input type="tel" id="phone" name="phone" placeholder="### ### ####" required minlength="10">
+          </dd>
+        </dl>
+        <input type="submit" value="Submit Info">
+      </form>
+    </div>
+  </body>
+</html>
