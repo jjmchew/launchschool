@@ -1,0 +1,224 @@
+main {
+  font-family: Helvetica, sans-serif;
+  color: #545459;
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid gray;
+}
+p {
+  width: 100%;
+  line-height: 2.5rem;
+  z-index: 2;
+  position: relative;
+}
+h1, h2, h3 {
+  color: #ce4a4a;
+}
+code {
+  font-family: monospace;
+  background-color: rgb(240, 240, 240);
+  padding: 2px;
+}
+
+/* Inline Elements section */
+.dashed_box {
+  border: 2px #555 dashed;
+  padding: 2rem;
+  width: 650px;
+}
+.dashed_box a {
+  display: inline;
+  text-decoration: none;
+  color: black;
+}
+.w_margin a {
+  margin: 30px;
+}
+.w_float::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.w_padding a,
+.w_float a {
+  padding: 1.9rem;
+  border: 1px black solid;
+  background-color: green;
+  color: white;
+}
+.w_float a {
+  float: left;
+  margin: 8px 20px;
+}
+
+/* Block Elements section */
+.blue {
+  background-color: lightblue;
+  color: white;
+}
+.green {
+  background-color: green;
+  color: white;
+  height: 60px;
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+}
+.tomato {
+  background-color: tomato;
+  width: 90px;
+  color: white;
+}
+.pink {
+  background-color: pink;
+  color: white;
+  width: 180px;
+  height: 120px;
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+}
+
+/* Floating Block Elements section */
+.float_container::after {
+  content: "";
+  clear: both;
+  display: block;
+  margin-bottom: 20px;
+}
+.float_left_1 {
+  float: left;
+  background-color: dodgerblue;
+  border: 1px solid red;
+  color: white;
+}
+.float_right_1 {
+  float: right;
+  background-color: tomato;
+  color: white;
+  border: 1px solid red
+}
+.float_left_2 {
+  float: left;
+  background-color: tomato;
+  color: white;
+  width: 40%;
+  line-height: 70px;
+  text-align: center;
+}
+.float_right_2 {
+  background-color: dodgerblue;
+  float: right;
+  color: white;
+  width: 50%;
+  line-height: 70px;
+  text-align: center;
+}
+.make_block a {
+  display: block;
+  background-color: dodgerblue;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  line-height: 40px;
+  margin: 10px;
+}
+
+/* Inline-Block Elements section */
+.nav_bar a {
+  display: inline-block;
+  background-color: dodgerblue;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  line-height: 4rem;
+  width: 18%;
+  margin: 10px;
+}
+section:nth-of-type(3) {
+  border-bottom: 2px dashed black;
+  margin: 30px 0;
+  padding-bottom: 30px;
+}
+
+/* Floats and Positioning Elements section */
+.centre {
+  text-align: center;
+}
+.boxes div {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+.float_left_3 {
+  float: left;
+  background-color: tomato;
+  width: 50%;
+  line-height: 90px;
+}
+.float_right_3 {
+  background-color: dodgerblue;
+  float: right;
+  width: 50%;
+  line-height: 90px;
+}
+.footer {
+  clear: both;
+  background-color: darkgreen;
+  width: 100%;
+  line-height: 50px;
+}
+.codeblock {
+  width: 26ch;
+  line-height: 1rem;
+  margin-bottom: 50px;
+}
+.codeblock code {
+  margin-left: 80px;
+  display: inline-block;
+}
+ul {
+  line-height: 2rem;
+  margin-left: 50px;
+}
+
+/* Relative and Absolute Positioning sections */
+.last_boxes {
+  box-sizing: border-box;
+  color: white;
+  border-radius: 10px;
+  padding: 25px 35px;
+  text-align: center;
+
+}
+.fixed {
+  position: fixed;
+  background-color: dodgerblue;
+  width: 225px;
+  bottom: 50px;
+  left: 35px;
+  z-index: 1;
+}
+.relative {
+  position: relative;
+  background-color: tomato;
+  width: 325px;
+  line-height: 2rem;
+  bottom: -35px;
+  left: -90px;
+  z-index: 3;
+}
+.position_wrapper {
+  position: relative;
+}
+.absolute {
+  background-color: green;
+  position: absolute;
+  left: 270px;
+  bottom: 142px;
+  width: 200px;
+}
+.z3 {
+  z-index: 3;
+}

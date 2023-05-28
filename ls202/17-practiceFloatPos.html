@@ -3,102 +3,7 @@
   <head>
     <title>Positioning</title>
     <meta charset="utf-8">
-    <style>
-      main {
-        font-family: Helvetica, sans-serif;
-        color: #545459;
-        max-width: 1000px;
-        margin: auto;
-        padding: 2rem;
-        border: 1px solid gray;
-      }
-      p {
-        line-height: 2.5rem;
-      }
-      h1, h2, h3 {
-        color: #ce4a4a;
-      }
-      code {
-        font-family: monospace;
-        background-color: lightgray;
-        padding: 3px;
-      }
-      /* Inline Elements section */
-      .dashed_box {
-        border: 2px #555 dashed;
-        padding: 2rem;
-        width: 650px;
-      }
-      .dashed_box a {
-        display: inline;
-        text-decoration: none;
-        color: black;
-      }
-      .w_margin a {
-        margin: 30px;
-      }
-      .w_float::after {
-        clear: both;
-        content: "";
-        display: block;
-      }
-      .w_padding a,
-      .w_float a {
-        padding: 1.9rem;
-        border: 1px black solid;
-        background-color: green;
-        color: white;
-      }
-      .w_float a {
-        float: left;
-        margin: 8px 20px;
-      }
-      /* Block Elements section */
-      .blue {
-        background-color: lightblue;
-        color: white;
-      }
-      .green {
-        background-color: green;
-        color: white;
-        height: 60px;
-        padding: 20px;
-        margin: 20px;
-        box-sizing: border-box;
-      }
-      .tomato {
-        background-color: tomato;
-        width: 90px;
-        color: white;
-      }
-      .pink {
-        background-color: pink;
-        color: white;
-        width: 180px;
-        height: 120px;
-        padding: 20px;
-        margin: 20px;
-        box-sizing: border-box;
-      }
-      .float_container::after {
-        content: "";
-        clear: both;
-        display: block;
-        margin-bottom: 20px;
-      }
-      .float_left {
-        float: left;
-        background-color: dodgerblue;
-        border: 1px solid red;
-        color: white;
-      }
-      .float_right {
-        float: right;
-        background-color: tomato;
-        color: white;
-        border: 1px solid red
-      }
-    </style>
+    <link rel="stylesheet" href="17-practiceFloatPos.css">
   </head>
   <body>
     <main>
@@ -187,10 +92,10 @@
         <h3>Floating block elements with no width or height</h3>
         
         <div class="float_container">
-          <div class="float_left">
+          <div class="float_left_1">
             Box - 1 - Floated Left
           </div>
-          <div class="float_right">
+          <div class="float_right_1">
             Box - 2 - Floated Right
           </div>
         </div>
@@ -199,8 +104,14 @@
         
         <h3>Floating block elements with width and height set.</h3>
         
-        Box - 1 - Floated Left
-        Box - 2 - Floated Right
+        <div class="float_container">
+          <div class="float_left_2">
+            Box - 1 - Floated Left
+          </div>
+          <div class="float_right_2">
+            Box - 2 - Floated Right
+          </div>
+        </div>
         
         <p>When you specify the widths on floated block-level elements, the browser will observe the widths. In the above example, our blocks have widths of 40% and 50%.</p>
         
@@ -208,11 +119,13 @@
         
         <p>Let's use the anchor tag as an example.</p>
         
-          Home
-          About
-          Contact
+        <div class="make_block">
+          <a href="">Home</a>
+          <a href="">Portfolio</a>
+          <a href="">Contact</a>
+        </div>
         
-        <p>Yes, we can change a block element to an inline and vice versa. You can change the display property regardless of the previous value.</p>
+        <p>Yes, we can change a block element to an inline and vice versa. You can change the <code>display</code> property regardless of the previous value.</p>
       </section>
       <section>
         <h1>Inline-Block Elements</h1>
@@ -223,15 +136,17 @@
         
         <p>Let's use <code>inline-block</code> to create a navigation bar:</p>
         
-          Home
-          Portfolio
-          About
-          Contact
+        <div class="nav_bar centre">
+          <a href="">Home</a>
+          <a href="">Portfolio</a>
+          <a href="">About</a>
+          <a href="">Contact</a>
+        </div>
         
         <p>We achieved similar results when we floated the anchor elements. It's as though you get two elements in one: you have the flow properties of inline elements combined with most properties of block elements.</p>
       </section>
       <section>
-        <h1>Floats and Positioning Elements</h1>
+        <h1 class="centre">Floats and Positioning Elements</h1>
         
         <h2>Floats</h2>
         
@@ -239,31 +154,37 @@
         
         <h2>Example</h2>
         
-          Box 1
-          Box-2
-          Box-3
+        <div class="float_container boxes">
+          <div class="float_left_3">Box 1</div>
+          <div class="float_right_3">Box-2</div>
+          <div class="footer">Box-3</div>
+        </div>
         
         <p>Elements that follow a floated element wrap around it. However, we don't want this behavior above, so we applied clear:both` property to the third `div`. There are two other values for `clear`, `left` and `right`, but we typically want `both.</p>
         
-        <p>There are other ways to clear floats. One technique is the clearfix method:</p>
+        <p>There are other ways to clear floats. One technique is the <b>clearfix</b> method:</p>
         
-          elementName::after {
-            content: " ";
-            display:block;
-            clear: both;
-          }
+        <div class="codeblock">
+          <code>elementName::after {</code><!--
+          --><code>&nbsp;&nbsp;content: " ";</code><!--
+          --><code>&nbsp;&nbsp;display:block;</code><!--
+          --><code>&nbsp;&nbsp;clear: both;</code><!--
+          --><code>}</code>
+        </div>
         
-        <p>Here we append the ::after pseudo-element to the parent element's selector.</p>
+        <p>Here we append the <code>::after</code> pseudo-element to the parent element's selector.</p>
       </section>
       <section>
         <h1>Positioning</h1>
         
         <p>We sometimes want to position elements at specific locations on the page. The normal page flow and floats can't do this with the precision we often want. We can use CSS positioning in this case. There are four positioning types:</p>
         
-          Static
-          Fixed
-          Relative
-          Absolute
+        <ul>
+          <li><em>Static</em></li>
+          <li><em>Fixed</em></li>
+          <li><em>Relative</em></li>
+          <li><em>Absolute</em></li>
+        </ul>
         
         <h2>Static Positioning</h2>
         
@@ -271,29 +192,33 @@
         
         <h2>Fixed Positioning</h2>
         
-        <p>Lets you place an element at a fixed position in the browser window; it will remain in place even when you scroll the page. You need the top`, `bottom`, `right`, and `left properties to position the element.</p>
+        <p>Lets you place an element at a fixed position in the browser window; it will remain in place even when you scroll the page. You need the <code>top</code>, <code>bottom</code>, <code>right</code>, and <code>left</code> properties to position the element.</p>
         
         <p>The browser removes elements with fixed positioning from the page flow. It does not leave a gap in the location where the browser would have positioned it otherwise.</p>
         
         <p>The blue box on the bottom-left corner of the page is a fixed position element.</p>
         
-        I use fixed positioning.
+        <div class="last_boxes fixed">I use fixed positioning.</div>
         
         <h2>Relative Positioning</h2>
         
         <p>Relative positioning positions an element at a location relative to its normal position. Unlike fixed positioning, relative positioning does not remove an element from the page flow; in fact, you can observe a gap in the flow indicating the original position.</p>
         
-        I use relative positioning.
+        <div class="last_boxes relative">I use relative positioning.</div>
         
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non cumque repellat sapiente vitae nihil debitis accusamus, odit, tempore id reiciendis consequatur necessitatibus veritatis, distinctio vel, cum repellendus numquam blanditiis perferendis?</p>
         
-        <h2>Absolute Positioning</h2>
+        <h2 class="position_wrapper z3">Absolute Positioning</h2>
         
-        <p>Absolute positioning removes an element from the normal page flow and positions it at an absolute position relative to its parent element. If the parent element is the `<body>`, the position is absolute relative to the complete page.</p>
+        <p>Absolute positioning removes an element from the normal page flow and positions it at an absolute position relative to its parent element. If the parent element is the `&lt;body&gt;`, the position is absolute relative to the complete page.</p>
         
         <p>The green box shows absolute positioning.</p>
         
-        I use absolute positioning.
+        <div class="position_wrapper">
+          <div class="last_boxes absolute">
+            I use absolute positioning.
+          </div>
+        </div>
       </section>
     </main>
   </body>
