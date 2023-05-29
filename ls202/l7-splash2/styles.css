@@ -1,0 +1,151 @@
+@import url("../css-reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+
+body {
+  background: #2f2840 url(./images/bg_body.gif);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 20px;
+  color: #45494d;
+}
+p {
+  line-height: 1.7rem;
+}
+/* header, main sections */
+header,
+main,
+footer {
+  margin: auto;
+  text-align: center;
+  min-width: 500px;
+}
+header {
+  padding-top: 135px;
+}
+nav {
+  font-size: 26px;
+  margin-top: 128px;
+  margin-bottom: 45px;
+}
+nav ul {
+  margin: auto;
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+}
+nav a {
+  text-decoration: none;
+  color: #45494d;
+}
+a.active {
+  font-weight: bold;
+  color: #6db9ff;
+}
+
+/* main elements */
+main {
+  background: white;
+  padding: 123px 102px 0;
+}
+h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 46px;
+  color: #3e59b2;
+}
+
+/* about / founder */
+.about p,
+.founder p {
+  margin: auto;
+  width: 81%;
+  padding: 18px 0;
+}
+.founder h2 {
+  margin-top: 58px;
+  margin-bottom: 36px;
+}
+.founder p {
+  padding-bottom: 85px;
+}
+
+
+/* projects */
+.proj p {
+  margin: auto;
+  width: 79%;
+  padding-top: 19px;
+  padding-bottom: 37px;
+}
+section.proj {
+  padding-top: 12rem;
+}
+section.proj:first-of-type {
+  padding-top: 38px;
+}
+section.proj:last-of-type {
+  padding-bottom: 54px;
+}
+
+
+/* team */
+.team p {
+  margin-top: 49px;
+}
+.team ul {
+  width: 739px;
+  margin: auto;
+  padding: 132px 0 215px;
+  display: flex;
+  justify-content: space-between;
+}
+.team a {
+  font-size: 24px;
+  text-decoration: none;
+  color: #3e59b2;
+}
+.team dd {
+  margin-top: 32px;
+}
+
+
+/* footer */
+footer {
+  height: 301px;
+  background: #e7e7e7;
+  padding-top: 87px;
+  padding-bottom: 77px;
+}
+footer p {
+  color: #b2b2b2;
+  margin-bottom: 10px;
+}
+footer ul {
+  margin: 32px auto 0;
+  width: 555px;
+  display: flex;
+  justify-content: space-between;
+}
+footer li a {
+  background: transparent url("./images/icons_social-media.png") 0 0 no-repeat;
+  height: 46px;
+  width: 46px;
+  overflow: hidden;
+  text-indent: -8685px;
+  display: block;
+}
+footer .twitter {
+  background-position: 0 0;
+}
+footer .facebook {
+  background-position: 0 -46px;
+}
+footer .email {
+  background-position: 0 -92px;
+}
+footer .ig {
+  background-position: 0 -138px;
+}
