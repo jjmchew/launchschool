@@ -1,0 +1,152 @@
+@import url("../css-reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+html {
+  font-family: "Open Sans", Arial, sans-serif;
+  text-align: center;
+  color: #444;
+}
+
+/* nav */
+nav {
+  width: 100%;
+  height: auto;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 100;
+}
+nav ul {
+  border-top: #f5f5f5 9px solid;
+  margin: auto;
+}
+
+nav li {
+  display: inline-block;
+  padding: 15px 25px;
+}
+nav a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #444;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* header */
+header > div {
+  max-width: 1560px;
+  height: 427px;
+  background: gray;
+  margin: auto;
+}
+header h1{
+  padding-top: 257px;
+  padding-bottom: 18px;
+  font-size: 72px;
+  color: white;
+}
+header h2{
+  color: white;
+  font-size: 31px;
+  text-transform: uppercase;
+}
+
+/* main */
+button {
+  background: #008000;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+}
+article {
+  margin: auto;
+  padding-top: 10px;
+  max-width: 1010px;
+  border-bottom: 1px solid #efefef;
+}
+main h1 {
+  font-weight: 300;
+  font-size: 48px;
+  margin: 1.236em 0 .618em;
+}
+main h2 {
+  margin: 30px 0 4px;
+  font-weight: bold;
+  font-size: 24px;
+  color: #008000;
+}
+main p {
+  font-size: 16px;
+  line-height: 38px;
+  margin: 0 auto 17px;
+  font-weight: 300;
+}
+
+/* tickets / speakers */
+.tickets {
+  padding-bottom: 68px;
+}
+.speakers p {
+  line-height: 20px;
+}
+.speakers h2 {
+  margin-bottom: 10px;
+}
+.speakers ul {
+  width: 100%;
+  margin: 8px auto 60px;
+  max-width: 870px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.speakers li {
+  display: inline-block;
+  width: 280px;
+  height: 370px;
+  border: 1px solid #efefef;
+  position: relative;
+  color: #444;
+  font-weight: 300;
+  font-size: 12px;
+  margin: 5px;
+}
+.speakers li img {
+  display: block;
+  width: 280px;
+  height: 230px;
+  background: gray;
+  text-align: center;
+}
+.speakers li div.hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+.speakers li div.hover-text:hover { opacity: 1; }
+
+/* schedule */
+.schedule table {
+  margin: auto;
+  max-width: 950px;
+  width: 80%;
+}
+
+/* media queries */
+
+@media (max-width: 630px) {
+  nav {
+    display: none;
+  }
+}
