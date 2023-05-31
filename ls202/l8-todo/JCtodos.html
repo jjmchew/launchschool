@@ -3,63 +3,124 @@
   <head>
     <title>Todo List</title>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <link rel="stylesheet" href="JCtodos.css">
   </head>
   <body>
-    <nav>
-      <details open>
-        <summary>
-          <table>
-            <tbody>
-              <tr>
-                <td class="alltodos"><img src="all-todos.png" alt="list icon">All Todos</td>
-                <td class="num"><div class="circle-num">18</div></td>
-              </tr>
-            </tbody>
-          </table>
-        </summary>
-          <table>
-            <tbody>
-              <tr class="hl">
-                <td class="date">02/16</td>
-                <td class="num"><div class="circle-num hl-circle">8</div></td>
-              </tr>
-              <tr>
-                <td class="date">03/16</td>
-                <td class="num"><div class="circle-num">2</div></td>
-              </tr>
-              <tr>
-                <td class="date">04/16</td>
-                <td class="num"><div class="circle-num">1</div></td>
-              </tr>
-              <tr>
-                <td class="date">05/16</td>
-                <td class="num"><div class="circle-num">1</div></td>
-              </tr>
-              <tr>
-                <td class="date">06/16</td>
-                <td class="num"><div class="circle-num">6</div></td>
-              </tr>
-            </tbody>
-          </table>
-      </details>
-      <details class="completedtodos" open>
-        <summary><img src="ticked-box.png" alt="checked box icon">Completed</summary>
-        <dl>
-          <dt class="strike">02/15</dt>
-          <dt class="strike">03/15</dt>
-          <dt class="strike">04/15</dt>
-          <dt class="strike">05/15</dt>
-          <dt class="strike">06/14</dt>
-        </dl>
-      </details>
-    </nav>
     <main>
-
+      <input type="checkbox" id="menu-toggle">
+      <nav>
+        <details open>
+          <summary>
+            <table>
+              <tbody>
+                <tr>
+                  <td class="alltodos"><img src="all-todos.png" alt="list icon">All Todos</td>
+                  <td class="num"><div class="circle-num">18</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </summary>
+            <table>
+              <tbody>
+                <tr class="hl">
+                  <td class="date"><a href="">02/16</a></td>
+                  <td class="num"><div class="circle-num hl-circle">8</div></td>
+                </tr>
+                <tr>
+                  <td class="date"><a href="">03/16</a></td>
+                  <td class="num"><div class="circle-num">2</div></td>
+                </tr>
+                <tr>
+                  <td class="date"><a href="">04/16</a></td>
+                  <td class="num"><div class="circle-num">1</div></td>
+                </tr>
+                <tr>
+                  <td class="date"><a href="">05/16</a></td>
+                  <td class="num"><div class="circle-num">1</div></td>
+                </tr>
+                <tr>
+                  <td class="date"><a href="">06/16</a></td>
+                  <td class="num"><div class="circle-num">6</div></td>
+                </tr>
+              </tbody>
+            </table>
+        </details>
+        <details class="completedtodos" open>
+          <summary><img src="ticked-box.png" alt="checked box icon">Completed</summary>
+          <dl>
+            <dt class="strike"><a href="">02/15</a></dt>
+            <dt class="strike"><a href="">03/15</a></dt>
+            <dt class="strike"><a href="">04/15</a></dt>
+            <dt class="strike"><a href="">05/15</a></dt>
+            <dt class="strike"><a href="">06/14</a></dt>
+            <dd></dd>
+          </dl>
+        </details>
+      </nav>
+      <section class="todolist">
+        <label for="menu-toggle" class="shownav">
+          <img src="hamburger.png" alt="menu">
+        </label>
+        <h1>02/16 <span class="ml15 circle-num hl-circle">8</span></h1>
+        <h2><a href=""><img src="plus.png" alt="plus icon"><span class="ml15 hlblue">Add new to do</span></a></h2>
+        <dl>
+          <dt><label for="modal-toggle"><img class="mr15" src="unticked-box.png" alt="box icon">Item 1 Click Me</label></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 2</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt class="strike"><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 3</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt class="strike"><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 4</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt class="strike"><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 5</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 6</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 7</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 8</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+        <dl>
+          <dt><a href=""><img class="mr15" src="unticked-box.png" alt="box icon">Item 9</a></dt>
+          <dd><a href=""><img src="trash.png" alt="trash icon"></a></dd>
+        </dl>
+      </section>
+      <input type="checkbox" id="modal-toggle">
+      <aside>
+        <div class="modal">
+          <label for="modal-toggle" class="close_icon"><img src="icon_close.png" alt="close icon"></label>
+          <form action="#" method="post">
+            <dl>
+              <dt><label for="title">Title</label></dt>
+              <dd><input type="text" id="title" name="title" required></dd>
+              <dt><label for="date_day">Due Date</label></dt>
+              <dd class="date_input">
+                <input type="number" id="date_day" name="date_day" min=1 max=31 placeholder="Day" required> / 
+                <input type="number" name="date_mon" min=1 max=12 placeholder="Month" required> / 
+                <input type="number" name="date_yr" min=1000 max=9999 placeholder="Year" required>
+              </dd>
+              <dt><label for="desc">Description</label></dt>
+              <dd><textarea id="desc" name="desc" rows="5" cols="30" placeholder="Description"></textarea></dd>
+            </dl>
+            <input class="button" type="submit" value="Save"><button class="button">Mark as Complete</button>
+          </form>
+        </div>
+      </aside>
     </main>
-    <aside>
-
-    </aside>
   </body>
 </html>

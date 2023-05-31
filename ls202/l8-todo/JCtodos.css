@@ -1,32 +1,40 @@
 @import url("../css-reset.css");
 
+:root {
+  --col-blue: #148fd5;
+  --col-gray-back: #6b7292;
+  --col-nav-gray: #b2b5c3;
+  --col-text-black: #060606;
+}
 html {
   font-family: Helvetica, sans-serif;
   font-size: 16px;
+  color: var(--col-text-black);
 }
-
+body {
+  min-width: 637px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: inherit;
+}
 .strike {
   text-decoration: line-through;
-  opacity: 0.5;
-}
-
-/* nav */
-nav {
-  width: 335px;
-  height: 100vh;
-  background: #464f77;
-  color: white;
-  padding: 77px 0 0 0;
+  color: var(--col-nav-gray);
+  /* opacity: 0.5; */
 }
 .circle-num {
   display: inline-block;
   text-align: right;
   font-size: 15px;
   line-height: 18px;
-  border-radius: 9px;
-  background: #6b7292;
-  color: #c4c7d3;
+  border-radius: 10px;
+  background: var(--col-gray-back);
+  color: var(--col-nav-gray);
   padding: 0;
+  position: relative;
+  top: -2px;
 }
 .circle-num:before {
   padding-left: 6px;
@@ -37,9 +45,51 @@ nav {
   content: "";
 }
 .hl-circle {
-  background: #148fd5;
+  background: var(--col-blue);
   color: white;
 }
+.hlblue {
+  color: var(--col-blue);
+}
+.ml15 {
+  margin-left: 15px;
+}
+.mr15 {
+  margin-right: 15px;
+}
+
+/* nav */
+nav {
+  position: relative;
+  width: 335px;
+  height: 100vh;
+  background: #464f77;
+  color: white;
+  padding: 60px 0 0 0;
+  float: left;
+  z-index: 3;
+  margin-right: 35px;
+  /* display: none; */
+}
+
+/* shownav (hamburger icon) */
+.shownav {
+  position: absolute;
+  top: 23px;
+  /* margin: 23px 0 0 0; */
+  cursor: pointer;
+}
+.shownav img {
+  width: 24px;
+  height: 18px;
+}
+#menu-toggle {
+  display: none;
+}
+#menu-toggle:checked + nav {
+  display: block;
+}
+
 nav td {
   opacity: 0.5;
   padding: 14px 31px 14px 0;
@@ -77,7 +127,7 @@ nav img {
   cursor: default;
 }
 .completedtodos {
-  margin: 73px 0 0 102px;
+  margin: 60px 0 0 102px;
 }
 .completedtodos dt {
   padding: 14px 0;
@@ -90,3 +140,157 @@ nav img {
   margin-bottom: 6px;
 }
 
+/* main */
+.todolist {
+  padding: 38px 100px 0 35px;
+}
+.todolist h1 {
+  margin-top: 35px;
+  font-size: 21px;
+  vertical-align: middle;
+}
+.todolist h2 {
+  margin-top: 44px;
+  font-size: 16px;
+}
+.todolist dl {
+  display: flex;
+  justify-content: space-between
+}
+.todolist dl:first-of-type {
+  margin-top: 20px;
+}
+.todolist dl{
+  border-top: 1px solid #e7e7e7;
+  line-height: 51px;
+}
+.todolist dl dd {
+  cursor: default;
+}
+.todolist dt:hover {
+  color: var(--col-blue);
+  cursor: pointer;
+}
+
+/* modal */
+#modal-toggle {
+  display: none;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background: white;
+  width: 576px;
+  height: 400px;
+
+  z-index: 5;
+  display: none;
+
+  padding: 35px 40px 0 30px;
+  box-sizing: border-box;
+}
+.close_icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.close_icon img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+aside::before {       /* backdrop */
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+}
+#modal-toggle:checked + aside .modal {
+  display: block;
+}
+#modal-toggle:checked + aside:before {
+  display: inline;
+}
+.modal form {
+  margin-top: 9px;
+}
+.modal dl {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 25px;
+}
+.modal dt {
+  width: 112px;
+  line-height: 35px;
+}
+.modal dd {
+  width: 394px;
+}
+.modal dl input {
+  height: 35px;
+  border: 1px solid #b3b3b3;
+  padding: 13px;
+}
+.modal textarea {
+  width:100%;
+  height: 145px;
+  border: 1px solid #b3b3b3;
+  padding: 7px;
+  font-family: inherit;
+}
+.modal input[type="text"] {
+  width: 100%;
+}
+.modal input[type="number"] {
+  width: 116px;
+}
+.date_input {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.button {
+  border: none;
+  border-radius: 5px;
+  margin: 24px 0 0 0;
+  line-height: 34px;
+  width: 185px;
+  height: 34px;
+  background: var(--col-blue);
+  color: white;
+  cursor: pointer;
+}
+input.button {
+  margin: 0 20px 0 112px;
+
+}
+
+
+@media (max-width: 768px) {
+  .shownav {
+    display: inline;
+  }
+  nav {
+    display: none;
+  }
+  .modal {
+    right: 50%;
+    top: 50%;
+    transform: translate(-60%, -50%);
+  }
+}
+@media (min-width: 769px) {
+  .shownav {
+    display: none;
+  }
+  nav {
+    display: block;
+  }
+}

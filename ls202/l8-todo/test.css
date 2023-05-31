@@ -1,0 +1,143 @@
+@import url("css-reset.css");
+
+main {
+  padding: 0;
+  margin: 0;
+}
+.menu-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: #888;
+}
+#menu-toggle {
+  display: none;
+}
+nav {
+  display: none;
+
+  float: left;
+  width: 303px;
+  height: 100%;
+  background: #464f77;
+  padding: 30px;
+  margin-right: 35px;
+}
+#menu-toggle:checked + nav {
+  display: block;
+}
+
+main section {
+  box-sizing: border-box;
+  padding: 25px 50px 0 35px;
+  background: #e7e7e7;
+}
+
+main section dl {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* showmodal */
+.showmodal {
+  cursor: pointer;
+}
+.showmodal:hover {
+  background: blue;
+  color: white;
+}
+#modal-toggle {
+  display: none;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background: white;
+  width: 576px;
+  height: 400px;
+  border: 1px solid #777;
+  box-shadow: 5px 5px 5px #666;
+
+  display: none;
+}
+.showmodal {
+  display: block;
+
+}
+.modal p {
+  margin: auto;
+}
+aside::before {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+}
+#modal-toggle:checked + aside .modal {
+  display: block;
+}
+#modal-toggle:checked + aside::before {
+  display: inline;
+}
+
+/* inputs */
+input {
+  display: block;
+  margin: 5px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  transform: rotate(90deg);
+  height: 80px;
+  opacity: 0;
+}
+
+.quantity-wrapper {
+  position: relative;
+}
+
+.quantity-wrapper:after {
+  content: "+";
+  position: absolute;
+  right: 5px;
+  height: 100%;
+  top: 8px;
+  pointer-events: none;
+}
+
+.quantity-wrapper:before {
+  content: "-";
+  position: absolute;
+  left: 5px;
+  height: 100%;
+  top: 8px;
+}
+
+
+
+
+
+
+
+/* media queries */
+@media (min-width: 769px) {
+  .shownav {
+    display: none;
+  }
+  .nav {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .shownav {
+    display: inline;
+  }
+}
