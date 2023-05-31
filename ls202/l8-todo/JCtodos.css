@@ -1,0 +1,92 @@
+@import url("../css-reset.css");
+
+html {
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.strike {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* nav */
+nav {
+  width: 335px;
+  height: 100vh;
+  background: #464f77;
+  color: white;
+  padding: 77px 0 0 0;
+}
+.circle-num {
+  display: inline-block;
+  text-align: right;
+  font-size: 15px;
+  line-height: 18px;
+  border-radius: 9px;
+  background: #6b7292;
+  color: #c4c7d3;
+  padding: 0;
+}
+.circle-num:before {
+  padding-left: 6px;
+  content: "";
+}
+.circle-num:after {
+  padding-left: 6px;
+  content: "";
+}
+.hl-circle {
+  background: #148fd5;
+  color: white;
+}
+nav td {
+  opacity: 0.5;
+  padding: 14px 31px 14px 0;
+}
+.hl td {
+  background: #383f5f;
+  color: white;
+  width: 100%;
+  opacity: 1;
+}
+
+nav details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+nav img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  vertical-align: middle;
+  opacity: 1;
+}
+.alltodos {
+  width: 100%;
+  padding-left: 102px;
+  opacity: 1;
+}
+.date {
+  padding-left: 140px;
+  cursor: default;
+}
+.num {
+  text-align: right;
+  cursor: default;
+}
+.completedtodos {
+  margin: 73px 0 0 102px;
+}
+.completedtodos dt {
+  padding: 14px 0;
+  margin: 0;
+  margin: 0 35px;
+  font-size: 16px;
+  cursor: default;
+}
+.completedtodos summary {
+  margin-bottom: 6px;
+}
+

@@ -6,7 +6,13 @@ html {
   text-align: center;
   color: #444;
 }
-
+img {
+  display: block;
+  background: #999;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+}
 /* nav */
 nav {
   width: 100%;
@@ -16,6 +22,7 @@ nav {
   left: 0;
   background: white;
   z-index: 100;
+  border-bottom: 1px solid #efefef;
 }
 nav ul {
   border-top: #f5f5f5 9px solid;
@@ -61,17 +68,22 @@ button {
   color: white;
   border: none;
   padding: 10px 30px;
+  cursor: pointer;
+}
+button:hover {
+  background: #006100;
 }
 article {
   margin: auto;
   padding-top: 10px;
   max-width: 1010px;
+  padding-bottom: 60px;
   border-bottom: 1px solid #efefef;
 }
 main h1 {
   font-weight: 300;
   font-size: 48px;
-  margin: 1.236em 0 .618em;
+  margin: 1.236em 0 .7em;
 }
 main h2 {
   margin: 30px 0 4px;
@@ -82,7 +94,7 @@ main h2 {
 main p {
   font-size: 16px;
   line-height: 38px;
-  margin: 0 auto 17px;
+  margin: 0 auto 5px;
   font-weight: 300;
 }
 
@@ -90,15 +102,18 @@ main p {
 .tickets {
   padding-bottom: 68px;
 }
+.speakers {
+  padding-bottom: 0;
+}
 .speakers p {
-  line-height: 20px;
+  line-height: 25px;
 }
 .speakers h2 {
   margin-bottom: 10px;
 }
 .speakers ul {
   width: 100%;
-  margin: 8px auto 60px;
+  margin: 10px auto 60px;
   max-width: 870px;
   display: flex;
   flex-wrap: wrap;
@@ -107,20 +122,18 @@ main p {
 .speakers li {
   display: inline-block;
   width: 280px;
-  height: 370px;
+  height: 380px;
   border: 1px solid #efefef;
   position: relative;
   color: #444;
   font-weight: 300;
   font-size: 12px;
   margin: 5px;
+  overflow: hidden;
 }
 .speakers li img {
-  display: block;
   width: 280px;
   height: 230px;
-  background: gray;
-  text-align: center;
 }
 .speakers li div.hover-text {
   position: absolute;
@@ -130,23 +143,103 @@ main p {
   background: rgba(0, 0, 0, 0.9);
   width: 100%;
   height: 100%;
+  border: none;
   text-align: center;
   padding: 10px;
   color: white;
+  transition: all 0.5s;
 }
 .speakers li div.hover-text:hover { opacity: 1; }
 
 /* schedule */
+.schedule img {
+  width: 125px;
+  height: 104px;
+}
+.schedule em {
+  display: inline-block;
+  color: #008000;
+  font-weight: bold;
+  font-size: 18px;
+}
 .schedule table {
   margin: auto;
-  max-width: 950px;
-  width: 80%;
+  max-width: 960px;
+  width: 960px;;
+}
+.schedule tr {
+  position: relative;
+}
+.schedule td {
+  font-size: 24px;
+  line-height: 36px;
+  text-align: left;
+  vertical-align: middle;
+  padding: 10px;
+  border-top: 1px solid #efefef;
 }
 
-/* media queries */
+/* other sections (filler) */
+.location p,
+.callforpapers p,
+.sponsors p {
+  /* line-height: 2rem; */
+  width: 90%;
+  text-align: left;
+}
+.location img {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 35px;
+}
+.location,
+.callforpapers,
+.sponsors {
+  padding-bottom: 80px;
+}
+.sponsors div {
+  height: 2000px;
+}
 
+
+/* media queries */
+@media (max-width: 1026px) {
+  .schedule table {
+    width: 93%;
+  }
+}
 @media (max-width: 630px) {
   nav {
     display: none;
+  }
+  /* .schedule .sch_pic {
+    position: relative;
+  } */
+  .schedule img {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 80px;
+    height: 64px;
+  }
+  .schedule td {
+    display: block;
+    border: none;
+    line-height: 35px;
+    padding: 10px;
+  }
+  .schedule .sch_time {
+    padding: 20px;
+    text-align: right;
+    line-height: 35px;
+  }
+  .schedule tr {
+    border-top: 1px solid #efefef;
+  }
+  .schedule tr:last-of-type {
+    border-bottom: 1px solid #efefef;
+  }
+  .schedule .sch_pic {
+    padding: 0;
   }
 }
