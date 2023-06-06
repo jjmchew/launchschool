@@ -1,0 +1,14 @@
+<ul id="lists">
+  <% @lists.each_with_index do |list, idx| %>
+    <li class="<%= list_class(list[:todos]) %>">
+      <a href="/lists/<%= idx %>">
+        <h2><%= list[:name] %></h2>
+        <p><%= get_todo_status(list[:todos])[:detail] %></p>
+      </a>
+    </li>  
+  <% end %>
+</ul>
+
+<% content_for :header_links do %>
+  <a class="add" href="/lists/new">New List</a>
+<% end %>
