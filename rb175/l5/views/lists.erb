@@ -1,7 +1,7 @@
 <ul id="lists">
-  <% @lists.each_with_index do |list, idx| %>
-    <li class="<%= list_class(list[:todos]) %>">
-      <a href="/lists/<%= idx %>">
+  <% sort_lists(@lists) do |list, _ | %>
+    <li class="<%= list_class(list) %>">
+      <a href="/lists/<%= list[:id] %>">
         <h2><%= list[:name] %></h2>
         <p><%= get_todo_status(list[:todos])[:detail] %></p>
       </a>
