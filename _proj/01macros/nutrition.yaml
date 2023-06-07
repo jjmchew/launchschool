@@ -1,0 +1,14 @@
+---
+:broccoli:
+  :serving:
+    - unit: g
+    - amt: 100
+  :totalfat:
+    - unit: g
+    - amt: 0.4
+  :protein:
+    - unit: g
+    - amt: 2.8
+  :totalcarb:
+    - unit: g
+    - amt: 7
