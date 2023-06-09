@@ -145,6 +145,7 @@ food_facts = parse_mass(create_objs(CSV.read('nutrition.csv')))
 
 # import eating log
 log = parse_mass(create_objs(CSV.read('log.csv')))
+# log = parse_mass(create_objs(CSV.read('recipes.csv')))
 # pp log
 
 # summarize by day and food, define csv output table
@@ -158,3 +159,4 @@ data = calculate_data(data, to_calc, food_facts)
 
 # write output csv
 write_csv(make_array(prep_output(data), output), 'summary2.csv')
+# write_csv(make_array(prep_output(data), output), 'recipe-summary.csv')

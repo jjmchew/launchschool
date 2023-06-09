@@ -6,9 +6,9 @@
 
     <title><%= @title %></title>
 
-    <link rel="stylesheet" href="/stylesheets/pure-min.css">
-    <link rel="stylesheet" href="/stylesheets/fonts.css">
-    <link rel="stylesheet" href="/stylesheets/book_viewer.css">
+    <link type="text/css" rel="stylesheet" href="<%= B %>/stylesheets/pure-min.css">
+    <link type="text/css" rel="stylesheet" href="<%= B %>/stylesheets/fonts.css">
+    <link type="text/css" rel="stylesheet" href="<%= B %>/stylesheets/book_viewer.css">
 </head>
 
 <body>
@@ -24,11 +24,11 @@
               <ul class="pure-menu-list">
                 <li class="pure-menu-item">
                   <% @toc.each_with_index do |title, idx| %>
-                    <a href="/chapters/<%= idx + 1 %>" class="pure-menu-link"><%= title %></a>
+                    <a href="<%= B %>/chapters/<%= idx + 1 %>" class="pure-menu-link"><%= title %></a>
                   <% end %>
                 </li>
                 <li class="pure-menu-item">
-                  <a href="/search" class="pure-menu-link">Search</a>
+                  <a href="<%= B %>/search" class="pure-menu-link">Search</a>
                 </li>
               </ul>
           </div>
@@ -46,6 +46,6 @@
       </div>
   </div>
 
-  <script type="text/javascript" src="/javascripts/ui.js"></script>
+  <script type="text/javascript" src="<%= B %>/javascripts/ui.js"></script>
 </body>
 </html>

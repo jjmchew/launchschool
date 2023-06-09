@@ -2,6 +2,9 @@ require "tilt/erubis"
 require "sinatra"
 require "sinatra/reloader"
 
+MODE = 'DEV'
+B = MODE == 'DEV' ? '' : '/sherlock'
+
 before do
   @toc = File.readlines "data/toc.txt"
 end
@@ -64,7 +67,3 @@ not_found do
   redirect "/"
 end
 
-get "/:name" do
-  @title = params['name']
-  erb :fun
-end

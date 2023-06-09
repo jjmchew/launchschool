@@ -1,0 +1,29 @@
+html{
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.flash {
+  background: lemonchiffon;
+  padding: 1rem;
+  margin: 2rem 0;
+  color: black;
+}
+
+ul {
+  color: black;
+  list-style-type: disc;
+  line-height: 1.3rem;
+  margin: 0 0 2rem 1rem;
+}
+
+.edit_page label,
+.edit_page textarea {
+  display: block;
+}

@@ -4,7 +4,7 @@
   <ul class="pure-menu-list">
       <li class="pure-menu-item">
         <% @toc.each_with_index do |title, idx| %>
-          <a href="/chapters/<%= idx + 1 %>" class="pure-menu-link"><%= title %></a>
+          <a href="<%= B %>/chapters/<%= idx + 1 %>" class="pure-menu-link"><%= title %></a>
         <% end %>
       </li>
     
