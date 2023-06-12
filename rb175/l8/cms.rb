@@ -55,7 +55,6 @@ module Helpers
 end
 include Helpers
 
-
 # index page (list of files)
 get '/' do
   erb :home
@@ -83,6 +82,14 @@ get '/:file/edit' do
   erb :edit
 end
 
+# delete a file
+post '/:file/delete' do
+  # "delete a file #{params[:file]}"
+  File.delete(get_filepath(params[:file]))
+  session[:message] = "'#{params[:file]}' was deleted."
+  redirect '/'
+end
+
 # create a new file [note position of route before update]
 post '/create' do
   if filename_valid?(params[:filename])
@@ -104,12 +111,38 @@ post '/:file' do
   redirect '/'
 end
 
+# display sign-in page
+get '/users/signin' do
+  erb :signin
+end
+
+post '/users/signin' do
+  if params[:username] == 'admin' && params[:pw] == 'secret'
+    session[:username] = params[:username]
+    session[:message] = 'Welcome!'
+    status 200
+    redirect '/'
+  else
+    status 422
+    session[:message] = 'Invalid credentials'
+    erb :signin
+  end
+end
+
+post '/users/signout' do
+  session.delete(:username)
+  session[:message] = 'You have been signed out.'
+  redirect '/'
+end
+
 =begin
 
-- add delete link to index page for each item
-- create delete route
-- figure out how to delete files - delete them
-- create the right message, redirect
-- create the test scripts
+X - add hash to 'session' to track sign_in status
+X - create sign-in page (template: signin.erb)
+X - create route: get users/signin
+X - create route : post users/signin
+X - create route : post users/signout
+X - update home.erb - display signin or signout link at bottom
+- create test scripts
 
 =end
