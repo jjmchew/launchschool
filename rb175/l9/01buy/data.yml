@@ -1,0 +1,17 @@
+---
+- !ruby/object:Item
+  name: pasta sauce
+  inventory:
+  - :date: 2023-03-12
+    :qty: 1
+  - :date: 2024-05-12
+    :qty: 1
+  - :date: 2025-11-17
+    :qty: 1
+- !ruby/object:Item
+  name: bagels
+  inventory:
+  - :date: 2023-06-01
+    :qty: 6
+  - :date: 2023-12-23
+    :qty: 6

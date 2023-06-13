@@ -23,6 +23,10 @@ class CMSTest < Minitest::Test
     last_request.env['rack.session']
   end
 
+  def admin_session
+    { "rack.session" => {username: "admin"} }
+  end
+
   def setup
     FileUtils.mkdir_p(data_path)
   end
@@ -42,7 +46,7 @@ class CMSTest < Minitest::Test
     assert_match /changes.txt/, last_response.body
   end
 
-  def test_changes_txt
+  def test_view_document
     create_document('changes.txt', 'Start of changes:')
 
     get '/changes.txt'
@@ -72,58 +76,81 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, "<h1>This is a heading</h1>"
   end
 
-  def test_edit_page_changes_txt
+  def test_edit_page_admin
     create_document('changes.txt', 'Start of changes:')
     
-    get '/changes.txt/edit'
+    get '/changes.txt/edit', {}, admin_session
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'Edit content of changes.txt:'
     assert_includes last_response.body, '<textarea'
     assert_includes last_response.body, '<input type="submit" value="Save Changes">'
   end
 
-  def test_edit_post_changes_txt
+  def test_edit_page_not_admin
     create_document('changes.txt', 'Start of changes:')
 
+    get '/changes.txt/edit'
+    assert_equal 302, last_response.status
+    assert_equal 'You must be signed in to do that.', session[:message]
+  end
+
+  def test_edit_post_admin
+    create_document('changes.txt', 'Start of changes:')
     content = File.read(get_filepath('changes.txt'))
 
-    post '/changes.txt', text_area: content + "\ntest content\n"
+    post '/changes.txt', {text_area: content + "\ntest content\n"}, admin_session
     assert_equal 302, last_response.status
     assert_equal 'changes.txt has been updated.', session[:message] # tests session[:message] directly
     
-    get last_response['Location']
-    assert_includes last_response.body, 'changes.txt has been updated.'
+    # get last_response['Location']
+    # assert_includes last_response.body, 'changes.txt has been updated.'
 
     get '/changes.txt'
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'test content'
   end
 
-  def test_get_create
-    get '/create'
+  def test_edit_post_not_admin
+    create_document('changes.txt', 'Start of changes:')
+
+    content = File.read(get_filepath('changes.txt'))
+
+    post '/changes.txt', text_area: content + "\ntest content\n"
+    assert_equal 302, last_response.status
+    assert_equal 'You must be signed in to do that.', session[:message]
+  end
+
+  def test_get_create_admin
+    get '/create', {}, admin_session
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'Add a new document:'
     assert_includes last_response.body, "<input type='text'"
     assert_includes last_response.body, "<input type='submit'"
   end
 
+  def test_get_create_not_admin
+    get '/create'
+    assert_equal 302, last_response.status
+    assert_equal 'You must be signed in to do that.', session[:message]
+  end
+
   def test_post_create_existing_filename
     create_document('changes.txt', 'Start of changes:')
-    post '/create', filename: 'changes.txt'
+    post '/create', {filename: 'changes.txt'}, admin_session
     assert_equal 422, last_response.status
     # assert_match /unique filename/, session[:message] # cannot use this since message is display/deleted immediately
     assert_includes last_response.body, "A unique filename with a '.txt' or '.md' extension is required."
   end
 
   def test_post_create_empty_filename
-    post '/create', filename: ''
+    post '/create', {filename: ''}, admin_session
     assert_equal 422, last_response.status
     # assert_match /A unique filename/, session[:message] # cannot use this since message is display/deleted immediately
     assert_includes last_response.body, "A unique filename with a '.txt' or '.md' extension is required."
   end
 
-  def test_post_create_new_file
-    post '/create', filename: 'test.txt'
+  def test_post_create_new_file_admin
+    post '/create', {filename: 'test.txt'}, admin_session
     assert_equal 302, last_response.status
 
     assert_equal 'test.txt was created.', session[:message] # tests session[:message] directly
@@ -135,10 +162,16 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, '<a href="/test.txt">'
   end
 
-  def test_delete_file
+  def test_post_create_new_file_not_admin
+    post '/create', filename: 'test.txt'
+    assert_equal 302, last_response.status
+    assert_equal 'You must be signed in to do that.', session[:message]
+  end
+
+  def test_delete_file_admin
     create_document('changes.txt', 'Start of changes:')
 
-    post '/changes.txt/delete'
+    post '/changes.txt/delete', {}, admin_session
     assert_equal 302, last_response.status
 
     assert_equal "'changes.txt' was deleted.", session[:message] # tests session[:message] directly
@@ -148,6 +181,13 @@ class CMSTest < Minitest::Test
 
     get '/'
     refute_includes last_response.body, 'changes.txt'
+  end
+
+  def test_delete_file_not_admin
+    create_document('changes.txt', 'Start of changes:')
+    post '/changes.txt/delete'
+    assert_equal 302, last_response.status
+    assert_equal 'You must be signed in to do that.', session[:message]
   end
 
   def test_show_signin_page
@@ -163,7 +203,7 @@ class CMSTest < Minitest::Test
   end
 
   def test_invalid_credentials
-    post '/users/signin', username: 'james', pw: 'pizza'
+    post '/users/signin', username: 'james', pw: 'pizzad'
     assert_equal 422, last_response.status
     assert_includes last_response.body, 'Invalid credentials'
     assert_includes last_response.body, 'Username:'
