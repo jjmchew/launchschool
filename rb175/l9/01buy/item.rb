@@ -1,7 +1,7 @@
 require 'date'
 
 class Item
-  attr_reader :name
+  attr_reader :name, :id
 
   def initialize(name, *objs)
     @name = name
@@ -9,15 +9,20 @@ class Item
     # where an obj is { date: Date.new, qty: # } (qty is optional, assign_obj assigns 1 if not given)
   end
 
+  # iterates through inventory to total remaining qty
   def total
-    # iterates through inventory to total remaining qty
     total = 0
     each { |obj| total += obj[:qty] }
     total
   end
 
+  # returns a string of remaining expiries
+  def to_s
+    list.join(', ')
+  end
+
+  # returns an array of remaining date / qty
   def list
-    # returns a string of remaining expiries
     out = []
     each do |obj| 
       if obj[:qty] > 1
@@ -26,15 +31,24 @@ class Item
         out << "#{obj[:date]}"
       end
     end
-    out.join(', ')
+    out
   end
 
+   # helper method to iterate through inventory array, returns inventory
+   def each(&block)
+    @inventory.each do |obj|
+      block.call(obj) if block_given?
+    end
+    @inventory
+  end
+
+  # add an obj to inventory, then sort
   def add(obj)
-    # add an obj to inventory, then sort
     assign_obj(obj)
     sort_inventory
   end
 
+  # reduce the inventory as items are used
   def use(qty=1)
     raise ArgumentError, "tried to use more than available" if qty > total
     remaining = qty
@@ -50,6 +64,11 @@ class Item
 
       break if remaining == 0 || @inventory.empty?
     end
+  end
+
+  # allow an id num to be set
+  def set_id(num)
+    @id = num
   end
 
   private
@@ -72,12 +91,5 @@ class Item
   def sort_inventory
     # sort inventory by expiry date
     @inventory = @inventory.sort_by { |hash| hash[:date] }
-  end
-
-  def each(&block)
-    # helper method to iterate through inventory array, returns each obj
-    @inventory.each do |obj|
-      block.call(obj) if block_given?
-    end
   end
 end

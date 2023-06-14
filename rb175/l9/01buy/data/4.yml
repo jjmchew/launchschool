@@ -1,0 +1,22 @@
+--- !ruby/object:Inventory
+name: home
+inventory:
+- !ruby/object:Item
+  name: pasta sauce
+  id: 0
+  inventory:
+  - :date: 2023-06-13
+    :qty: 1
+- !ruby/object:Item
+  name: peaches
+  id: 1
+  inventory:
+  - :date: 2023-06-13
+    :qty: 23
+- !ruby/object:Item
+  name: coke
+  id: 2
+  inventory:
+  - :date: 2023-06-13
+    :qty: 6
+id: 4
