@@ -26,7 +26,7 @@ class Item
     out = []
     each do |obj| 
       if obj[:qty] > 1
-        out << "#{obj[:date]} x#{obj[:qty]}"
+        out << "#{obj[:date]} x #{obj[:qty]}"
       else
         out << "#{obj[:date]}"
       end

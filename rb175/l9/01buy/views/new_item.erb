@@ -1,9 +1,9 @@
-<form action="<%= BASE_URL %>/list/<%= params[:list_id] %>/item/add" method='post'>
+<form class='full_width' action="<%= BASE_URL %>/list/<%= params[:list_id] %>/item/add" method='post'>
   <dl>
     <dt><label for='name'>Item name</label></dt>
-    <dd><input type='text' id='name' name='name'></dd>
+    <dd><input type='text' id='name' name='name' value="<%= params[:name] %>"required></dd>
   </dl>
-  <dl>
+  <dl class='ymd'>
     <dt><label for='y'>Year</label></dt>
     <dd><input type='number' id='y' name='y' min='1000' max='9999' value='<%= Date.today.year %>' required></dd>
     <dt><label for='m'>Month</label></dt>

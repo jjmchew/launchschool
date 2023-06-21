@@ -1,12 +1,18 @@
 <h2><%= @list.name %></h2>
-<a class='button' href="<%= BASE_URL %>/list/<%= @list.id %>/item/add">Add new item</a>
+
+<aside>
+  <a class='button' href="<%= BASE_URL %>/">Back</a>
+  <a class='button' href="<%= BASE_URL %>/list/<%= @list.id %>/item/add">Add new item</a>
+</aside>
+
 <% if @list.size == 0 %>
   <h3>Nothing here</h3>
 <% end %>
 <ul>
   <% @list.each do |item| %>
     <li>
-      <a class='fixed_width' href="<%= BASE_URL %>/list/<%= @list.id %>/item/<%= item.id %>">
+    <div>
+      <a class="fixed_width <%= item_class(item) %>" href="<%= BASE_URL %>/list/<%= @list.id %>/item/<%= item.id %>">
         <%= item.name %> x <%= item.total %> 
       </a>
       <a class='button' href="<%= BASE_URL %>/list/<%= @list.id %>/item/<%= item.id %>/add">Add</a>
@@ -20,13 +26,11 @@
           <input class='button' type='submit' value='Remove from list'>
         </form>
       <% end %>
+    </div>
     </li>
   <% end %>
 </ul>
 
 <aside>
-  <a class='button' href="<%= BASE_URL %>/">Back</a>
-  <form class='delete' action="<%= BASE_URL %>/list/<%= @list.id %>/remove" method='get'>
-    <input class='button' type='submit' value='Delete List'>
-  </form>
+  <a class='button' href="<%= BASE_URL %>/list/<%= @list.id %>/remove">Delete List</a>
 </aside>

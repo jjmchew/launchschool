@@ -1,3 +1,7 @@
+:root {
+  --col-border: #ddd;
+}
+
 html {
   color: black;
   font-family: Helvetica, sans-serif;
@@ -6,7 +10,7 @@ html {
 
 body {
   padding: 1rem;
-  max-width: 50ch;
+  max-width: 60ch;
   margin: auto;
 }
 
@@ -29,22 +33,61 @@ li {
   padding: 0.5rem;
   font-size: 1.3rem;
 }
+li > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
 a {
   text-decoration: none;
 }
 
 form {
   display: inline-block;
+  width: auto;
 }
 
+.full_width {
+  width: 100%;
+}
 .fixed_width {
   display: inline-block;
-  width: 25ch;
+  flex-grow: 1;
+  /* width: 25ch; */
 }
 
 dt,
 dd {
+  display: block;
+}
+dd {
+  margin: 0.2rem 0 0.5rem 0;
+  /* width: 100%; */
+}
+
+.ymd {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0.5rem 0 2rem 0;
+}
+.ymd dt,
+.ymd dd {
   display: inline-block;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid var(--col-border);
+  border-radius: 5px;
+  color: black;
+}
+
+input[type='text'] {
+  width: 100%;
+}
+input[type='number'] {
+  width: 12ch;
 }
 
 .flash_message {
@@ -52,10 +95,11 @@ dd {
   padding: 1rem;
   text-align: center;
   width: 30ch;
+  margin: 0 0 2rem 0;
 }
 
 .button {
-  border: 1px solid #888;
+  border: 1px solid var(--col-border);
   background: #fff;
   border-radius: 5px;
   color: #888;
@@ -64,9 +108,20 @@ dd {
   padding: 0.5rem;
   margin: 0.5rem 0;
   cursor: pointer;
+  line-height: 1.1rem;
+}
+
+.button + form {
+  /* space between "add" and "use" buttons in list view */
+  margin-left: 0.7rem;
 }
 
 .delete {
   display: block;
   margin: 3rem 0;
+}
+
+.expiry_near {
+  font-weight: bold;
+  color: red;
 }
