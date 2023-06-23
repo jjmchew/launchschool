@@ -35,7 +35,7 @@ def calc_duration(obj)
 end
 
 def display_output(tally)
-  tally.each { |key, value| puts "#{key} : #{value} hrs" }
+  tally.each { |key, value| puts "#{key} : #{value.round(2)} hrs" }
 end
 
 def calc_tally(contents)
