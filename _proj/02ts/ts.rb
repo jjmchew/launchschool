@@ -35,7 +35,13 @@ def calc_duration(obj)
 end
 
 def display_output(tally)
-  tally.each { |key, value| puts "#{key} : #{value.round(2)} hrs" }
+  total = 0
+  tally.each do |key, value| 
+    puts "#{key} : #{value.round(2)} hrs"
+    total += value.round(2)
+  end
+  puts # blank line
+  puts "    total : #{total} hrs"
 end
 
 def calc_tally(contents)
