@@ -1,3 +1,7 @@
 date,meal,food,portion-amt,portion-unit
-09-Jun-23,breakfast-cereal,mixed-nuts,541,g
-09-Jun-23,breakfast-cereal,cereal-granola,330,g
+09-Jun-23,cereal-mix,mixed-nuts,541,g
+09-Jun-23,cereal-mix,cereal-granola,330,g
+,,,,
+20-Jun-23,cereal-mix,mixed-nuts,237,g
+20-Jun-23,cereal-mix,cereal-granola,286,g
+20-Jun-23,cereal-mix,cereal-ancient-grains,262,g
