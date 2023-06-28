@@ -1,4 +1,4 @@
-d, bidder_id, item_id, amount
+id, bidder_id, item_id, amount
 1,1, 1, 40.00
 2,3, 1, 52.00
 3,1, 1, 53.00

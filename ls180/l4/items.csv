@@ -1,4 +1,4 @@
-d, name, initial_price, sales_price
+id, name, initial_price, sales_price
 1,Video Game, 39.99, 70.87
 2,Outdoor Grill, 51.00, 83.25
 3,Painting, 100.00, 250.00
