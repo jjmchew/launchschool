@@ -75,6 +75,7 @@ module CalcHelpers
   def copy_obj(hash1, hash2)
     hash2['date'] = hash1['date']
     hash2['food'] = hash1['food']
+    hash2['meal'] = hash1['meal']
 
     portion2 = hash2['portion'].nil? ? 0 : hash2['portion'].g
     portion1 = hash1['portion'].nil? ? 0 : hash1['portion'].g
@@ -149,7 +150,7 @@ log = parse_mass(create_objs(CSV.read('log.csv')))
 # pp log
 
 # summarize by day and food, define csv output table
-output = %w(date food portion calories protein totalcarb totalfat)
+output = %w(date meal food portion calories protein totalcarb totalfat)
 to_calc = %w(calories protein totalcarb totalfat)
 data = summarize_log(log, food_facts, output)
 

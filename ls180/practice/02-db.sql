@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS foods_recipes;
 
 CREATE TABLE recipes (
   id serial PRIMARY KEY,
-  name text NOT NULL UNIQUE CHECK (name <> ''),
+  name text NOT NULL CHECK (name <> ''),
   created date DEFAULT CURRENT_DATE
 );
 
