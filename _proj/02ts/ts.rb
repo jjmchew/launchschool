@@ -41,7 +41,7 @@ def display_output(tally)
     total += value.round(2)
   end
   puts # blank line
-  puts "    total : #{total} hrs"
+  puts "    total : #{total.round(2)} hrs"
 end
 
 def calc_tally(contents)

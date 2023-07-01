@@ -1,6 +1,6 @@
-# Practice1 Scenario
+# Practice Scenario 1
 
-- timesheets:
+## Timesheets:
   - track time spent on different clients AND different projects (potentially for each client)
   - there will be multiple clients
   - each client can have 0 or more projects
@@ -15,4 +15,10 @@
 
 - db and tables : see 01-db.sql
 
+- practice queries:
+  - totals hours worked
+  - summarize: total hours worked per day
+  - total hours per project (client)
+  - total hours per project (client) / day
+- see 01-queries.sql
 
