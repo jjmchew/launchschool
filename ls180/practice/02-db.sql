@@ -37,7 +37,7 @@ CREATE TABLE eat_entries (
   food_portion_unit varchar(10) NOT NULL
 );
 
-INSERT INTO foods 
+INSERT INTO foods
             (name, serving, serving_unit, calories, fat, fat_unit)
      VALUES ('white rice', 158, 'g', 205, 0.4, 'g'),
             ('brown rice', 98, 'g', 109, 0.8, 'g'),

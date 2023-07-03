@@ -1,0 +1,5 @@
+food,category,type,serving,calories,totalfat,totalcarb,protein
+cereal-mix,recipe,09-Jun-23,330.0,1546.9,58.4,223.4,34.4
+cereal-mix,recipe,20-Jun-23,660.0,3526.9,230.0,302.6,93.8
+pasta-sauce,recipe,28-Jun-23,983.0,774.6999999999999,46.0,37.4,62.8
+pasta-cooked,recipe,28-Jun-23,758.0,2764.5,8.9,552.9,107.0

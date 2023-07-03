@@ -1,10 +1,13 @@
 require 'csv'
 require_relative 'mass.rb'
 
+ENV['ENV'] = ''
+
 module CSVHelpers
   def create_objs(raw_csv)
     # output for each row:
     #   { row[0][0]: row[x][0], row[0][1]: row[x][1], etc.  }
+
     headers = raw_csv[0]
     output = []
     raw_csv.each_with_index do |row, ridx|
@@ -20,7 +23,7 @@ module CSVHelpers
 
   def new_(key)
     # for parse_mass
-    key.split("-")[0]
+    key.split('-')[0]
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -33,9 +36,11 @@ module CSVHelpers
       obj.keys.each do |key|
         next if obj[key].nil?
 
-        if key.include?("amt")
+        if key.include?('amt')
           new_obj[new_(key)] = Mass.new(obj[key], obj[new_(key) + '-unit'])
-        elsif !key.include?("-")
+        elsif key.include?('date')
+          new_obj[key] = Date.strptime(obj[key], '%d-%b-%y')
+        elsif !key.include?('-')
           new_obj[key] = obj[key]
         end
       end
@@ -46,74 +51,67 @@ module CSVHelpers
   end
   # rubocop:enable Metrics/MethodLength
 
-  def write_csv(data, filename)
+  def output_csv(obj_data, headers, filename)
+    array_data = make_array(obj_data, headers)
+    write_csv_array(array_data, filename)
+  end
+
+  def write_csv_array(array_data, filename)
     CSV.open(filename, "wb") do |csv|
-      data.each do |row|
+      array_data.each do |row|
         csv << row
       end
     end
   end
 
-  def make_array(data, headers)
+  def make_array(obj_data, headers)
     output = []
     output << headers
-    data.each do |row|
-      output << row.values
+    obj_data.each do |row_obj|
+      output << row_obj.values
     end
     output
   end
 end
 
 module CalcHelpers
-  def empty_hash(output)
-    hash = {}
-    output.each { |heading| hash[heading] = nil }
-    hash
-  end
+  def get_food_entry(food, food_facts, date)
+    # returns the object entry (or entries) from array that match 'food'
+    list = food_facts.select { |entry| entry['food'] == food }
 
-  # copy hash1 to hash2
-  def copy_obj(hash1, hash2)
-    hash2['date'] = hash1['date']
-    hash2['food'] = hash1['food']
-    hash2['meal'] = hash1['meal']
+    # if log entries have no nutrition facts
+    return nil if list.empty?
 
-    portion2 = hash2['portion'].nil? ? 0 : hash2['portion'].g
-    portion1 = hash1['portion'].nil? ? 0 : hash1['portion'].g
-
-    hash2['portion'] = Mass.new(portion2 + portion1, "g")
-    hash2
-  end
-
-  def get_food_entry(food, food_facts)
-    # returns the object entry from array
-    food_facts.select { |entry| entry['food'] == food }[0]
-  end
-
-  def summarize_log(log, food_facts, output)
-    log_dates = log.map { |row| row['date'] }
-                   .uniq
-                   .reject(&:nil?)
-    foods = food_facts.map { |entry| entry['food'] }
-
-    data = []
-    log_dates.each do |date|
-      foods.each do |food|
-        output_row = empty_hash(output)
-
-        log.select { |row| row['date'] == date && row['food'] == food }
-           .each { |row| output_row = copy_obj(row, output_row) }
-
-        data << output_row unless output_row['date'].nil?
-      end
+    if list[0]['category'] == 'recipe'
+      choose_recipe(list, date)
+    else
+      list[0]
     end
-    data
+  end
+  
+  # choose appropriate recipe version (based on date) to use
+  def choose_recipe(recipe_list, date)
+    selected = 0
+    recipe_list.each_with_index do |recipe, idx|
+      recipe_date = Date.strptime(recipe['type'], '%d-%b-%y')
+      selected = idx if date > recipe_date
+    end
+    recipe_list[selected]
   end
 
   # Calculates nutrition facts based on portion / serving size
-  def calculate_data(data, to_calc, food_facts)
+  def calculate_facts(data, to_calc, food_facts)
     new_data = data.dup
     (0...new_data.length).each do |idx|
-      food_data = get_food_entry(data[idx]['food'], food_facts)
+      food_data = get_food_entry(
+        data[idx]['food'],
+        food_facts,
+        data[idx]['date']
+      )
+
+      # if log entries have no nutrition facts
+      next if food_data.nil?
+
       to_calc.each do |calc|
         if food_data[calc].class == Mass
           new_data[idx][calc] = Mass.new(data[idx]['portion'].g / food_data["serving"].g * food_data[calc].g, "g")
@@ -125,39 +123,133 @@ module CalcHelpers
     new_data
   end
 
-  # Converts all "Mass" objects to numbers for output
-  def prep_output(data)
-    data.each do |row|
-      row.keys.each do |key|
-        if row[key].class == Mass
-          row[key] = row[key].g
-        end
+  # for each day, total up each food based on provided breakdown (e.g., incl. meal or not)
+  def consolidate(log_ary, headers_ary)
+    totals = {}
+    log_ary.each do |obj|
+      key = make_tally_key(obj, headers_ary)
+
+      if totals[key].nil?
+        totals[key] = {}
+        headers_ary.each { |header| totals[key][header] = obj[header] }
+        totals[key]['portion'] = obj['portion']
+      else
+        totals[key]['portion'] += obj['portion']
       end
     end
+    totals.values
+  end
+
+  # helper fct for 'consolidate': generates tally hash key for each obj
+  def make_tally_key(obj, headers_ary)
+    for_key = []
+    headers_ary.each { |header| for_key << obj[header] }
+    for_key.join(':')
+  end
+
+  # Converts all "Mass" and "Date" objects for output (deep copy)
+  def convert_to_s(data)
+    new_data = []
+    data.each do |row|
+      new_row = row.dup
+      row.keys.each do |key|
+        new_row[key] =
+          if row[key].class == Mass then row[key].g
+          elsif row[key].class == Date then row[key].strftime("%d-%b-%y")
+          else row[key]
+          end
+      end
+      new_data << new_row
+    end
+    new_data
   end
 end
+
+module RecipeHelpers
+  def recipe_summary_to_facts_ary(data_array)
+    totals = {}
+    data_array.each do |obj|
+      key = obj['meal'] + ':' + obj['date'].strftime("%d-%b-%y")
+
+      if totals[key].nil?
+        totals[key] = {}
+        totals[key]['food'] = obj['meal']
+        totals[key]['category'] = 'recipe'
+        totals[key]['type'] = obj['date'].strftime("%d-%b-%y")
+        totals[key]['serving'] = Mass.new(0, 'g') + obj['portion']
+        totals[key]['calories'] = obj['calories'].to_f
+        totals[key]['totalfat'] = Mass.new(0, 'g') + obj['totalfat']
+        totals[key]['totalcarb'] = Mass.new(0, 'g') + obj['totalcarb']
+        totals[key]['protein'] = Mass.new(0, 'g') + obj['protein']
+      else
+        totals[key]['serving'] += obj['portion']
+        totals[key]['calories'] += obj['calories'].to_f
+        totals[key]['protein'] += obj['protein']
+        totals[key]['totalcarb'] += obj['totalcarb']
+        totals[key]['totalfat'] += obj['totalfat']
+      end
+    end
+    totals.values
+  end
+end
+
+module FileHelpers
+  def get_filepath(file)
+    "./#{ENV['ENV'] == 'test' ? 'test/' : ''}#{file}"
+  end
+end
+
+include FileHelpers
 include CSVHelpers
 include CalcHelpers
+include RecipeHelpers
 
 # import nutrition info on individual foods
-food_facts = parse_mass(create_objs(CSV.read('nutrition.csv')))
-# pp food_facts
-# puts " =================================== "
+food_facts = parse_mass(create_objs(CSV.read(get_filepath('_nutrition.csv'))))
+
+# define output formats
+output = %w(date meal food portion calories protein totalcarb totalfat)
+consolidate_by = %w(date meal food)
+to_calc = %w(calories protein totalcarb totalfat)
+
+# ======== process recipes ================
+# import recipes
+recipes_log = parse_mass(create_objs(CSV.read(get_filepath('_recipes.csv'))))
+
+# summarize by day and food
+consolidated_recipes = consolidate(recipes_log, consolidate_by)
+
+# calculate nutrition facts
+recipe_data = calculate_facts(consolidated_recipes, to_calc, food_facts)
+
+# add recipes (w/ dates) to food_facts
+recipe_facts = recipe_summary_to_facts_ary(recipe_data)
+food_facts += recipe_facts
+
+# =========== process log ==================
 
 # import eating log
-log = parse_mass(create_objs(CSV.read('log.csv')))
-# log = parse_mass(create_objs(CSV.read('recipes.csv')))
-# pp log
+log = parse_mass(create_objs(CSV.read(get_filepath('_log.csv'))))
 
-# summarize by day and food, define csv output table
-output = %w(date meal food portion calories protein totalcarb totalfat)
-to_calc = %w(calories protein totalcarb totalfat)
-data = summarize_log(log, food_facts, output)
+# summarize by day and food
+consolidated_log = consolidate(log, consolidate_by)
 
-# calculate totals for each summary entry
-data = calculate_data(data, to_calc, food_facts)
-# pp data
+# calculate nutrition facts
+log_data = calculate_facts(consolidated_log, to_calc, food_facts)
 
 # write output csv
-write_csv(make_array(prep_output(data), output), 'summary2.csv')
-# write_csv(make_array(prep_output(data), output), 'recipe-summary.csv')
+output_csv(
+  convert_to_s(recipe_data),
+  output,
+  get_filepath('recipes-summary.csv')
+)
+output_csv(
+  convert_to_s(recipe_facts),
+  %w(food category type serving calories totalfat totalcarb protein),
+  get_filepath('recipes-nutrition.csv')
+)
+output_csv(
+  convert_to_s(log_data),
+  output,
+  get_filepath('log-summary.csv')
+)
