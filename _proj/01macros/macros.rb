@@ -88,8 +88,8 @@ module CalcHelpers
       list[0]
     end
   end
-  
-  # choose appropriate recipe version (based on date) to use
+
+  # Choose appropriate recipe version (based on date) to use
   def choose_recipe(recipe_list, date)
     selected = 0
     recipe_list.each_with_index do |recipe, idx|
@@ -114,16 +114,16 @@ module CalcHelpers
 
       to_calc.each do |calc|
         if food_data[calc].class == Mass
-          new_data[idx][calc] = Mass.new(data[idx]['portion'].g / food_data["serving"].g * food_data[calc].g, "g")
+          new_data[idx][calc] = Mass.new(data[idx]['portion'].g / food_data['serving'].g * food_data[calc].g, "g")
         else
-          new_data[idx][calc] = (data[idx]['portion'].g / food_data["serving"].g * food_data[calc].to_f).round(1).to_s
+          new_data[idx][calc] = (data[idx]['portion'].g / food_data['serving'].g * food_data[calc].to_f).round(1).to_s
         end
       end
     end
     new_data
   end
 
-  # for each day, total up each food based on provided breakdown (e.g., incl. meal or not)
+  # Tally daily totals based on desired breakdown (headers_ary)
   def consolidate(log_ary, headers_ary)
     totals = {}
     log_ary.each do |obj|
