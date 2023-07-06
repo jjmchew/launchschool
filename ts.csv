@@ -1,62 +1,4 @@
 date,desc,start,end
-20-Jun-23,LS180 (sql book),9:24,10:13
-20-Jun-23,LS180 (sql book),10:30,11:13
-20-Jun-23,LS180 (sql book),11:19,12:18
-20-Jun-23,LS180 (sql book),13:40,14:55
-20-Jun-23,LS180 (sql book),15:01,15:19
-20-Jun-23,LS180 (lesson1),15:19,15:41
-21-Jun-23,LS180 (easy1),8:41,9:36
-21-Jun-23,LS180 (lesson2),9:49,10:27
-21-Jun-23,LS180 (DML/DDL/DCL/ lesson2),10:33,11:51
-21-Jun-23,LS180 (lesson2),14:29,15:47
-22-Jun-23,LS180 (lesson2),16:07,17:09
-22-Jun-23,LS180 (lesson2),20:53,21:17
-22-Jun-23,LS180 (lesson2),22:34,22:53
-23-Jun-23,LS180 (lesson2),21:28,22:18
-24-Jun-23,LS180 (lesson3),14:26,16:08
-24-Jun-23,LS180 (lesson3),16:14,17:06
-24-Jun-23,LS180 (lesson3),18:04,18:22
-24-Jun-23,LS180 (DDL),18:22,18:40
-26-Jun-23,LS180 (DDL),9:32,10:43
-26-Jun-23,LS180 (DML),11:05,11:57
-26-Jun-23,LS180 (lesson3),14:03,14:52
-26-Jun-23,LS180 (Med:Many to Many),14:59,15:42
-26-Jun-23,LS180 (Med:Many to Many),16:14,17:09
-26-Jun-23,LS180 (lesson3),17:09,17:25
-26-Jun-23,LS180 (lesson4),18:03,18:14
-27-Jun-23,LS180 (lesson4),8:04,8:44
-27-Jun-23,LS180 (lesson4),9:00,9:04
-27-Jun-23,LS180 (Med:subqueries),9:04,9:50
-27-Jun-23,LS180 (Med:subqueries),10:11,11:10
-27-Jun-23,LS180 (lesson4 quiz),11:21,11:25
-27-Jun-23,LS180 (lesson4),11:25,11:35
-27-Jun-23,LS181 (study guide),11:35,12:00
-27-Jun-23,LS181 (study guide),14:20,15:01
-27-Jun-23,LS181 (study guide),15:03,15:32
-27-Jun-23,LS181 (study guide),15:53,16:18
-27-Jun-23,LS181 (study guide),19:33,19:56
-28-Jun-23,LS181 (study guide),7:45,8:43
-28-Jun-23,LS181 (review),8:56,11:04
-28-Jun-23,LS181 (review),14:14,15:24
-28-Jun-23,LS181 (review),15:28,15:47
-28-Jun-23,LS181 (review),21:52,22:28
-29-Jun-23,LS181 (review),15:24,15:50
-29-Jun-23,LS181 (spot ques),15:59,16:20
-29-Jun-23,LS181 (spot ques),16:31,16:50
-29-Jun-23,LS181 (spot ques),19:56,20:29
-29-Jun-23,LS181 (spot ques),21:30,22:01
-30-Jun-23,LS181 (spot ques),7:30,7:42
-30-Jun-23,LS181 (spot ques),7:52,8:50
-30-Jun-23,LS181 (spot session),9:00,10:27
-30-Jun-23,LS181 (spot ques),12:19,12:49
-30-Jun-23,LS181 (med many to many),12:57,13:48
-30-Jun-23,LS181 (med subqueries and more),13:56,14:30
-30-Jun-23,LS181 (quizzes),16:01,16:37
-30-Jun-23,LS181 (quiz review),16:37,16:47
-30-Jun-23,LS181 (quiz1),22:18,23:31
-01-Jul-23,LS181 (review),8:58,9:03
-01-Jul-23,LS181 (assessment),9:04,11:27
-01-Jul-23,LS181 (assessment revision),16:37,16:45
 03-Jul-23,RB185 (lesson1),13:22,13:56
 03-Jul-23,RB185 (lesson1),14:11,14:23
 03-Jul-23,RB185 (lesson1),17:10,18:17
@@ -65,3 +7,6 @@ date,desc,start,end
 04-Jul-23,RB185 (lesson1),10:45,11:35
 04-Jul-23,RB185 (lesson2),11:35,11:44
 04-Jul-23,RB185 (lesson2),15:30,16:39
+05-Jul-23,RB185 (lesson2),9:59,11:15
+05-Jul-23,RB185 (lesson2),11:20,11:30
+05-Jul-23,RB185 (lesson2),22:15,23:17
