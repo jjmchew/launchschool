@@ -27,24 +27,45 @@ end
 
 def calc_duration(obj)
   start_time =
-    DateTime.strptime("#{obj['date']} #{obj['start']}", '%d-%b-%Y %H:%M')
-  end_time = DateTime.strptime("#{obj['date']} #{obj['end']}", '%d-%b-%Y %H:%M')
+    DateTime.strptime("#{obj['date']} #{obj['start']}", '%d-%b-%y %H:%M')
+  end_time = DateTime.strptime("#{obj['date']} #{obj['end']}", '%d-%b-%y %H:%M')
 
   # result is in days - convert to hours
   ((end_time - start_time).to_f * 24).round(2)
 end
 
-def display_output(tally)
-  total = 0
-  tally.each do |key, value| 
-    puts "#{key} : #{value.round(2)} hrs"
-    total += value.round(2)
-  end
-  puts # blank line
-  puts "    total : #{total.round(2)} hrs"
+def get_date(str)
+  DateTime.strptime("#{str} 07:00", '%d-%b-%y %H:%M')
 end
 
-def calc_tally(contents)
+def week(date_str)
+  date = get_date(date_str)
+  # start each week on Sunday, cweek starts each week on Mon
+  date.sunday? ? date.cweek + 1 : date.cweek
+end
+
+def display_output(day_tally, wk_tally)
+  day_tally.each do |key, value|
+    puts "#{week(key)} : #{key} : #{value.round(2)} hrs"
+  end
+
+  puts "=" * 30
+  puts "     Weekly totals"
+  wk_tally.each do |key, value|
+    puts "#{key} : #{value.round(2)} hrs"
+  end
+end
+
+def tally_weeks(day_tally)
+  tally_wk = Hash.new { 0 }
+  day_tally.each do |date_str, value|
+    wk = week(date_str)
+    tally_wk[wk] += value.round(2)
+  end
+  tally_wk
+end
+
+def tally_days(contents)
   tally = Hash.new { 0 }
   contents.each do |obj|
     date = obj["date"]
@@ -53,6 +74,13 @@ def calc_tally(contents)
   tally
 end
 
+def calc_tally(contents)
+  day_tally = tally_days(contents)
+  wk_tally = tally_weeks(day_tally)
+  [day_tally, wk_tally]
+end
+
 contents = create_objs(CSV.read('ts.csv'))
 
-display_output(calc_tally(contents))
+day_tally, wk_tally = calc_tally(contents)
+display_output(day_tally, wk_tally)
