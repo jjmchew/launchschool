@@ -37,7 +37,6 @@ end
 
 before do
   session[:timers] ||= []
-  pp ENV
 end
 
 get '/' do
