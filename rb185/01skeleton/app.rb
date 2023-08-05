@@ -1,12 +1,15 @@
 require 'sinatra'
 require 'sinatra/content_for'
 require 'tilt/erubis'
+require 'yaml'
 
 require_relative 'db_persistence'
 
+CONFIG = YAML.load(File.read('localonly.yml'))
+
 configure do
   enable :sessions
-  set :session_secret, SecureRandom.hex(32)
+  set :session_secret, CONFIG[:session_secret] # SecureRandom.hex(32)
   set :erb, :escape_html => true
 end
 
