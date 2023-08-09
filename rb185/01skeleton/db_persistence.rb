@@ -2,7 +2,7 @@ require 'pg'
 
 class DatabasePersistence
   def initialize(logger)
-    @db = PG.connect(dbname: 'dbname')
+    @db = PG.connect(dbname: CONFIG[:dbname])
     @logger = logger
   end
 
