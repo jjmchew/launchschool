@@ -15,8 +15,8 @@ Side effects in the `foo` function are:
 - mutation of `qux` array in outer-scope through `pop`
 - console.log (IO)
 
-WRONG:
-- reference to `bar` and `baz` - values of these variables will influence return value of `foo` (return value isn't solely based on arguments)
+PARTIALLY WRONG:
+- reference to `bar` and `baz` - values of these variables will influence return value of `foo` (since the return value isn't solely based on the arguments, foo wouldn't be a pure function, however, it's not strictly a side effect)
 
 - strictly speaking, relying on outside variables is not reading / writing to a data entity
 - also is not an external function call
