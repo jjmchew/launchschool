@@ -1,0 +1,10 @@
+console.log('null == undefined', null == undefined);
+console.log('null < undefined', null < undefined);
+console.log('10 == NaN', 10 == NaN);
+console.log('10 < NaN', 10 < NaN);
+console.log("undefined == 'a'", undefined == 'a');
+console.log("undefined < 'a'", undefined < 'a');
+console.log('null < 10', null < 10);
+console.log("null > 'a'", null > 'a');
+console.log('', );
+console.log('', );

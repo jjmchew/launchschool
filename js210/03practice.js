@@ -1,9 +1,9 @@
 // Question 1
-let title = "The Three-Body Problem";  // should use single quotes for strings
+//let title = "The Three-Body Problem";  // should use single quotes for strings
 // let title = 'The Three-Body Problem';
 
 
-// QUestion 2
+// Question 2
 let title = 'The Three-Body Problem',
     author = 'Cixin Liu',
     page_count = 400;  // variables should be camelCase
