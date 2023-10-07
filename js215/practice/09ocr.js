@@ -1,4 +1,6 @@
 /*
+https://launchschool.com/exercises/85b051a2
+
 Write a program that, given a 3 x 4 grid of pipes, underscores, and spaces, can determine which number is represented, or whether it is garbled.
 
 Step One

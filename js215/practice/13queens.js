@@ -1,4 +1,6 @@
 /*
+https://launchschool.com/exercises/81d3afa6
+
 In the game of chess, a queen can attack pieces which are on the same row, column, or diagonal.
 
 A chessboard can be represented by an 8 by 8 array.
