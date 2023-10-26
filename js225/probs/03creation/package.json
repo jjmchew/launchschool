@@ -1,0 +1,14 @@
+{
+  "name": "03creation",
+  "version": "1.0.0",
+  "description": "LS problem set",
+  "main": "01ancestors.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.52.0"
+  }
+}
