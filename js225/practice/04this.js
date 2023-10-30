@@ -296,6 +296,63 @@ let walkPeriod = new Period(2, 30);
 // #region this nesting tests - Version 1
 //    - to test my proposed summary (execution context of 'parent')
 //    - try deeper nesting of functions or objects and move them around and see what happens
+// let ob1 = {
+//   a: 'ob1',
+//   ob2: {
+//     a: 'ob2',
+//     ob3: {
+//       a: 'ob3',
+//       func() {
+//         let arrow = () => console.log(this.a);
+//         // let arrow = function () { console.log(this.a) };
+//         arrow();
+//       },
+//     },
+//   },
+// };
+// ob1.ob2.ob3.func();
+
+// let ob2 = {
+//   a: 'ob2',
+// };
+
+// ob2.func = ob1.ob2.ob3.func;
+// ob2.func();
+
+// ob2.ob3.func = ob1.ob2.ob3.func;
+// ob2.ob3.func();
 
 
+// let obj3 = {
+//   a: 'ob3',
+//   // func: () => { console.log(this, this.a); },
+//   func () { console.log(this, this.a); },
+// };
+// console.log(obj3.func);
+// obj3.func();
+// obj3.func.call(obj3);
+// obj3.func.apply(obj3);
+// obj3.func.bind(obj3)();
+
+let obj4 = {
+  a: 'obj4',
+  func() {
+    let arrow = () => console.log(this, this.a);
+    return arrow;
+  },
+}
+obj4.func()(); // obj4  :  execution context of `func` is `obj4`
+
+let obj5 = {
+  a: 'obj5',
+  func: obj4.func(), // `arrow` is assigned directly to `obj5.func`
+};
+obj5.func(); // obj4  :  execution context of `obj4.func` didn't change
+
+let obj6 = {
+  a: 'obj6',
+  func: obj4.func,
+}
+obj6.func()(); // obj6  :  execution context of `obj4.func` is now `obj6`
+// #endregion
 
