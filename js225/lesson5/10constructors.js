@@ -190,6 +190,7 @@ let ninjaA = (function() {
 let ninjaB = Object.create(ninjaA);
 let ninjaC = Object.create(Object.getPrototypeOf(ninjaA));
 
+console.log(ninjaB.constructor);
 console.log(ninjaB.constructor === ninjaA.constructor);    // should log true
 console.log(ninjaC.constructor === ninjaA.constructor);    // true
 console.log(ninjaC.constructor === ninjaB.constructor);    // true
