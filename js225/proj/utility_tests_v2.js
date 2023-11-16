@@ -1,5 +1,3 @@
-import _ from './utility.mjs';
-
 var $ol = document.querySelector("ol");
 
 function outputResult(message) {
@@ -21,6 +19,27 @@ function test(message, assertion) {
   }
   $msg.setAttribute("class", passed ? "pass" : "fail");
 }
+
+// #region My own tests
+test("sample returns a single element when no argument supplied", function() {
+  let output = _([1, 2, 3]).sample();
+  return  output === 1 || output === 2 || output === 3;
+});
+test("sample throws error when arg > arr.length", function() {
+  return _([1]).sample(3) === false;
+});
+test("sample returns multiple, non-repetitive elements when a numeric argument supplied", function() {
+  let asc = (a, b) => { 
+    if ((a - b) > 0) return 1;
+    else if ((a - b) < 0) return -1;
+    else return 0;
+  };
+  let output = _([1, 2, 3]).sample(2).sort(asc);
+  return output.toString() === '1,2' ||
+         output.toString() === '2,3' ||
+         output.toString() === '1,3';
+});
+// #endregion
 
 test("_ is defined", function() {
   return typeof _ !== "undefined";
