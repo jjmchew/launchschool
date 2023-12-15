@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .d1 {
+      background-color: green;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .d2 {
+      background-color: blue;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 150px;
+      height: 150px;
+    }
+
+    .d3 {
+      background-color: red;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+    }
+
+    .d4 {
+      background-color: yellow;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', event => {
+        let divs = document.querySelectorAll('.pick');
+        
+        for(let index = 0; index < divs.length; index += 1) {
+          divs[index].addEventListener('click', highlightThis, true);
+        }
+
+        function highlightThis(e) {
+          alert(`${this.className} ${e.currentTarget.tagName}`);
+        }
+
+        document.querySelector('.d3').addEventListener('click', highlightThis, false);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="d1 pick">1
+      <main class="d2 pick">2
+        <div class="d3">3
+          <section class="d4 pick">4
+          </section>
+        </div>  
+      </main>
+    </div>
+  </body>
+</html>
+
+<!-- 
+  Clicking on "4" (initially)
+    will alert:  d1 pick DIV, then d2 pick MAIN, then d4 pick SECTION
+
+  Adding additional line of code:
+  - adds an eventListener to .d3, which does not fire on capture, it will always show up last
+ -->

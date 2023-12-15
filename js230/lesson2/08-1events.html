@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      document.addEventListener('DOMContentLoaded', event => {
+        // Question 1 or 2
+        let x = document.querySelector('.x');
+        let horizontal = document.querySelector('.horizontal');
+        let vertical = document.querySelector('.vertical');
+        // can use 'click' or 'mousemove'
+        
+        document.addEventListener('mousemove', event => {
+          x.style.top = `${event.clientY}px`;
+          x.style.left = `${event.clientX}px`;
+        });
+
+        // Question 3
+        document.addEventListener('keydown', event => {
+          console.log(event.key);
+          let newColour = horizontal.style.background;
+          switch (event.key) {
+            case 'b':
+              newColour = 'blue';
+              break;
+            case 'g':
+              newColour = 'green';
+              break;
+            case 'r':
+              newColour = 'red';
+              break;
+            default:
+              break;
+          }
+          horizontal.style.background = newColour;
+          vertical.style.background = newColour;
+        })
+      });
+    </script>
+    <style>
+      body {
+        display: block;
+        width: 100%;
+        height: 100%;
+        /* background-color: aqua; */
+      }
+
+      .x {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 20px;
+        left: 20px;
+      }
+
+      .x .horizontal {
+        width: 45px;
+        height: 5px;
+        position: absolute;
+        left: -20px;
+        background: red;
+      }
+
+      .x .vertical {
+        height: 45px;
+        width: 5px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div> 
+  </body>
+</html>
