@@ -9,7 +9,8 @@
         font: normal 16px Helvetica, Arial, sans-serif;
         text-align: center;
         color: #16997c;
-        background: #5bccb3;
+        /* background: #5bccb3; */
+        background: lightgray;
       }
 
       main {
@@ -107,7 +108,7 @@
           if (guess === answer) {
             message = `You guessed the number in ${String(guessCounter)} guesses!`;
             toggleButton();
-          } else if (!Number.isInteger(guess)) {
+          } else if (!Number.isInteger(guess) || guess < MIN_NUM || guess > MAX_NUM) {
             message = `That's not a valid guess...`;
             guessCounter -= 1;
           } else if (guess > answer) message = `My number is lower than ${String(guess)}.`;
