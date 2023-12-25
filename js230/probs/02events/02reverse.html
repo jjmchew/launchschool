@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #container {
+        display: block;
+        height: 200px;
+        width: 200px;
+        border: 1px solid blue;
+        background-color: blue;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('html').addEventListener('click', e => {
+          if (e.target.tagName !== 'DIV') document.querySelector('#container').style = 'display: none';
+        });
+
+        // document.querySelector('#container').addEventListener('click', e => {
+          // e.stopPropagation();
+        // });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
