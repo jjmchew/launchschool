@@ -1,0 +1,23 @@
+{  "info":{"title":"Web Store API","description":"An example API server from Launch School.","version":"0.0.1"},
+"swagger":"2.0",
+"produces":["application/json"],
+"host":"ls-230-web-store-demo.herokuapp.com",
+"tags":[
+  {"name":"products","description":"Operations about products"},
+  {"name":"reset","description":"Operations about resets"}],
+  "paths":{
+    "/v1/products/{id}":{
+      "delete":{"description":"Remove a product from the system.","produces":["application/json"],"parameters":[{"in":"path","name":"id","description":"Product ID","type":"integer","format":"int32","required":true}],"responses":{"204":{"description":"Remove a product from the system."}},"tags":["products"],"operationId":"deleteV1ProductsId"},"put":{"description":"Update the attributes of an existing product.","produces":["application/json"],"consumes":["application/json"],"parameters":[{"in":"path","name":"id","description":"Product ID","type":"integer","format":"int32","required":true},{"in":"formData","name":"name","description":"Name of the product","type":"string","required":false},{"in":"formData","name":"sku","description":"3+ character unique identifier for product","type":"string","required":false},{"in":"formData","name":"price","description":"Price of the product in cents","type":"integer","format":"int32","required":false}],"responses":{"200":{"description":"Update the attributes of an existing product."}},"tags":["products"],"operationId":"putV1ProductsId"},
+      "get":{"description":"Fetch a single product.","produces":["application/json"],"parameters":[{"in":"path","name":"id","description":"Product ID","type":"integer","format":"int32","required":true}],"responses":{"200":{"description":"Fetch a single product."}},"tags":["products"],"operationId":"getV1ProductsId"}
+    },
+    "/v1/products":{
+      "post":{
+        "description":"Create a new product.","produces":["application/json"],"consumes":["application/json"],"parameters":[{"in":"header","name":"Authorization","description":"token AUTH_TOKEN","type":"string","required":true},{"in":"formData","name":"name","description":"Name of the product","type":"string","required":true},{"in":"formData","name":"sku","description":"3+ character unique identifier for product","type":"string","required":true},{"in":"formData","name":"price","description":"Price of the product in cents","type":"integer","format":"int32","required":true}],"responses":{"201":{"description":"Create a new product."}},"tags":["products"],"operationId":"postV1Products"},
+        "get":{
+          "description":"Fetch all products.","produces":["application/json"],"responses":{"200":{"description":"Fetch all products."}},"tags":["products"],"operationId":"getV1Products"}
+    },
+    "/v1/reset":{
+      "post":{"description":"Reset the store to its default state.","produces":["application/json"],"consumes":["application/json"],"responses":{"201":{"description":"Reset the store to its default state."}},"tags":["reset"],"operationId":"postV1Reset"}
+    }
+  }
+}
