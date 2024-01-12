@@ -1,0 +1,13 @@
+{
+  "name": "lesson3assignment13",
+  "version": "1.0.0",
+  "description": "setup an alternate web server to illustrate CORS",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
