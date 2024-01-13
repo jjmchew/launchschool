@@ -59,3 +59,8 @@ fetchRequest('staff_members').then(res => console.log(res));
 fetchRequest('students').then(res => console.log(res));
 fetchRequest('schedules').then(res => console.log(res.filter(obj => obj.student_email !== null)));
 ```
+
+# Exercises 2 - 7
+- solutions will be in 01booking/public/javascripts
+- the JS files needed to be accessible from the API since they were being included / run through localhoset:3000/exercises.html
+

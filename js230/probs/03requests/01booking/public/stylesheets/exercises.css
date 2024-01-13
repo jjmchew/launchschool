@@ -1,0 +1,103 @@
+/* Styles for exercises */
+
+/* Exercise 3 - Adding Staff */
+#ex3 {
+  margin-bottom: 2ch;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+fieldset {
+  display: block;
+  border: 3px double lightgray;
+  margin: 0;
+  padding: 0;
+}
+
+form dl {
+  margin: 0.5ch;
+}
+
+form dl * {
+  display: inline-block;
+  line-height: 1rem;
+}
+
+form dt {
+  width: 13.5ch;
+  text-align: right;
+}
+
+form dd {
+  padding: 0;
+  margin: 0 0 0 1.5ch;
+}
+
+form dl label {
+  color: rgb(139, 0, 0);
+  font-weight: bold;
+}
+
+form dd input {
+  border: 1px solid lightgray;
+}
+
+form input[type="submit"] {
+  color: white;
+  background-color: rgb(139, 0, 0);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1ch;
+  width: 105.5px;
+}
+
+form .errorMsg {
+  color: red;
+  display: none;
+}
+
+form .errorOn {
+  display: inline-block;
+}
+
+/* Exercise 4 - Adding Schedules */
+#ex4 .schedule form fieldset {
+  border: 1px solid black;
+  margin-bottom: 1.3ch;
+  padding-bottom: 3ch;
+}
+
+#ex4 .schedule form fieldset div {
+  display: inline-block;
+  position: relative;
+  top: -0.5rem;
+  left: 2ch;
+  background-color: white;
+}
+
+#addSchedules {
+  color: white;
+  background-color: rgb(100, 167, 243);
+  padding: 1rem 0;
+  border: none;
+  border-radius: 5px;
+  margin: 1ch 0;
+  width: 105.5px;
+  white-space: normal;
+}
+
+input,
+input[type="time"],
+input[type="date"],
+select {
+  width: 169px;
+  border: 1px solid lightgray;
+}
+
+select {
+  width: 172px;
+}
