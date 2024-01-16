@@ -14,49 +14,57 @@
     <div class="schedule">
       <input type="button" value="Add more schedules" id="addSchedules">
       <form action="" method="post">
-        <!-- <fieldset id="schedule1">
-          <div class="title">Schedule 1</div>
-          <dl>
-            <dt><label for="staffName">Staff Name :</label></dt>
-            <dd>
-              <select name="staffName" id="staffName1">
-                <option value="staff1">staff1</option>
-                <option value="staff2">staff2</option>
-              </select>
-            </dd>
-          </dl>
-          <dl>
-            <dt><label for="date">Date :</label></dt>
-            <dd><input type="date" id="date1" name="date"></dd>
-          </dl>
-          <dl>
-            <dt><label for="time">Time :</label></dt>
-            <dd><input type="time" id="time1" name="time"></dd>
-          </dl>
-        </fieldset>
-        <fieldset id="schedule2">
-          <div class="title">Schedule 2</div>
-          <dl>
-            <dt><label for="staffName">Staff Name :</label></dt>
-            <dd>
-              <select name="staffName" id="staffName2">
-                <option value="staff1">staff1</option>
-                <option value="staff2">staff2</option>
-              </select>
-            </dd>
-          </dl>
-          <dl>
-            <dt><label>Date :</label></dt>
-            <dd><input type="date" id="date2" name="date"></dd>
-          </dl>
-          <dl>
-            <dt><label>Time :</label></dt>
-            <dd><input type="time" id="time2" name="time"></dd>
-          </dl>
-        </fieldset> -->
         <input type="submit" value="Submit" id="ex4submit">
       </form>
     </div>
+  </div>
+  <div id="ex5">
+    <h1>Exercise 5 - Booking Time Slots</h1>
+    <div class="scheduleSelectContainer">
+      <form action="/api/bookings" method="post" id="bookingForm">
+        <dl>
+          <dt><label for="scheduleSelect">Schedule :</label></dt>
+          <dd id="scheduleSelect-dd">
+            <p>Loading</p>
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <label for="scheduleEmail">Email :</label>
+          </dt>
+          <dd>
+            <input type="email" name="scheduleEmail" id="scheduleEmail">
+          </dd>
+        </dl>
+        <input type="submit" id="scheduleSubmit" value="Submit">
+      </form>
+      <form action="/api/students" method="post" id="newStudentForm">
+        <fieldset id="newStudentDetails" class="ex5hide">
+          <h2>Please provide new student details</h2>
+          <dl>
+            <dt><label for="ns-email">Email :</label></dt>
+            <dd><input type="email" name="ns-email" id="ns-email"></dd>
+          </dl>
+          <dl>
+            <dt><label for="ns-name">Name :</label></dt>
+            <dd><input type="text" name="ns-name" id="ns-name"></dd>
+          </dl>
+          <dl>
+            <dt><label for="ns-sequence">Booking sequence :</label></dt>
+            <dd><input type="text" name="ns-sequence" id="ns-sequence"></dd>
+          </dl>
+          <input type="submit" id="ns-submit" value="Submit">
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="ex6">
+    <h1>Exercise 6 - Viewing Bookings</h1>
+    <h2>Bookings</h2>
+    <p id="ex6loading">Loading</p>
+  </div>
+  <div id="ex7">
+    <h1>Exercise 7 - Cancellations</h1>
   </div>
 </body>
 </html>

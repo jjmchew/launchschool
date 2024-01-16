@@ -53,6 +53,7 @@ form input[type="submit"] {
   border-radius: 5px;
   margin-top: 1ch;
   width: 105.5px;
+  cursor: pointer;
 }
 
 form .errorMsg {
@@ -88,6 +89,7 @@ form .errorOn {
   margin: 1ch 0;
   width: 105.5px;
   white-space: normal;
+  cursor: pointer;
 }
 
 input,
@@ -100,4 +102,29 @@ select {
 
 select {
   width: 172px;
+}
+
+/* Exercise 5 - Booking Time Slots */
+#scheduleSelect-dd #scheduleSelect {
+  width: 250px;
+}
+
+#newStudentDetails {
+  background-color: lightgray;
+  margin: 2ch 0;
+  padding: 0 0 2ch 1ch;
+  display: block;
+}
+
+#newStudentDetails.ex5hide {
+  display: none;
+}
+
+/* Exercise 6 - Viewing Bookings */
+#ex6 ul li{
+  cursor: pointer;
+}
+
+#ex6 ul li.noPointer {
+  cursor: default;
 }
