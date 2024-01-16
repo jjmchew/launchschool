@@ -54,6 +54,7 @@ form input[type="submit"] {
   margin-top: 1ch;
   width: 105.5px;
   cursor: pointer;
+  white-space: normal;
 }
 
 form .errorMsg {
