@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Practice Problem</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <form action="#" method="post">
+      <input type="text" maxlength="1">
+      <input type="submit" value="Submit">
+    </form>
+    <a href="#">+</a>
+    <div id="accordion">
+      <p>This is a paragraph of text within the accordion.</p>
+    </div>
+    <script>
+      $(function() {
+
+        let character;
+
+        $('form').on('submit', e => {
+          e.preventDefault();
+          character = $('input[type=text]').val();
+          console.log('submitted', character);
+        });
+
+        $(document)
+            .off('keypress')
+            .on('keypress', function(e) {
+              if (e.key !== character) return;
+
+              console.log('something keypress');
+              $('a').trigger('click');
+            });
+
+        $('a').on('click', e => {
+          $('#accordion').slideToggle();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Practice</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+  </head>
+  <body>
+    <h1>Handlebars practice problems</h1>
+    <script id="tagsTemplate" type="text/x-handlebars">
+      {{#if tags}}
+      <div>
+        </br>
+        Tags here:
+        <p>
+          {{#each tags}} | {{this}} | {{/each}}
+        </p>
+      </div>
+      {{else}}
+      <p>no tags</p>
+      {{/if}}
+    </script>
+
+    <script id="posts" type="text/x-handlebars">
+      {{#each posts}}
+      <article>
+        <h1>Title: {{title}}</h1>
+        <p><time>Posted on {{published}}</time></p>
+        {{{body}}}
+        <footer>
+          {{> tagsTemplate}}
+      </footer>
+      </article>
+      {{/each}}
+    </script>
+
+    <script>
+      let post = {
+        title: 'Lorem ipsum dolor sit amet',
+        published: 'April 1, 2015',
+        body: 'Sed ut perspiciatis unde omnis iste natus <strong>error</strong> sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+        tags: ['tag1', 'tag2', 'tag3'],
+      };
+
+
+
+      // From Problem 4
+      let tagsTemplate = Handlebars.compile($('#tagsTemplate').html());
+      Handlebars.registerPartial('tagsTemplate', tagsTemplate);
+
+
+
+      // Problem 1
+      // let template = Handlebars.compile($('#post').html());
+      // let template = Handlebars.compile(document.querySelector('#post').innerHTML); // vanilla JS/DOM
+      // $('h1').parent().append(template(post));
+
+      // Problem 2
+      // - added <strong> tag to post.body
+      // - added use of {{{ }}} (triple handlebars to body in template to show "unescaped")
+
+      // Problem 3
+      // - added ul section to template
+      // - added post.tags array for each helper in template
+
+      // Problem 4
+      // - added tags partial template in new script section
+      // - note partial has to be rendered and registered prior to being called
+      // - note code for problem 4 has been moved above Problem 1
+
+      // Problem 5
+      let posts = [
+        post,
+        {
+          title: 'another post',
+          published: 'Apr 3, 2023',
+          body: 'this is a really short post about nothing',
+        },
+        {
+          title: 'another post again',
+          published: 'Apr 23, 2023',
+          body: 'Create a posts array, adding the existing post to it. Add a second post with no tags property. Modify your template to check for the existence of tags, and if none exist, output a "Not tagged" message. Wrap the template in an each loop to output each post.',
+          tags: ['tag3', 'tag17'],
+        },
+      ];
+      let template = Handlebars.compile($('#posts').html());
+      $('h1').parent().append(template({ posts: posts }));
+    </script>
+  </body>
+</html>
