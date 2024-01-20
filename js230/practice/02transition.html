@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>transitions</title>
+    <style>
+      div {
+        position: fixed;
+        top: 10rem;
+        height: 5rem;
+        width: 100%;
+        color: white;
+        visibility: hidden;
+        opacity: 0;
+        display: none;
+        transition: all 1s allow-discrete;
+      }
+
+      .blue {
+        background-color: blue;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .show {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+        /* transition: all 5s allow-discrete; */
+      }
+
+      @starting-style {
+        .show {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blue show">Blue</div>
+    <div class="red">Red</div>
+    <div class="green">Green</div>
+    <nav>
+      <p data-col="blue">Blue</p>
+      <p data-col="red">Red</p>
+      <p data-col="green">Green</p>
+    </nav>
+  </body>
+  <script>
+    console.log('transitions');
+    let divs = document.querySelectorAll('div');
+
+    function toggleShow(col) {
+      let divs = document.querySelectorAll('div');
+      let target = document.querySelector(`.${col}`);
+      divs.forEach(div => {
+        if (div === target) div.classList.add('show');
+        else div.classList.remove('show');
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('click', e => {
+        console.log(e.target);
+        let col = e.target.getAttribute('data-col');
+        if (e.target.tagName === 'P') toggleShow(col);
+      })
+    });
+  </script>
+</html>

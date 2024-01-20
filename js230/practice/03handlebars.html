@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>handlebarsTest</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="03handlebars.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>title</h1>
+      <input type="text" name="input1" />
+      <script type="text/x-handlebars" id="template">
+        <div id=item_{{id}}>template title</div>
+        <input name="template_input" />
+      </script>
+      <div id="inventory">
+      </div>
+      <button type="button" id="add_item">Add item</button>
+    </main>
+  </body>
+</html>
