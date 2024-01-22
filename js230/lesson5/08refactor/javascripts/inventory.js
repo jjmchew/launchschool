@@ -10,8 +10,6 @@ var inventory;
       // $("#order_date").text(date.toUTCString());
     },
     cacheTemplate: function() {
-      // console.log($('#inventory_item_template').remove().html());
-      // console.log($('#inventory_item_template').html());
       // var $iTmpl = $("#inventory_item_template").remove();
       // this.template = $iTmpl.html();
       this.template = document.querySelector('#inventory_item_template').innerHTML;

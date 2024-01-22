@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess A Word</title>
+    <link rel="stylesheet" href="09guessWord.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="./09guessWord.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Guess A Word</h1>
+      <div class="backdrop hide"></div>
+      <div class="msg hide">
+        <p></p>
+      </div>
+      <dt><h2>Guesses</h2></dt>
+      <dd></dd>
+    </header>
+    <main>
+      <dt><h2>Word</h2></dt>
+      <dd></dd>
+    </main>
+    <footer>
+      <dt><h2>Guessed</h2></dt>
+      <dd><ul></ul></dd>
+    </footer>
+    <script type="text/x-handlebars" id="blankTemplate">
+      <ul>
+      {{#each letters}}
+        <li>{{this}}</li>
+      {{/each}}
+    </script>
+    <script type="text/x-handlebars" id="guessesTemplate">
+      <ul>
+        {{#iterate allowedGuesses}}
+        {{/iterate}}
+      </ul>
+    </script>
+  </body>
+</html>
