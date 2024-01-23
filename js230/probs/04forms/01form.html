@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form</title>
+    <script src="01form.js"></script>
+    <style>
+      .msg {
+        color: red;
+      }
+      .errorMsg {
+        color: red;
+        opacity: 1;
+      }
+      .hide {
+        opacity: 0;
+      }
+      input {
+        cursor: pointer;
+        border: 1px solid grey;
+      }
+      dt, dd {
+        display: inline-block;
+        margin: .5rem 0;
+      }
+      dt {
+        width: 15ch;
+      }
+      .error {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="errorMsg hide">Fix errors before submitting this form.</div>
+    <form method="" action="" novalidate>
+      <dl>
+        <div>
+          <dt><label for="firstName">First Name*</label></dt>
+          <dd><input type="text" name="firstName" id="firstName" required></dd>
+          <dd class='msg' data-id="firstName"></dd>
+        </div>
+        <div>
+          <dt><label for="lastName">Last Name*</label></dt>
+          <dd><input type="text" name="lastName" id="lastName" required></dd>
+          <dd class='msg' data-id="lastName"></dd>
+        </div>
+        <div>
+          <dt><label for="email">Email*</label></dt>
+          <dd><input type="email" name="email" id="email" required></dd>
+          <dd class='msg' data-id="email"></dd>
+        </div>
+        <div>
+          <dt><label for="pw">Password*</label></dt>
+          <dd><input type="password" name="pw" id="pw" required></dd>
+          <dd class='msg' data-id="pw"></dd>
+        </div>
+        <div>
+          <dt><label for="phone">Phone (optional)</label></dt>
+          <dd><input type="text" name="phone" id="phone"></dd>
+          <dd class='msg' data-id="phone"></dd>
+        </div>
+      </dl>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
