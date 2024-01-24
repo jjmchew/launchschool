@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AutoTab</title>
+    <script src="03tab.js"></script>
+    <style>
+      dt, dd {
+        display: inline-block;
+        margin: 0;
+      }
+      input[name="cc"] {
+        width: 4ch;
+      }
+      input[name="cc"]:focus {
+        outline: 1px solid green;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" method="post">
+      <dl>
+        <dt><label for="cc">Credit Card</label></dt>
+        <dd><input type="text" name="cc" id="cc1" maxlength="4"></dd>
+        <dd><input type="text" name="cc" id="cc2" maxlength="4"></dd>
+        <dd><input type="text" name="cc" id="cc3" maxlength="4"></dd>
+        <dd><input type="text" name="cc" id="cc4" maxlength="4"></dd>
+        <span class="msg"></span>
+      </dl>
+    </form>
+  </body>
+</html>

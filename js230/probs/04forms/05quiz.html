@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="05quiz.js"></script>
+    <style>
+      .answer {
+        margin-left: 5ch;
+        font-size: 1.2rem;
+      }
+      .blue {
+        color: blue;
+      }
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+        font-weight: bold;
+      }
+      input {
+        cursor: pointer;
+      }
+      input:disabled {
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Quiz</h1>
+    <form action="" method="">
+      <input type="submit" value="Submit Answers">
+      <input type="button" value="Reset">
+    </form>
+
+    <!-- {{#each options}} in this template didn't work -->
+    <!-- I couldn't pass 'this' to access 'id' within the partial -->
+    <script type="text/x-handlebars" id="questionTemplate">
+      <fieldset class="question" id="question_{{id}}">
+        <legend>Question {{id}} : {{description}}</legend>
+        {{> radioTemplate this}}
+      </fieldset>
+    </script>
+
+    <script type="text/x-handlebars" data-type="partial" id="radioTemplate">
+      {{#each options}}
+        <div>
+          <input
+            type="radio"
+            name={{../id}}
+            id={{#name}}{{this}}{{/name}}
+            value="{{this}}"
+          >
+          <label for={{../id}}>{{this}}</label>
+        </div>
+      {{/each}}
+    </script>
+
+  </body>
+</html>
