@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: sticky;
+  background-color: darkorange;
+  color: white;
+  top: 0;
+  padding: 20px;
+  width: 100%;
+}
+
+dl {
+  display: inline-block;
+}
+
+dt, dd {
+  display: inline-block;
+  margin: 0;
+}
+
+dd {
+  margin: 0 3ch 0 1ch;
+}
+
+dd select {
+  width: 65px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+article {
+  width: 200px;
+  padding: 20px;
+}
+
+article * {
+  margin: 0.2rem 0;
+}
+
+article img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+article input {
+  background-color: darkorange;
+  border-radius: 5px;
+  border: 1px solid darkorange;
+  padding: 1ch;
+  color: white;
+}

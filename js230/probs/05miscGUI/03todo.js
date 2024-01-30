@@ -54,7 +54,6 @@ todo_items = [
     }
 
     #deleteTodo(id) {
-      console.log('deleteTodo', id);
       const idx = this.#getTodoIndex(this.#currentId);
       this.#todos.splice(idx, 1);
 
@@ -69,10 +68,8 @@ todo_items = [
         e.preventDefault();
 
         if (e.target.value === 'Delete') {
-          console.log('Delete', this.#currentId);
           this.#deleteTodo(this.#currentId);
         } else if (e.target.value === 'Cancel') {
-          console.log('Cancel');
           this.#toggleDialog(false);
           this.#currentId = undefined;
         }
@@ -81,7 +78,6 @@ todo_items = [
       this.#main.addEventListener('click', e => {
         if (e.target.tagName === 'A') {
           let id = parseInt(e.target.getAttribute('data-id'), 10);
-          console.log(id);
           this.#currentId = id;
           this.#toggleDialog(true, id);
         }
@@ -90,7 +86,6 @@ todo_items = [
 
     #toggleDialog(show, id=null) {
       if (show) {
-        // console.log(this.#getTodoIndex(id));
         const title = this.#todos[this.#getTodoIndex(id)].title;
         const span = this.#dialog.querySelector('span');
         span.textContent = title;

@@ -1,0 +1,14 @@
+main p {
+  display: inline-block;
+  font-size: 4rem;
+  font-family: sans-serif;
+}
+
+#hours::after,
+#minutes::after{
+  content: ': ';
+}
+
+#seconds::after {
+  content: '. ';
+}

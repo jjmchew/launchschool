@@ -3,6 +3,7 @@
   <head>
     <title>Car Shop</title>
     <script src="05carshop.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <link rel="stylesheet" href="05carshop.css" />
   </head>
   <body>
@@ -11,36 +12,42 @@
       <form action="#" method="#">
         <dl>
           <dt><label for="make">Make</label></dt>
-          <dd>
-            <select name="make" id="make">
-            </select>
-          </dd>
         </dl>
         <dl>
           <dt><label for="model">Model</label></dt>
-          <dd>
-            <select name="model" id="model">
-            </select>
-          </dd>
         </dl>
         <dl>
           <dt><label for="price">Price</label></dt>
-          <dd>
-            <select name="price" id="price">
-            </select>
-          </dd>
         </dl>
         <dl>
           <dt><label for="year">Year</label></dt>
-          <dd>
-            <select name="year" id="year">
-            </select>
-          </dd>
         </dl>
-        <input type="submit" value="Filter">
+        <input type="submit" value="Filter" disabled>
       </form>
     </header>
+
     <main>
+      <script type="text/x-handlebars" id="carTemplate">
+        <article data-idx={{id}}>
+          {{#with car}}
+          <img src="{{image}}" alt="{{make}} {{model}}">
+          <h3>{{make}} {{model}}</h3>
+          <p>Year: {{year}}</p>
+          <p>Price: ${{price}}</p>
+          <input type="button" value="Buy">
+          {{/with}}
+        </article>
+      </script>
+
+      <script type="text/x-handlebars" id="selectTemplate">
+        <select name="{{option}}" id="{{option}}">
+          <option value="">{{placeholder}}</option>
+          {{#each options}}
+            <option value={{this}}>{{this}}</option>
+          {{/each}}
+        </select>
+      </script>
+
     </main>
   </body>
 </html>

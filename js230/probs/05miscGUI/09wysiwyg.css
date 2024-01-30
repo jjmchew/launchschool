@@ -1,0 +1,19 @@
+body {
+  background-color: gray;
+}
+
+nav {
+  background-color: darkgray;
+  padding: 10px;
+}
+
+.editor {
+  padding: 10px;
+  height: 20rem;
+  background-color: white;
+  overflow: auto;
+}
+
+button.pushed {
+  background-color: lightblue;
+}
