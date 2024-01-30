@@ -1,0 +1,183 @@
+<!-- 
+  Lesson 1, assignment 10 problems:
+  https://launchschool.com/lessons/ba24c7d4/assignments/5b999756 
+-->
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>On the River</title>
+  </head>
+  <body>
+    <h1>On the River</h1>
+    <p>A poem by Paul Laurence Dunbar</p>
+
+    <p>
+      The sun is low,<br>
+      The waters flow,<br>
+      My boat is dancing to and fro.<br>
+      The eve is still,<br>
+      Yet from the hill<br>
+      The killdeer echoes loud and shrill.
+    </p>
+    <p>
+      The paddles plash,<br>
+      The wavelets dash,<br>
+      We see the summer lightning flash;<br>
+      While now and then,<br>
+      In marsh and fen<br>
+      Too muddy for the feet of men,
+    </p>
+    <p>
+      Where neither bird<br>
+      Nor beast has stirred,<br>
+      The spotted bullfrog's croak is heard.<br>
+      The wind is high,<br>
+      The grasses sigh,<br>
+      The sluggish stream goes sobbing by.
+    </p>
+    <p>
+      And far away<br>
+      The dying day<br>
+      Has cast its last effulgent ray;<br>
+      While on the land<br>
+      The shadows stand<br>
+      Proclaiming that the eve's at hand.
+    </p>
+    <script>
+      function walk(node, callback) {
+        callback(node);
+
+        for (let i = 0; i < node.childNodes.length; i += 1) {
+          walk(node.childNodes[i], callback);
+        }
+      }
+
+      // #region Problem 1
+      const p1 = function(node) {
+        if (node.tagName === 'H1' && node.textContent.includes('On the River')) {
+          node.style.color = 'red';
+          node.style.fontSize = '48px';
+        }
+      }
+      walk(document, p1);
+      // #endregion
+
+      // #region Problem 2
+      const p2 = (function() {
+        let count = 0;
+
+        return {
+          callback: function(node) {
+            if (node.tagName === 'P') count += 1;
+          },
+          count: function() {
+            console.log('There are ', count, ' P nodes.');
+            return count;
+          }
+        };
+      })();
+
+      walk(document, p2.callback);
+      p2.count();
+      // #endregion
+
+      // #region Problem 3
+      const p3 = (function() {
+        let words = [];
+
+        return {
+          callback: function(node) {
+            if (node.tagName === 'P') {
+              const text = node.childNodes[0].data.trim();
+              words.push(text.split(' ')[0]);
+            }
+          },
+          output: function() {
+            console.log(words);
+          }
+        };
+      })();
+
+      walk(document, p3.callback);
+      p3.output();
+      // #endregion
+
+      // #region Problem 4
+      const p4 = (function(node) {
+
+        let ps = [];
+
+        return {
+          getPs: function(node) {
+            if (node.nodeName === 'P') {
+              ps.push(node);
+            }
+          },
+          addStanza: function() {
+            ps.forEach((p, idx) => {
+              if (idx === 0) return;
+              else p.classList.add('stanza');
+            });
+          }
+        };
+
+      })();
+
+      walk(document, p4.getPs);
+      p4.addStanza();
+      // #endregion
+
+      // #region Problem 5
+      // cut and paste into snippet for this webpage:
+      // https://d3905n0khyu9wc.cloudfront.net/the_dom/polar_bear_wiki.html
+      const p5 = (function() {
+        let imgCount = 0;
+        let pngCount = 0;
+
+        return {
+          walk: function(node, callback) {
+            callback(node);
+
+            for (let i = 0; i < node.childNodes.length; i += 1) {
+              this.walk(node.childNodes[i], callback);
+            }
+          },
+          count: function(node) {
+            if (node.tagName !== 'IMG') return;
+
+            imgCount += 1;
+            if (node.getAttribute('src').toLowerCase().includes('png')) pngCount += 1;
+          },
+          logCounts: function() {
+            console.log(`There are ${imgCount} images.`);
+            console.log(`There are ${pngCount} PNG images.`);
+          },
+        };
+      })();
+
+      p5.walk(document, p5.count);
+      p5.logCounts();
+      // #endregion
+
+      // #region Problem 6
+      // also cut and paste into snippets for same webpage above
+      const p6 = (function() {
+        return {
+          walk: function(node, callback) {
+            callback(node);
+
+            for (let i = 0; i < node.childNodes.length; i += 1) {
+              this.walk(node.childNodes[i], callback);
+            }
+          },
+          colourA: function(node) {
+            if (node.tagName === 'A') node.style.color = 'red';
+          },
+        };
+      })();
+
+      p6.walk(document, p6.colourA);
+      // #endregion
+    </script>
+  </body>
+</html>
