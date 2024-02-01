@@ -139,86 +139,6 @@ const ls = function () {
 // ls();
 // #endregion
 
-// #region TEST4
-const test4 = function () {
-  function operationFunc() {
-    return new Promise((resolve, reject) => {
-      Math.random() > 1.5
-      ? resolve("Success!")
-      : reject(new Error("Fail!"))
-    });
-  }
-
-  function retryOperation(operationFunc) {
-    let attempts = 0;
-
-    let attempt = function () {
-      return operationFunc()
-        .then(msg => console.log('attempt then ', msg))
-        .catch(async err => {
-          if (attempts < 3) {
-            attempts += 1;
-            console.log('calling attempt ', attempts);
-            await new Promise(res => setTimeout(res, 1000));
-            attempt();
-          } 
-          // else throw err;
-        })
-        .catch(err => console.log('2nd catch ', err.message));
-    };
-
-    return attempt()
-      .then(msg => console.log('return then ', msg))
-      .catch(() => console.log('Operation failed'));
-  }
-
-  console.log('test4');
-  retryOperation(operationFunc);
-};
-
-test4();
-// #endregion
-
-// #region TEST5
-const test5 = function () {
-
-};
-// test5();
-// #endregion
-
-// #region TEST3
-const test3 = function () {
-  function promise() {
-    return new Promise((res, rej) => {
-      rej(new Error('fail!'));
-    });
-  }
-
-  function retryOperation(operationFunc) {
-    let attempts = 0;
-
-    let attempt = function () {
-      console.log('attempt called');
-
-      return operationFunc()
-        .then(msg => console.log('attempt then ', msg))
-        .catch(err => {
-          // attempt();
-        });
-    };
-
-    return attempt()
-      .then(msg => console.log('return then ', msg))
-      .catch(() => console.log('Operation failed'));
-  }
-
-  console.log('test3');
-  retryOperation(promise);
-};
-
-// test3();
-// #endregion
-
 // #region catch TEST
 const test = function () {
 
@@ -276,3 +196,147 @@ const test2 = function () {
 };
 // test2();
 // #endregion
+
+// #region TEST3
+const test3 = function () {
+  function promise() {
+    return new Promise((res, rej) => {
+      rej(new Error('fail!'));
+    });
+  }
+
+  function retryOperation(operationFunc) {
+    let attempts = 0;
+
+    let attempt = function () {
+      console.log('attempt called');
+
+      return operationFunc()
+        .then(msg => console.log('attempt then ', msg))
+        .catch(err => {
+          // attempt();
+        });
+    };
+
+    return attempt()
+      .then(msg => console.log('return then ', msg))
+      .catch(() => console.log('Operation failed'));
+  }
+
+  console.log('test3');
+  retryOperation(promise);
+};
+
+// test3();
+// #endregion
+
+// #region TEST4
+const test4 = function () {
+  function operationFunc() {
+    return new Promise((resolve, reject) => {
+      Math.random() > 1.5
+      ? resolve("Success!")
+      : reject(new Error("Fail!"))
+    });
+  }
+
+  function retryOperation(operationFunc) {
+    let attempts = 0;
+
+    let attempt = function () {
+      return operationFunc()
+        .then(msg => console.log('attempt then ', msg))
+        .catch(async err => {
+          if (attempts < 3) {
+            attempts += 1;
+            console.log('calling attempt ', attempts);
+            await new Promise(res => setTimeout(res, 1000));
+            attempt();
+          } 
+          // else throw err;
+        })
+        .catch(err => console.log('2nd catch ', err.message));
+    };
+
+    return attempt()
+      .then(msg => console.log('return then ', msg))
+      .catch(() => console.log('Operation failed'));
+  }
+
+  console.log('test4');
+  retryOperation(operationFunc);
+};
+
+// test4();
+// #endregion
+
+// #region TEST5
+const test5 = function () {
+
+  function operationFunc() {
+    return new Promise((resolve, reject) => {
+      reject(new Error("Fail!"))
+    });
+  }
+  
+  function retryOperation(operationFunc) {
+    let attempts = 0;
+  
+    let attempt = function () {
+      // throw new Error ('my error'); // ** LINE D **
+      return operationFunc()
+        .then(msg => console.log('operationFunc then ', msg))
+        .catch(async err => {
+          if (attempts < 3) {
+            attempts += 1;
+            console.log('calling attempt ', attempts);
+            return attempt();  // ** LINE A **
+          }
+          else throw err;
+        })
+        // .catch(err => console.log('2nd operationFunc catch ', err.message)); // ** LINE C **
+    };
+  
+    return attempt()  // ** Expanded LINE B **
+      .then(msg => console.log('LINE B then ', msg))
+      .catch(() => console.log('Operation failed'));
+  }
+  
+  retryOperation(operationFunc);
+
+};
+// test5();
+// #endregion
+
+// #region TEST 6
+const test6 = function () {
+
+  function promise() {
+    return new Promise((res, rej) => {
+      rej(new Error('promise error'));
+    });
+  }
+
+  async function attempt() {
+    for (let i = 1; i <= 3; i += 1) {
+      try {
+        let result = await promise();
+        console.log('try: ', result);
+        break;
+      } catch (err) {
+        if (i < 3) console.log('attempt ', i, ' failed.  trying again');
+        else console.log('attempt ', i, ' failed. Operation failed.');
+      } finally {
+        console.log('finally');
+      }
+    }
+
+    attempt();
+  }
+
+  console.log('test6');
+
+};
+test6();
+// #endregion
+
