@@ -139,6 +139,27 @@ const ls = function () {
 // ls();
 // #endregion
 
+// #region Problem 5
+const p5 = function () {
+  function loadData() {
+    return new Promise((res, rej) => {
+      Math.random() > 0.8
+        ? res('Data loaded')
+        : rej(new Error('Network error'));
+    })
+    .catch(err => {
+      console.log(err.message, ' using cached data');
+      return Promise.resolve('Using cached data');
+    });
+  }
+
+  loadData()
+  .then(console.log);
+
+};
+p5();
+// #endregion
+
 // #region catch TEST
 const test = function () {
 
@@ -308,12 +329,15 @@ const test5 = function () {
 // test5();
 // #endregion
 
-// #region TEST 6
+// #region TEST 6 : using async / await
 const test6 = function () {
 
   function promise() {
     return new Promise((res, rej) => {
-      rej(new Error('promise error'));
+      let num = Math.random();
+      num > 0.8
+        ? res(num)
+        : rej(new Error('promise error'));
     });
   }
 
@@ -324,19 +348,202 @@ const test6 = function () {
         console.log('try: ', result);
         break;
       } catch (err) {
-        if (i < 3) console.log('attempt ', i, ' failed.  trying again');
+        if (i < 3) console.log('attempt ', i, ' failed. ', err.message, '  trying again');
         else console.log('attempt ', i, ' failed. Operation failed.');
-      } finally {
-        console.log('finally');
       }
     }
-
-    attempt();
+    console.log('all operations complete');
   }
-
+  
   console.log('test6');
+  attempt();
 
 };
-test6();
+// test6();
 // #endregion
+
+// #region RECURSION
+const recursion = function () {
+
+  function logNumber() {
+    let num = Math.random();
+    if (num > 0.8) return num;
+    else throw new Error('logNumber error');
+  }
+
+  function retry(operationFunc) {
+    let attempts = 0;
+
+    function attempt() {
+      console.log('attempt ', attempts);
+      return (function() {
+        try {
+          console.log('success: ', operationFunc());
+        } catch (err) {
+          if (attempts < 3) {
+            attempts += 1;
+            console.log('retry attempt ', attempts);
+            attempt();
+          } else {
+            throw err;
+          }
+        }
+      })();
+    }
+
+    return (function () {
+      try {
+        attempt()
+      } catch (err) {
+        console.log('final catch: ', err.message);
+        return err;
+      }
+    })();
+  }
+
+  console.log('recursion');
+  retry(logNumber);
+}
+// recursion();
+// #endregion
+
+// #region callback
+const callback = function () {
+
+  let sleep = (secs, callback) => setTimeout(callback, 1000 * secs);
+
+  console.log('callback');
+
+  function step1(callback) {
+    sleep(1, function() {
+      let data = 'A1';
+      console.log('step1', data);
+      callback(data);
+    });
+  }
+
+  function step2(data, callback) {
+    sleep(1, () => {
+      let result = data + 'B2';
+      console.log('step2', result);
+      callback(result);
+    });
+  }
+
+  function step3(data, callback) {
+    sleep(1, () => {
+      let result = data + 'C3'
+      console.log('step3', result);
+      callback(result);
+    });
+  }
+
+  let final;
+  step1(data => {
+    step2(data, result => {
+      step3(result, result => {
+        final = result;
+        console.log('the final result is ', final);
+      })
+    });
+  });
+
+
+};
+// callback();
+// #endregion
+
+// #region callback2
+const callback2 = function () {
+
+  let sleep = (secs, callback) => {
+    setTimeout(() => {
+      if (Math.random() > 0.8) callback;
+      else throw new Error('random error');
+    }, 1000 * secs);
+  };
+
+  console.log('callback2');
+
+  function step1(callback) {
+      sleep(1, function() {
+        let data = 'A1';
+        console.log('step1', data);
+        callback(data);
+      });
+  }
+
+  function step2(data, callback) {
+    sleep(1, () => {
+      let result = data + 'B2';
+      console.log('step2', result);
+      callback(result);
+    });
+  }
+
+  function step3(data, callback) {
+    sleep(1, () => {
+      let result = data + 'C3'
+      console.log('step3', result);
+      callback(result);
+    });
+  }
+
+  let final;
+  step1(data => {
+    step2(data, result => {
+      step3(result, result => {
+        final = result;
+        console.log('the final result is ', final);
+      })
+    });
+  });
+
+
+};
+// callback2();
+// #endregion
+
+// #region PROMISE
+const promise = function () {
+  let sleep = (secs, callback) => setTimeout(callback, 1000 * secs);
+
+  function step1() {
+    return new Promise(res => {
+      sleep(1, () => {
+        let data = 'A1';
+        console.log('step1', data);
+        res(data);
+      });
+    });
+  }
+
+  function step2(data) {
+    return new Promise(res => {
+      sleep(1, () => {
+        let result = data + 'B2';
+        console.log('step2', result);
+        res(result);
+      });
+    });
+  }
+
+  function step3(data) {
+    return new Promise(res => {
+      sleep(1, () => {
+        let result = data + 'C3';
+        console.log('step3', result);
+        res(result);
+      });
+    });
+  }
+
+  step1()
+    .then(step2)
+    .then(step3)
+    .then(result => console.log('the final result is ', result));
+};
+// promise();
+// #endregion
+
 
