@@ -1,0 +1,76 @@
+<!--
+  https://launchschool.com/exercises/ba09ed14
+  js230 problems > events and asynchronous programming
+  #8 delegate event function
+ -->
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Event Delegation Function</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Header</h1>
+        <p>Content</p>
+      </section>
+      <aside>
+        <h2>Sub Side Notes</h2>
+        <p>Note 1</p>
+        <p>Note 2</p>
+      </aside>
+    </main>
+    <nav>
+      <p>Side Note</p>
+    </nav>
+    <script>
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('loaded');
+        
+        function delegateEvent(parentElement, selector, eventType, callback) {
+          if (!parentElement) return undefined;
+
+          parentElement.addEventListener(eventType, e => {
+            let targets = parentElement.querySelectorAll(selector);
+            
+            for (let i = 0; i < targets.length; i += 1) {
+              if (e.target === targets[i]) callback(e);
+            }
+          });
+  
+          return true;
+        }
+
+        // Possible elements for use with the scenarios
+        const element1 = document.querySelector('table');
+        const element2 = document.querySelector('main h1');
+        const element3 = document.querySelector('main');
+
+        // Possible callback for use with the scenarios
+        const callback = ({target, currentTarget}) => {
+          alert(`Target: ${target.tagName}\nCurrent Target: ${currentTarget.tagName}`);
+        };
+
+        // test1
+        // console.log(delegateEvent(element1, 'p', 'click', callback));
+
+        // test2
+        // console.log(delegateEvent(element2, 'p', 'click', callback));
+
+        // test3
+        // console.log(delegateEvent(element2, 'h1', 'click', callback));
+
+        // test4
+        // console.log(delegateEvent(element3, 'h1', 'click', callback));
+
+        // test5
+        console.log(delegateEvent(element3, 'aside p', 'click', callback));
+
+        // test6
+        // console.log(delegateEvent(element2, 'p', 'click', callback));
+      });
+    </script>
+  </body>
+</html>

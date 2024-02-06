@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WalkPractice</title>
+  </head>
+  <body>
+    <header>
+      <h1>A heading</h1>
+      <nav>
+        <ul>
+          <li>link1</li>
+          <li>link2</li>
+          <li>link3</li>
+          <li>link4</li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div id="1">
+        Div 1
+        <div id="2">
+          Div 2
+          <div id="3">
+            Div 3
+            <a href="#">a link</a>
+            <span>A Span</span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      let walk = function (node, callback) {
+        callback(node);
+
+        node = node.firstChild;
+        while(node) {
+          walk(node, callback);
+          node = node.nextSibling;
+        }
+      };
+
+      let walk2 = function(node, callback) {
+        callback(node);
+
+        if (node.children.length && node.children.length > 0) {
+          for (let i = 0; i < node.children.length; i += 1) {
+            walk2(node.children[i], callback);
+          }
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // find SPAN or A:
+        walk2(document.body, (node) => {
+          if (node.tagName === 'SPAN') console.log('desired text: ', node.textContent);
+        });
+
+        // Find 2nd div
+        let divs = document.body.querySelectorAll('main div');
+        console.log(divs[1].childNodes[0].textContent.trim());
+      });
+    </script>
+  </body>
+</html>
