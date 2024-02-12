@@ -39,7 +39,7 @@ main,
 #list {
   width: 70vw;
   margin: auto;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
   background-color: white;
 }
 
@@ -49,9 +49,11 @@ main,
   position: absolute;
 }
 
-#create,
-#edit {
+#create {
   height: 100vh;
+}
+#edit {
+  /* height: 100vh; */
 }
 
 nav {
@@ -89,9 +91,8 @@ footer {
   transform: translateY(50vh);
   opacity: 0;
   z-index: -1;
-  /* display: none; */
   visibility: hidden;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 /* ===== */

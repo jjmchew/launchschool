@@ -42,6 +42,13 @@ const ContactsApp = function () {
     }
 
     update({full_name, email, phone_number, tags}, id) {
+      let contactData = {
+          full_name: full_name,
+          email: email,
+          phone_number: phone_number,
+          tags: tags,
+      };
+
       return new Promise((res, rej) => {
 
         this.#apiSend({
@@ -49,17 +56,12 @@ const ContactsApp = function () {
           url: `/api/contacts/${String(id)}`,
           responseType: 'json',
           status: 201,
-          data: {
-            full_name: full_name,
-            email: email,
-            phone_number: phone_number,
-            tags: tags,
-          },
+          data: contactData,
           contentType: 'application/json; charset=utf-8',
         })
         .then(contact => {
           console.log('updated ', id, contact);
-          // this.#contacts.push(contact);
+          this.#dataUpdate(id, contactData);
           res(contact);
         })
         .catch(err => {
@@ -138,14 +140,14 @@ const ContactsApp = function () {
 
   class View {
     #templates;
-    #section;
+    #cards;
     #create;
     #edit;
     #list;
     #screen;
 
     constructor() {
-      this.#section = this.#getElement('section#cards');
+      this.#cards = this.#getElement('section#cards');
       this.#create = this.#getElement('#create');
       this.#edit = this.#getElement('#edit');
       this.#list = this.#getElement('#list');
@@ -154,14 +156,13 @@ const ContactsApp = function () {
     }
 
     // public methods
-    removeAllCards() {
-      let node = this.#section.firstElementChild;
-      let nextNode;
-      while (node) {
-        nextNode = node.nextElementSibling;
-        node.remove();
-        node = nextNode;
-      }
+    addCard(data) {
+      this.#cards.appendChild(this.#makeCard(data));
+    }
+
+    updateCard(data) {
+      const oldCard = cards.querySelector(`#cards #card-${String(data.id)}`);
+      this.#cards.replaceChild(this.#makeCard(data), oldCard);
     }
 
     displayCards(contacts) {
@@ -173,7 +174,7 @@ const ContactsApp = function () {
       contacts.forEach(contact => {
         const tmp = document.createElement('div');
         tmp.innerHTML = this.#templates['cardTemplate'](contact);
-        this.#section.appendChild(tmp.firstElementChild);
+        this.#cards.appendChild(tmp.firstElementChild);
       });
     }
 
@@ -188,10 +189,12 @@ const ContactsApp = function () {
 
     showEdit(info) {
       this.#show(this.#edit);
+      window.scrollTo(0, 0);
 
-      document.querySelector('#edit #name').value = info.name;
-      document.querySelector('#edit #email').value = info.email;
-      document.querySelector('#edit #phone').value = info.phone;
+      document.querySelector('#edit form').setAttribute('data-id', String(info.id));
+      document.querySelector('#editName').value = info.name;
+      document.querySelector('#editEmail').value = info.email;
+      document.querySelector('#editPhone').value = info.phone;
     }
 
     showList() {
@@ -202,10 +205,17 @@ const ContactsApp = function () {
       const msg = document.createElement('div');
       msg.classList.add('message');
       msg.appendChild(document.createTextNode('There are no contacts'));
-      this.#section.appendChild(msg);
+      this.#cards.appendChild(msg);
     }
 
     // private methods
+    #makeCard(data) {
+      const newCard = document.createElement('div');
+      newCard.innerHTML = this.#templates['cardTemplate'](data);
+
+      return newCard.firstElementChild;
+    }
+
     #show(element) {
       this.#screen.forEach(screen => {
         let toggle = false;
@@ -255,7 +265,8 @@ const ContactsApp = function () {
     #model;
     #view;
     #cards;
-    #form;
+    #createForm;
+    #editForm;
 
     constructor(model, view) {
       this.#model = model;
@@ -266,7 +277,8 @@ const ContactsApp = function () {
 
     #init() {
       this.#cards = document.querySelector('#cards');
-      this.#form = document.querySelector('#create form');
+      this.#createForm = document.querySelector('#create form');
+      this.#editForm = document.querySelector('#edit form');
       this.#displayCards();
       this.#addEventListeners();
     }
@@ -276,28 +288,40 @@ const ContactsApp = function () {
     }
 
     #addEventListeners() {
-      // for create and edit
-      [
-        document.querySelector('#create'),
-        document.querySelector('#edit'),
-      ]
-      .forEach(element => {
-
-        element.addEventListener('click', e => {
-          e.preventDefault();
-          if (this.#isButton(e.target) && e.target.value === 'Cancel') {
-            console.log(e.target.value);
-            this.#form.reset();
-            this.#view.showList();
-          } else if (this.#isButton(e.target) && e.target.value === 'Submit') {
-            console.log('submit', e.target.parentNode.getAttribute('method'));
-            this.#handleCreateSubmit(e.target.parentNode.getAttribute('method'));
-          }
+      // #region for cancel buttons
+      document.querySelectorAll('input[value="Cancel"]')
+      .forEach(button => {
+        button.addEventListener('click', e => {
+          console.log('cancel: ', button);
+          this.#handleCancel();
         });
-
       });
+      // #endregion
 
-      // for nav
+      // #region for create
+      document.querySelector('#create')
+      .addEventListener('click', e => {
+        e.preventDefault();
+        if (this.#isButton(e.target) && e.target.value === 'Submit') {
+          console.log('submit', e.target.parentNode.getAttribute('method'));
+          this.#handleCreateSubmit();
+        }
+      });
+      // #endregion
+
+      // #region for edit
+      document.querySelector('#edit')
+      .addEventListener('click', e => {
+        e.preventDefault();
+        if (this.#isButton(e.target) && e.target.value === 'Submit') {
+          let id = e.target.parentNode.getAttribute('data-id');
+          console.log('submit', id);
+          this.#handleEditSubmit(parseInt(id, 10));
+        }
+      });
+      // #endregion
+
+      // #region for nav
       document.querySelector('#list div.button').addEventListener('click', () => {
         this.#view.showCreate();
       });
@@ -305,8 +329,9 @@ const ContactsApp = function () {
       document.querySelector('#list input').addEventListener('keyup', e => {
         console.log(e.target.value);
       });
+      // #endregion
 
-      // for cards
+      // #region for cards
       this.#cards.addEventListener('click', e => {
         const text = e.target.textContent;
 
@@ -319,6 +344,7 @@ const ContactsApp = function () {
         }
 
       });
+      // #endregion
     }
 
     // for cards
@@ -333,36 +359,45 @@ const ContactsApp = function () {
       });
     }
 
+    #handleCancel() {
+      this.#view.showList();
+
+      // delay clearing forms until animation is complete
+      setTimeout(() => {
+        this.#editForm.reset();
+        this.#createForm.reset();
+      }, 500);
+    }
+
     #handleTagClick(tagName) {
       console.log('Tag: ', tagName);
     }
 
-    #handleCreateSubmit(method) {
-      /*
-        Notes:
-        - PUT does not work - ID isn't being submitted from event listener
-        - may need to split up event listeners for #create / #edit
-        - #edit has a DIFFERENT form, thus the method below needs to collect
-        form inputs differently (currently only pulls from #create form)
-
-        - need to incorporate UPDATE of #model.contacts data set, also
-        
-      */
-      let api;
-      if (method === 'POST') api = this.#model.add.bind(this.#model);
-      else if (method === 'PUT') api = this.#model.update.bind(this.#model);
-      
-      console.log(method, api);
-      api({
-        full_name: this.#form['name'].value,
-        email: this.#form['email'].value,
-        phone_number: this.#form['phone'].value,
+    #handleCreateSubmit() {
+      this.#model.add({
+        full_name: this.#createForm['name'].value,
+        email: this.#createForm['email'].value,
+        phone_number: this.#createForm['phone'].value,
         tags: null,
-      }, null)
-      .then(() => {
-        this.#form.reset();
-        this.#view.removeAllCards();
-        this.#view.displayCards(this.#model.contacts());
+      })
+      .then(data => {
+        this.#createForm.reset();
+        this.#view.addCard(data);
+      }).finally(() => {
+        this.#view.showList();
+      });
+    }
+
+    #handleEditSubmit(id) {
+      this.#model.update({
+        full_name: this.#editForm['name'].value,
+        email: this.#editForm['email'].value,
+        phone_number: this.#editForm['phone'].value,
+        tags: null,
+      }, id)
+      .then(data => {
+        this.#view.updateCard(data);
+        this.#editForm.reset();
       }).finally(() => {
         this.#view.showList();
       });
@@ -377,6 +412,7 @@ const ContactsApp = function () {
     #handleCardEdit(id) {
       const contact = this.#model.contacts().filter(obj => obj.id === id)[0];
       this.#view.showEdit({
+        id: id,
         name: contact.full_name,
         email: contact.email,
         phone: contact.phone_number,
