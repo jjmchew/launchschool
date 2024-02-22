@@ -21,7 +21,7 @@ function partition(arr) {
     left++;
     right--;
 
-    console.log(arr);
+    // console.log(arr);
   }
   // Swap pivot with the element at the right pointer
   [arr[0], arr[right]] = [arr[right], arr[0]];
@@ -31,4 +31,4 @@ function partition(arr) {
 }
 
 // test case:
-console.log(partition([7, 3, 9, 8, 5, 1])); // [3, 5, 1, 7, 8, 9]
+console.log(partition([7, 3, 9, 8, 5, 1])); // [5, 3, 1, 7, 8, 9]
