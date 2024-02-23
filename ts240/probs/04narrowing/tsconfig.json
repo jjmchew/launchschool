@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "strict": true,
+    "outDir": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true
+  },
+  // "include": ["./src/**/*"],
+  "exclude": ["*.js"],
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended"
+}
