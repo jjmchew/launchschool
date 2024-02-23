@@ -3,13 +3,14 @@
     "target": "ES2017",
     "module": "commonjs",
     "strict": true,
-    "outDir": "./dist",
+    "outDir": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["./src/**/*"],
+  // "include": ["./src/**/*"],
+  "exclude": ["*.js"],
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended"
 }

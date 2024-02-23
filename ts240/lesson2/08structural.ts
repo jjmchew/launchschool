@@ -32,11 +32,13 @@
 
   // #region Problem 2
   const p2 = function() {
-    type Alien = { name: string; planet: string; age: number };
-    type Human = { name: string; country: string; age: number };
+    // given
+    // type Alien = { name: string; planet: string; age: number };
+    // type Human = { name: string; country: string; age: number };
     
-    const et: Alien = { name: "E.T.", planet: "Unknown", age: 120 };
-    const john: Human = et;
+    // const et: Alien = { name: "E.T.", planet: "Unknown", age: 120 };
+    // const john: Human = et;
+
     // will raise a type error: type Alien does not have same properties as Human (i.e., 'country' is required)
   }
   // #endregion
@@ -45,13 +47,17 @@
 
   // #region Problem 3
   const p3 = function() {
-    type Shape = { color: string; sides: number };
-    type Square = { color: string; sides: number; sideLength: number };
+    // given
+    // type Shape = { color: string; sides: number };
+    // type Square = { color: string; sides: number; sideLength: number };
     
-    const redSquare: Square = { color: "red", sides: 4, sideLength: 5 };
-    const shape: Shape = redSquare;
+    // const redSquare: Square = { color: "red", sides: 4, sideLength: 5 };
+    // const shape: Shape = redSquare;
     
-    console.log(shape.sideLength);
+    // console.log(shape.sideLength);
+
+
+
     // errors:
     // - once `reqSquare` is assigned to `shape`, `sideLength` will no longer be available
     // **WRONG** - output of console.log statement will be undefined

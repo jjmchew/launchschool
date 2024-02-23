@@ -33,6 +33,8 @@
         return `A tiger runs ${a.speed} km/hr`;
       case 'peacock':
         return `A peacock's feathers are ${a.featherLength} cm long`;
+      case 'giraffe':
+        return ``;
       default:
         const _check: never = a;
         throw new Error('animal type not included in switch case');

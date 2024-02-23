@@ -1,24 +1,25 @@
+"use strict";
 {
-    var test1 = function () {
-        var cat = {
+    const test1 = function () {
+        let cat = {
             name: 'bob',
-            legs: 4
+            legs: 4,
         };
         console.log(cat);
     };
     test1();
-    var test2 = function () {
-        var dog = {
+    const test2 = function () {
+        let dog = {
             name: 'dog',
-            legs: 4
+            legs: 4,
         };
         console.log(dog);
     };
     test2();
-    var test3 = function () {
-        var dog = {
+    const test3 = function () {
+        let dog = {
             name: 'dog2',
-            legs: 4
+            legs: 4,
         };
         console.log(dog);
     };

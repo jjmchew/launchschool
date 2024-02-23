@@ -1,16 +1,16 @@
 {
   // #region Problem 1
   const p1 = function() {
-    let arr: string[] = ["hello", "world"];
-    arr.push(5);
+    // let arr: string[] = ["hello", "world"];
+    // arr.push(5);
   }
   // error : cannot add type number to array of string
   // #endregion
 
   // #region Problem 2
   const p2 = function() {
-    let tuple: [number, number] = [1, 2];
-    tuple.push("3");
+    // let tuple: [number, number] = [1, 2];
+    // tuple.push("3");
   }
   // error : `push` can be used on tuples if type matches definition, but string does not match number
   // #endregion
@@ -25,8 +25,8 @@
 
   // #region Problem 4
   const p4 = function() {
-    let tuple: [number, string] = [1, "2"];
-    tuple[0] = "1";
+    // let tuple: [number, string] = [1, "2"];
+    // tuple[0] = "1";
   }
   // error : cannot assign a string to a number
   // #endregion

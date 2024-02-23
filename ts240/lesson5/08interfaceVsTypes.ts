@@ -1,10 +1,11 @@
 // interfaces vs types
 {
   const p1 = function() {
-    type Point = { x: number };
-    type Point = { y: number };
+    // given
+    // type Point = { x: number };
+    // type Point = { y: number };
     
-    const point: Point = { x: 1, y: 2 };
+    // const point: Point = { x: 1, y: 2 };
 
     // will raise an error : type cannot be redefined - it will not be automatically merged
   }

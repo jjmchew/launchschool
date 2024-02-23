@@ -1,15 +1,18 @@
 {
   // #region Problem 1
   const p1 = function() {
-    class Person {
-      age?: number;
-      name: string;
+    // given
+    // class Person {
+    //   age?: number;
+    //   name: string;
     
-      constructor(age?: number, name: string) {
-        this.name = name;
-        this.age = age;
-      }
-    }
+    //   constructor(age?: number, name: string) {
+    //     this.name = name;
+    //     this.age = age;
+    //   }
+    // }
+
+
     // **WRONG** : will raise error:  since `age` is optional (may be undefined) it cannot be assigned to `this.age` without evaluating
 
     // error occurs since an optional parameter cannot follow a required parameter

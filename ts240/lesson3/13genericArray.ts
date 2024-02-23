@@ -20,7 +20,9 @@
 
   // #region Problem 3
   const p3 = function () {
-    let bools: boolean[[]] = [true, false, true];
+    // given:
+    // let bools: boolean[[]] = [true, false, true];
+
     // incorrect
   }
   // #endregion
@@ -30,8 +32,11 @@
 
   // #region Problem 4
   const p4 = function () {
-    type FruitNames = "apple" | "banana" | "cherry";
-    const fruits: Array<FruitNames> = ["apple", "banana", "mango"];
+    // given
+    // type FruitNames = "apple" | "banana" | "cherry";
+    // const fruits: Array<FruitNames> = ["apple", "banana", "mango"];
+
+
     // incorrect
   }
   // #endregion

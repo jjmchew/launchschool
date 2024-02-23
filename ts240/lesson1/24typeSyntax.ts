@@ -1,8 +1,12 @@
 {
   // #region Problem 1
   const p1 = function() {
-    let text: string;
-    text = 123;
+    // given
+    // let text: string;
+    // text = 123;
+
+
+    
     // will raise a type error
   }
   // #endregion
@@ -20,9 +24,13 @@
 
   // #region Problem 3
   const p3 = function() {
-    function greet(name: string): string {
-      return "Hello, " name;
-    }
+
+    // given
+    // function greet(name: string): string {
+    //   return "Hello, " name;
+    // }
+
+
 
     // syntax error : missing `+`
   }

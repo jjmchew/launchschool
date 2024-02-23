@@ -24,7 +24,7 @@
     
     processInput("hello");
     processInput(42);
-    processInput(true);
+    // processInput(true);
   }
   p2();
 }
